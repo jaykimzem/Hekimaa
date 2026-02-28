@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Races | Molo Mountain Marathon</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="site-header scrolled">
+        <div class="logo">
+            <a href="index.html">
+                <img src="assets/Logo 2.png" alt="PHU Logo">
+            </a>
+        </div>
+        <nav class="main-nav">
+            <a href="about.html">The Mission</a>
+            <a href="races.html" style="color: var(--brand-gold);">The Races</a>
+            <a href="shop.html">The Shop</a>
+            <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-sub"
+            style="background-image: linear-gradient(rgba(143, 0, 5, 0.7), rgba(0, 0, 0, 0.9)), url('molo_runners.png');">
+            <div class="hero-content" style="text-align:left; padding: 0 5%;">
+                <p class="hero-tagline">Disciplined Motion</p>
+                <h1 class="hero-title">Extreme <span>Terrain.</span></h1>
+            </div>
+        </section>
+
+        <section class="race-types">
+            <div class="section-header">
+                <span class="section-label">Event Categories</span>
+                <h2 class="section-title">Choose Your Legacy</h2>
+            </div>
+            <div class="race-grid">
+                <!-- 21K -->
+                <div class="race-card">
+                    <span class="race-dist">21K</span>
+                    <span class="race-name">Half Marathon</span>
+                    <p class="race-info">The ultimate mountain challenge. Requires Athletics Kenya membership. Elite and
+                        open categories available.</p>
+                    <div class="race-price">KES 1,000</div>
+                    <a href="register.html" class="btn btn-primary btn-sm"
+                        style="display:inline-block; margin-top:20px;">Register</a>
+                </div>
+                <!-- 5K Elite -->
+                <div class="race-card" style="border-color: var(--brand-crimson);">
+                    <span class="race-dist">5K</span>
+                    <span class="race-name">Elite Performance</span>
+                    <p class="race-info">A high-altitude sprint for competitive athletes. Part of the national
+                        qualifying series. AK No required.</p>
+                    <div class="race-price">KES 500</div>
+                    <a href="register.html" class="btn btn-primary btn-sm"
+                        style="display:inline-block; margin-top:20px;">Register</a>
+                </div>
+                <!-- 5K Corp -->
+                <div class="race-card">
+                    <span class="race-dist">5K</span>
+                    <span class="race-name">Corporate Run</span>
+                    <p class="race-info">Team building for institutional leadership. Packages include branded gear and
+                        physical presence at the start line.</p>
+                    <div class="race-price">Institutional Pack</div>
+                    <a href="register.html" class="btn btn-outline btn-sm"
+                        style="display:inline-block; margin-top:20px;">Inquire</a>
+                </div>
+                <!-- 3K -->
+                <div class="race-card">
+                    <span class="race-dist">3K</span>
+                    <span class="race-name">Community Run</span>
+                    <p class="race-info">Welcoming the local Moso community and students. A celebration of fitness and
+                        the Hekima spirit.</p>
+                    <div class="race-price">Free Entry</div>
+                    <a href="register.html" class="btn btn-outline btn-sm"
+                        style="display:inline-block; margin-top:20px;">Sign Up</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="map-section">
+            <div class="section-header">
+                <span class="section-label">Elevation Map</span>
+                <h2 class="section-title">Molo Mountain Ascent</h2>
+            </div>
+            <div class="map-container">
+                <div class="elevation-profile">
+                    <svg width="100%" height="100%" viewBox="0 0 1000 150" style="position:absolute; bottom:0;">
+                        <path d="M0 130 L 250 80 L 500 10 L 750 60 L 1000 110" fill="none" stroke="var(--brand-gold)"
+                            stroke-width="4" />
+                        <circle cx="0" cy="130" r="6" fill="var(--brand-gold)" />
+                        <circle cx="250" cy="80" r="6" fill="var(--brand-gold)" />
+                        <circle cx="500" cy="10" r="6" fill="var(--brand-gold)" />
+                        <circle cx="750" cy="60" r="6" fill="var(--brand-gold)" />
+                        <circle cx="1000" cy="110" r="6" fill="var(--brand-gold)" />
+                    </svg>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="assets/Logo 2.png" alt="PHU Logo" style="height:40px; margin-bottom: 20px;">
+                <p style="color: rgba(255,255,255,0.4); font-size: 0.8rem; max-width: 300px;">Producing visionary and
+                    ethical professionals to spur social transformation.</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="races.html">Races</a>
+                <a href="shop.html">Shop</a>
+                <a href="admin.html">Admin</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Proposed Hekima University. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

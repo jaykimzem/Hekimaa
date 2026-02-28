@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Molo Mountain Marathon | Run to Build Others</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Loading Animation -->
+    <div id="loader">
+        <div class="runner-container">
+            <svg class="runner-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M13.49 5.42c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM5.59 13.5l1-4.04C7.02 7.6 8.54 6.42 10.3 6.42h.02c1.13 0 2.21.6 2.8 1.58l1.1 1.8c.8 1.3 2.1 2.2 3.6 2.2H20v2h-2.1c-1.8 0-3.4-.9-4.3-2.4l-.6-1.1-2.1 5.4H15v2h-6.2c-1.1 0-2-.8-2.1-1.9l-.3-2.6-2.5 1.2-1.2-1.9 4.3-2.2zM8.34 22.1l-1.4-8.1 2.1-.4 1 5.9 3.5-3 .9 1.7-6.1 3.9z" />
+            </svg>
+        </div>
+        <div class="progress-container">
+            <div class="progress-line"></div>
+        </div>
+    </div>
+
+    <!-- Global Header -->
+    <header class="site-header">
+        <div class="logo">
+            <a href="index.html">
+                <img src="assets/Logo 2.png" alt="PHU Logo">
+            </a>
+        </div>
+        <nav class="main-nav">
+            <a href="about.html">The Mission</a>
+            <a href="races.html">The Races</a>
+            <a href="shop.html">The Shop</a>
+            <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
+        </nav>
+    </header>
+
+    <div id="homepage">
+        <!-- Hero Section -->
+        <section class="hero hero-home"
+            style="background-image: linear-gradient(rgba(143, 0, 5, 0.6), rgba(0, 0, 0, 0.8)), url('molo_runners.png');">
+            <div class="hero-content">
+                <p class="hero-tagline">Molo Mountain Marathon 2026</p>
+                <h1 class="hero-title">Run to Build <span>Others.</span></h1>
+                <p class="hero-subtitle">Supporting the Proposed Hekima University Campus in Molo.</p>
+                <div class="hero-cta">
+                    <a href="register.html" class="btn btn-primary">Enroll Now</a>
+                    <a href="about.html" class="btn btn-outline">Our Legacy</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats">
+            <div class="stat-item">
+                <span class="stat-number">200</span>
+                <span class="stat-label">M KES Target</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">1500</span>
+                <span class="stat-label">Expected Runners</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">75</span>
+                <span class="stat-label">Acre Campus</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">84</span>
+                <span class="stat-label">Jesuit Legacy</span>
+            </div>
+        </section>
+
+        <!-- Mission Teaser -->
+        <section class="teaser-section">
+            <div class="teaser-content">
+                <span class="section-label">Campus Vision</span>
+                <h2 class="section-title">Institutional Strength</h2>
+                <p class="teaser-text">Directed by the Society of Jesus, the proposed Hekima University Molo campus
+                    represents the pinnacle of innovative education and technological entrepreneurship in East Africa.
+                </p>
+                <a href="about.html" class="text-link">Learn about PHU &rarr;</a>
+            </div>
+        </section>
+
+        <!-- Race Teaser -->
+        <section class="teaser-grid">
+            <div class="teaser-card"
+                style="background-image: linear-gradient(rgba(143, 0, 5, 0.4), rgba(0, 0, 0, 0.7)), url('molo_runners.png'); background-size: cover; background-position: center;">
+                <div class="card-overlay">
+                    <span class="card-dist">21K</span>
+                    <h3 class="card-title">Half Marathon</h3>
+                    <a href="races.html" class="btn btn-outline btn-sm">Details</a>
+                </div>
+            </div>
+            <div class="teaser-card"
+                style="background-image: linear-gradient(rgba(143, 0, 5, 0.4), rgba(0, 0, 0, 0.7)), url('molo_runners.png'); background-size: cover; background-position: top;">
+                <div class="card-overlay">
+                    <span class="card-dist">5K</span>
+                    <h3 class="card-title">Elite Sprint</h3>
+                    <a href="races.html" class="btn btn-outline btn-sm">Details</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Global Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="assets/Logo 2.png" alt="PHU Logo" style="height:40px; margin-bottom: 20px;">
+                <p style="color: rgba(255,255,255,0.4); font-size: 0.8rem; max-width: 300px;">Producing visionary and
+                    ethical professionals to spur social transformation.</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="races.html">Races</a>
+                <a href="shop.html">Shop</a>
+                <a href="admin.html">Admin</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Proposed Hekima University. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

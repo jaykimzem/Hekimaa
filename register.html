@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Molo Mountain Marathon</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="site-header scrolled">
+        <div class="logo">
+            <a href="index.html">
+                <img src="assets/Logo 2.png" alt="PHU Logo">
+            </a>
+        </div>
+        <nav class="main-nav">
+            <a href="about.html">The Mission</a>
+            <a href="races.html">The Races</a>
+            <a href="shop.html">The Shop</a>
+            <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
+        </nav>
+    </header>
+
+    <main style="padding: 150px 5% 100px;">
+        <div class="modal-content" style="display:block; margin: 0 auto; max-width: 600px; opacity: 1;">
+            <div class="section-header" style="margin-bottom:40px; text-align:left;">
+                <span class="section-label">Enrollment</span>
+                <h2 class="section-title">Join the Marathon</h2>
+                <p style="color:rgba(255,255,255,0.4); margin-top: 10px;">Select your race and provide your details to
+                    receive your BIB number after payment.</p>
+            </div>
+            <form id="marathon-form-page">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-input" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-input" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Select Marathon</label>
+                    <select class="form-input" id="race-select-page" required>
+                        <option value="">Choose a race...</option>
+                        <option value="21k">21KM Half Marathon - KES 1,000</option>
+                        <option value="5k-elite">5KM Elite Marathon - KES 500</option>
+                        <option value="5k-corp">5KM Corporate Run (Package)</option>
+                        <option value="3k">3KM Community Run (Free)</option>
+                    </select>
+                </div>
+                <div class="form-group" id="ak-field-page" style="display:none;">
+                    <label class="form-label">Athletics Kenya Membership No.</label>
+                    <input type="text" class="form-input" placeholder="e.g. AK-12345">
+                    <p style="font-size: 0.7rem; color: var(--brand-crimson); margin-top: 5px;">* Mandatory for elite
+                        categories</p>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%; padding:20px;">Complete
+                    Registration</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="assets/Logo 2.png" alt="PHU Logo" style="height:40px; margin-bottom: 20px;">
+                <p style="color: rgba(255,255,255,0.4); font-size: 0.8rem; max-width: 300px;">Producing visionary and
+                    ethical professionals to spur social transformation.</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="races.html">Races</a>
+                <a href="shop.html">Shop</a>
+                <a href="admin.html">Admin</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Proposed Hekima University. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+        // Local logic for this page specifically
+        const rSelect = document.getElementById('race-select-page');
+        const aField = document.getElementById('ak-field-page');
+
+        rSelect.addEventListener('change', (e) => {
+            const val = e.target.value;
+            if (val === '21k' || val === '5k-elite') {
+                aField.style.display = 'block';
+                aField.querySelector('input').required = true;
+            } else {
+                aField.style.display = 'none';
+                aField.querySelector('input').required = false;
+            }
+        });
+
+        document.getElementById('marathon-form-page').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = e.target.querySelector('input').value;
+            const mNumber = Math.floor(1000 + Math.random() * 9000);
+
+            // Success State
+            e.target.innerHTML = `
+                <div style="text-align:center; padding: 40px; background: #000; border: 1px solid var(--brand-gold);">
+                    <h2 class="section-title" style="color: var(--brand-gold);">Registration Confirmed</h2>
+                    <p style="margin: 20px 0; font-size: 1.1rem;">Welcome to the race, <strong>${name}</strong>.</p>
+                    <div style="padding: 30px; border: 2px dashed #333; display:inline-block; margin-bottom: 30px;">
+                        <span style="font-size: 0.8rem; text-transform:uppercase; letter-spacing:0.2em; display:block; margin-bottom:10px;">Your BIB Number</span>
+                        <span style="font-size: 4rem; font-weight:800; color: white;">#${mNumber}</span>
+                    </div>
+                    <p style="font-size: 0.8rem; color: rgba(255,255,255,0.4);">A confirmation email and digital ticket have been sent.</p>
+                    <a href="index.html" class="btn btn-outline" style="margin-top:40px; display:block;">Return to Home</a>
+                </div>
+            `;
+        });
+    </script>
+</body>
+
+</html>

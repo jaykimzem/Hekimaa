@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Molo Mountain Marathon</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #050505;
+        }
+
+        .admin-nav {
+            padding: 20px 5%;
+            background: #000;
+            border-bottom: 1px solid #111;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-section {
+            padding: 40px 5%;
+        }
+
+        .admin-card {
+            background: #111;
+            border: 1px solid #222;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .admin-title {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+            color: var(--brand-gold);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 1px solid #222;
+            font-size: 0.9rem;
+        }
+
+        th {
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.7rem;
+        }
+
+        .status-pill {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            background: var(--brand-crimson);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="admin-nav">
+        <div class="logo">
+            <img src="assets/Logo Main.png" alt="Logo" style="height: 40px;">
+        </div>
+        <a href="index.html" class="btn btn-outline" style="padding: 10px 20px; font-size: 0.6rem;">View Site</a>
+    </nav>
+
+    <div class="admin-section">
+        <div class="admin-card">
+            <h2 class="admin-title">Race Management</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Marathon Type</th>
+                        <th>Current Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>21KM Half Marathon</td>
+                        <td>KES 1,000</td>
+                        <td><button class="btn btn-primary"
+                                style="padding: 5px 15px; font-size: 0.6rem;">Adjust</button></td>
+                    </tr>
+                    <tr>
+                        <td>5KM Elite Marathon</td>
+                        <td>KES 500</td>
+                        <td><button class="btn btn-primary"
+                                style="padding: 5px 15px; font-size: 0.6rem;">Adjust</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="admin-card">
+            <h2 class="admin-title">Recent Registrations</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Runner Name</th>
+                        <th>Marathon</th>
+                        <th>Amount Paid</th>
+                        <th>BIB Number</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="reg-list">
+                    <tr>
+                        <td>John Doe</td>
+                        <td>21KM Half</td>
+                        <td>KES 1,000</td>
+                        <td>#8421</td>
+                        <td><span class="status-pill">Paid</span></td>
+                    </tr>
+                    <tr>
+                        <td>Jane Smith</td>
+                        <td>5KM Elite</td>
+                        <td>KES 500</td>
+                        <td>#2054</td>
+                        <td><span class="status-pill">Paid</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="admin-card">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h2 class="admin-title">Shop Inventory</h2>
+                <button class="btn btn-primary" style="padding: 10px 20px; font-size: 0.7rem;">+ Add Product</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Performance Water Bottle</td>
+                        <td>KES 1,500</td>
+                        <td>42 units</td>
+                        <td><button class="btn btn-outline" style="padding: 5px 15px; font-size: 0.6rem;">Edit</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Institutional Running Tee</td>
+                        <td>KES 2,500</td>
+                        <td>Coming Soon</td>
+                        <td><button class="btn btn-outline" style="padding: 5px 15px; font-size: 0.6rem;">Edit</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
