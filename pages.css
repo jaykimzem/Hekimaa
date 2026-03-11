@@ -1,0 +1,52 @@
+/* ============================================================
+   Hekima University Molo Marathon — Additional/Other Pages CSS
+   Shared styles for about.html, races.html, register.html
+   ============================================================ */
+
+/* Sub-page hero */
+.hero-sub {
+  position: relative;
+  min-height: 55vh;
+  display: flex; align-items: flex-end;
+  padding: calc(var(--header-h) + 40px) 5% 80px;
+  background-size: cover; background-position: center;
+  overflow: hidden;
+}
+.hero-sub::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 30%, rgba(0,0,0,0.5) 100%);
+}
+.hero-sub .hero-content { position: relative; z-index: 1; text-align: left; max-width: 700px; }
+.hero-sub .hero-title { font-size: clamp(2.5rem,5vw,4rem); }
+
+/* Form Section */
+.form-section { padding: 100px 0; background: var(--near-black); }
+.form-narrow { max-width: 640px; margin: 0 auto; }
+.form-group { margin-bottom: 28px; }
+.form-label {
+  display: block; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--white-40); margin-bottom: 10px;
+}
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  padding: 16px 18px;
+  color: var(--white); font-family: var(--font); font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.3s;
+  -webkit-appearance: none;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--gold);
+}
+.form-select { cursor: pointer; }
+.form-textarea { min-height: 120px; resize: vertical; }
+
+/* About Section */
+.about-page-section { padding: 100px 0; background: var(--near-black); }
+.about-page-section .section-header { text-align: left; margin-bottom: 48px; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+.two-col p { font-size: 0.97rem; color: var(--white-60); line-height: 1.8; margin-bottom: 18px; }
+@media(max-width:768px) { .two-col { grid-template-columns:1fr; } }
