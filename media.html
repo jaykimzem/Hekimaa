@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media & Newsroom | The Proposed Hekima University Molo Marathon</title>
+  <meta name="description" content="Information for journalists and media teams. Join us as a media partner and stay updated with the latest news on the Molo Marathon 2026.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="pages.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="site-header scrolled">
+  <div class="header-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/Logo 2.png" alt="Hekima University Logo">
+    </a>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <div class="nav-item-dropdown">
+        <a href="about.html" class="nav-link">About Us</a>
+        <div class="dropdown-content">
+          <a href="about.html">The University</a>
+          <a href="team.html">The Team</a>
+          <a href="media.html">Media & Newsletter</a>
+        </div>
+      </div>
+      <a href="races.html" class="nav-link">Races</a>
+      <a href="transport.html" class="nav-link">Transport/Accommodation</a>
+      <a href="sponsor.html" class="nav-link">Sponsors</a>
+      <a href="shop.html" class="nav-link">Shop</a>
+      <a href="register.html" class="nav-btn" style="margin-left: 16px;">Register Now</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" style="display: none;">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <a href="index.html">Home</a>
+  <a href="about.html">About PHU</a>
+  <a href="team.html">The Team</a>
+  <a href="media.html">Media & Newsletter</a>
+  <a href="races.html">Races</a>
+  <a href="transport.html">Transport/Accommodation</a>
+  <a href="sponsor.html">Sponsors</a>
+  <a href="shop.html">Shop</a>
+  <a href="register.html" class="mobile-register">Register Now</a>
+</div>
+
+<main>
+  <section class="page-hero" style="min-height: 40vh;">
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content container">
+      <h1>Media & <span class="gold-text">Newsroom</span></h1>
+      <p>A central hub for journalists, media houses, and communications professionals covering the Molo Marathon 2026.</p>
+    </div>
+  </section>
+
+  <section class="pd-section bg-near-black">
+    <div class="container">
+      <div class="two-col-grid" style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px;">
+        <div class="media-info">
+          <h2 class="section-title">Join Our <span class="gold-text">Media Team</span></h2>
+          <p style="margin-bottom: 24px; color: var(--white-60);">We invite journalists from across the world to join us in Molo on 8 August 2026. Whether you are covering sports, education, or community development, the Proposed Hekima University Molo Marathon offers a wealth of stories on resilience, unity, and excellence.</p>
+          
+          <div class="media-links" style="display: flex; flex-direction: column; gap: 20px;">
+            <div class="media-item" style="display: flex; gap: 20px; align-items: start; background: var(--card-bg); padding: 24px; border: 1px solid var(--card-border);">
+              <div class="icon" style="font-size: 1.5rem;">📁</div>
+              <div>
+                <h3 style="font-size: 1rem; margin-bottom: 8px;">Press Kit 2026</h3>
+                <p style="font-size: 0.85rem; color: var(--white-60); margin-bottom: 12px;">Download high-resolution logos, brand guidelines, and official athlete photos.</p>
+                <a href="#" class="gold-text" style="font-weight: 700; font-size: 0.8rem;">Download PDF (12MB) →</a>
+              </div>
+            </div>
+            <div class="media-item" style="display: flex; gap: 20px; align-items: start; background: var(--card-bg); padding: 24px; border: 1px solid var(--card-border);">
+              <div class="icon" style="font-size: 1.5rem;">📰</div>
+              <div>
+                <h3 style="font-size: 1rem; margin-bottom: 8px;">Media Accreditation</h3>
+                <p style="font-size: 0.85rem; color: var(--white-60); margin-bottom: 12px;">Register for access to the media center, photo zones, and interview area on race day.</p>
+                <a href="register.html" class="gold-text" style="font-weight: 700; font-size: 0.8rem;">Apply for Accreditation →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="newsletter-signup" style="background: var(--dark); padding: 40px; border: 1px solid var(--gold);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 16px;">Race <span class="gold-text">Newsletter</span></h3>
+          <p style="font-size: 0.9rem; color: var(--white-60); margin-bottom: 24px;">Subscribe to receive the latest updates, athlete profiles, and community impact stories directly in your inbox.</p>
+          <form style="display: flex; flex-direction: column; gap: 16px;">
+            <input type="text" placeholder="Full Name" style="padding: 14px; background: var(--near-black); border: 1px solid var(--card-border); color: var(--white); width: 100%;">
+            <input type="email" placeholder="Email Address" style="padding: 14px; background: var(--near-black); border: 1px solid var(--card-border); color: var(--white); width: 100%;">
+            <button type="submit" class="btn btn-gold" style="width: 100%;">Subscribe Now</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-main">
+    <div class="footer-brand">
+      <img src="assets/Logo 2.png" alt="Hekima University Logo">
+      <p>Producing visionary and ethical professionals to spur social transformation.</p>
+    </div>
+    <div class="footer-contact">
+      <h4>Media Enquiries</h4>
+      <p>✉️ info@phumolomarathon.co.ke</p>
+      <p>📞 0758 111 770</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Proposed Hekima University Molo Marathon. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

@@ -92,15 +92,15 @@ button { border:none; background:none; font-family:var(--font); cursor:pointer; 
   height: 100%;
   display: flex; align-items: center; justify-content: space-between;
 }
-.nav-logo img { height: 52px; }
+.nav-logo img { height: 68px; }
 .main-nav { display:flex; align-items:center; gap:32px; }
 .nav-link {
-  font-size: 0.72rem; font-weight: 600;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--white-60);
+  font-size: 0.85rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--white);
   transition: color 0.3s;
 }
-.nav-link:hover { color: var(--white); }
+.nav-link:hover { color: var(--gold); }
 .nav-btn {
   padding: 10px 24px;
   background: var(--gold); color: var(--black);
@@ -144,6 +144,25 @@ button { border:none; background:none; font-family:var(--font); cursor:pointer; 
   padding: 16px !important; border-bottom: none !important;
   font-weight: 700;
 }
+
+/* Dropdown */
+.nav-item-dropdown { position: relative; display: flex; align-items: center; height: 100%; }
+.dropdown-content {
+  position: absolute; top: 100%; left: 0;
+  background: var(--dark); border: 1px solid var(--card-border);
+  min-width: 220px; opacity: 0; visibility: hidden;
+  transform: translateY(10px); transition: all 0.3s var(--ease-out);
+  z-index: 1001; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.nav-item-dropdown:hover .dropdown-content { opacity: 1; visibility: visible; transform: translateY(0); }
+.dropdown-content a {
+  display: block; padding: 16px 24px;
+  font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--white-60);
+  border-bottom: 1px solid var(--white-10); transition: all 0.3s;
+}
+.dropdown-content a:hover { background: var(--near-black); color: var(--gold); padding-left: 30px; }
+.dropdown-content a:last-child { border-bottom: none; }
 
 /* ── Buttons ── */
 .btn {
@@ -218,7 +237,7 @@ button { border:none; background:none; font-family:var(--font); cursor:pointer; 
 @keyframes heroZoom { to { transform: scale(1); } }
 .hero-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(160deg,rgba(143,0,5,0.65) 0%, rgba(0,0,0,0.88) 60%);
+  background: linear-gradient(160deg, rgba(0, 106, 78, 0.5) 0%, rgba(0, 26, 77, 0.75) 60%);
 }
 .hero-content { position: relative; z-index: 2; max-width: 900px; }
 .hero-eyebrow {
@@ -232,6 +251,11 @@ button { border:none; background:none; font-family:var(--font); cursor:pointer; 
   font-weight: 900; line-height: 1.0;
   letter-spacing: -0.03em; margin-bottom: 28px;
   font-family: 'Montserrat', var(--font);
+}
+.hero-proposed {
+  display: block; font-size: 0.95rem; font-weight: 700;
+  letter-spacing: 0.45em; color: var(--gold);
+  margin-bottom: 12px; font-variant-caps: small-caps;
 }
 .hero-lines {
   display: flex; flex-direction: column; gap: 4px;
@@ -470,7 +494,7 @@ button { border:none; background:none; font-family:var(--font); cursor:pointer; 
 }
 .peace-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(rgba(0,0,0,0.82),rgba(8,0,0,0.92));
+  background: linear-gradient(rgba(0, 50, 40, 0.7), rgba(0, 20, 50, 0.8));
 }
 .peace-content { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; }
 .peace-content p {
@@ -632,7 +656,10 @@ button { border:none; background:none; font-family:var(--font); cursor:pointer; 
 .volunteer-section { padding: 120px 0; background: var(--dark); }
 .vol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
 .vol-text p { font-size: 1rem; color: var(--white-60); margin-bottom: 20px; line-height: 1.8; }
-.vol-roles { display: flex; flex-direction: column; gap: 16px; }
+.vol-roles { 
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; 
+}
+@media (max-width: 900px) { .vol-roles { grid-template-columns: 1fr; } }
 .vol-role {
   display: grid; grid-template-columns: 50px 1fr;
   gap: 16px; align-items: start;
@@ -680,7 +707,7 @@ button { border:none; background:none; font-family:var(--font); cursor:pointer; 
 }
 .cta-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(rgba(0,0,0,0.85),rgba(8,0,2,0.95));
+  background: linear-gradient(rgba(0, 40, 30, 0.7), rgba(0, 15, 40, 0.85));
 }
 .cta-inner { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
 .cta-title {
