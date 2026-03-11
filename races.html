@@ -1,129 +1,386 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Races | Molo Mountain Marathon</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Race Categories | Hekima University Molo Marathon 2026</title>
+  <meta name="description" content="Explore all four race categories for the Hekima University Molo Marathon 2026: 21KM Elite Run, 5KM Elite Sprint, 3KM Corporate Run, and 3KM Community Run. Register today.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://hekimaa.vercel.app/races.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hekimaa.vercel.app/races.html">
+  <meta property="og:title" content="Race Categories | Hekima University Molo Marathon 2026">
+  <meta property="og:image" content="https://hekimaa.vercel.app/molo_runners.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="pages.css">
 </head>
-
 <body>
-    <header class="site-header scrolled">
-        <div class="logo">
-            <a href="index.html">
-                <img src="assets/Logo 2.png" alt="PHU Logo">
-            </a>
+
+<div id="loader" role="status" aria-label="Loading">
+  <div class="loader-inner">
+    <div class="loader-logo"><img src="assets/Logo 2.png" alt="Hekima University Logo"></div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+    <p class="loader-text">Loading Races&hellip;</p>
+  </div>
+</div>
+
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="nav-logo" aria-label="Hekima Marathon Home">
+      <img src="assets/Logo 2.png" alt="Hekima University Logo">
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="races.html" class="nav-link active-link">Races</a>
+      <a href="sponsor.html" class="nav-link">Sponsors</a>
+      <a href="register.html" class="nav-btn" id="nav-register-btn">Register Now</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="races.html">Races</a>
+  <a href="sponsor.html">Sponsors</a>
+  <a href="register.html" class="mobile-register">Register Now</a>
+</div>
+
+<main id="main-content">
+
+  <!-- PAGE HERO -->
+  <section class="page-hero" aria-label="Races hero">
+    <div class="page-hero-bg" style="background-image:url('molo_runners.png')"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content container">
+      <nav class="page-breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a><span>/</span>Race Categories
+      </nav>
+      <h1>Choose Your <span class="gold-text">Race</span></h1>
+      <p>Four categories. One mission. Whether you're an elite athlete, a corporate team, or a community runner — there is a place for you at the Hekima University Molo Marathon 2026.</p>
+    </div>
+  </section>
+
+  <!-- RACE OVERVIEW CARDS -->
+  <section class="pd-section bg-black" id="race-overview">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">8 August 2026 · Molo, Kenya</span>
+        <h2 class="section-title">The <span class="gold-text">Four Races</span></h2>
+        <p class="section-sub">Molo's highland terrain offers a stunning and challenging course for all categories. Register early to secure your place.</p>
+      </div>
+      <div class="race-cards-full">
+
+        <!-- 21KM -->
+        <div class="race-full-card reveal-up" id="race-21k">
+          <div class="race-full-img">
+            <img src="kenya_runners_sunrise.png" alt="Elite runners at sunrise in Kenyan highlands" loading="lazy">
+            <div class="race-full-dist">21<span>KM</span></div>
+          </div>
+          <div class="race-full-body">
+            <div class="race-full-meta">
+              <span class="race-category-badge">Elite Run</span>
+              <span class="race-time-badge">⏰ Start: 6:30 AM</span>
+            </div>
+            <h2>21KM Elite Half Marathon</h2>
+            <p class="race-full-desc">The flagship category of the Hekima University Molo Marathon — a demanding 21-kilometre route through the breathtaking Molo highlands, attracting elite athletes from Kenya and across Africa. This is the race that defines champions.</p>
+            <div class="race-details-grid">
+              <div class="race-detail"><span class="rd-label">Distance</span><span class="rd-val">21 Kilometres</span></div>
+              <div class="race-detail"><span class="rd-label">Category</span><span class="rd-val">Elite &amp; Open Athletes</span></div>
+              <div class="race-detail"><span class="rd-label">Start Time</span><span class="rd-val">6:30 AM EAT</span></div>
+              <div class="race-detail"><span class="rd-label">Registration</span><span class="rd-val">KES 1,000</span></div>
+              <div class="race-detail"><span class="rd-label">AK Membership</span><span class="rd-val">Required for Elite</span></div>
+              <div class="race-detail"><span class="rd-label">Prize Pool</span><span class="rd-val">To Be Announced</span></div>
+            </div>
+            <div class="race-highlights">
+              <h4>What to Expect</h4>
+              <ul>
+                <li><span class="check">✓</span> Professionally certified and marked 21KM route through Molo highlands</li>
+                <li><span class="check">✓</span> Elite timing chips and live race tracking</li>
+                <li><span class="check">✓</span> Multiple hydration stations along the entire course</li>
+                <li><span class="check">✓</span> Medical support teams positioned along the route</li>
+                <li><span class="check">✓</span> Finisher medals for all category completers</li>
+                <li><span class="check">✓</span> Top 3 male and female finishers receive cash prizes &amp; trophies</li>
+              </ul>
+            </div>
+            <a href="register.html?race=21k" class="btn btn-gold" id="reg-21k-btn">Register for 21KM Elite Run</a>
+          </div>
         </div>
-        <nav class="main-nav">
-            <a href="about.html">The Mission</a>
-            <a href="races.html" style="color: var(--brand-gold);">The Races</a>
-            <a href="shop.html">The Shop</a>
-            <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
-        </nav>
-    </header>
 
-    <main>
-        <section class="hero-sub"
-            style="background-image: linear-gradient(rgba(143, 0, 5, 0.7), rgba(0, 0, 0, 0.9)), url('molo_runners.png');">
-            <div class="hero-content" style="text-align:left; padding: 0 5%;">
-                <p class="hero-tagline">Disciplined Motion</p>
-                <h1 class="hero-title">Extreme <span>Terrain.</span></h1>
+        <!-- 5KM -->
+        <div class="race-full-card reveal-up" id="race-5k">
+          <div class="race-full-img">
+            <img src="marathon_finish_line.png" alt="Runners finishing a 5KM sprint race" loading="lazy">
+            <div class="race-full-dist">5<span>KM</span></div>
+          </div>
+          <div class="race-full-body">
+            <div class="race-full-meta">
+              <span class="race-category-badge sprint">Elite Sprint</span>
+              <span class="race-time-badge">⏰ Start: 7:00 AM</span>
             </div>
-        </section>
-
-        <section class="race-types">
-            <div class="section-header">
-                <span class="section-label">Event Categories</span>
-                <h2 class="section-title">Choose Your Legacy</h2>
+            <h2>5KM Elite Sprint</h2>
+            <p class="race-full-desc">A shorter but intensely competitive race designed for fast-paced athletes and emerging talent looking to make their mark on the national athletics scene. The 5KM Elite Sprint is a showcase of raw speed and determination on Molo's challenging terrain.</p>
+            <div class="race-details-grid">
+              <div class="race-detail"><span class="rd-label">Distance</span><span class="rd-val">5 Kilometres</span></div>
+              <div class="race-detail"><span class="rd-label">Category</span><span class="rd-val">All Competitive Athletes</span></div>
+              <div class="race-detail"><span class="rd-label">Start Time</span><span class="rd-val">7:00 AM EAT</span></div>
+              <div class="race-detail"><span class="rd-label">Registration</span><span class="rd-val">KES 500</span></div>
+              <div class="race-detail"><span class="rd-label">AK Membership</span><span class="rd-val">Recommended</span></div>
+              <div class="race-detail"><span class="rd-label">Prize Pool</span><span class="rd-val">To Be Announced</span></div>
             </div>
-            <div class="race-grid">
-                <!-- 21K -->
-                <div class="race-card">
-                    <span class="race-dist">21K</span>
-                    <span class="race-name">Half Marathon</span>
-                    <p class="race-info">The ultimate mountain challenge. Requires Athletics Kenya membership. Elite and
-                        open categories available.</p>
-                    <div class="race-price">KES 1,000</div>
-                    <a href="register.html" class="btn btn-primary btn-sm"
-                        style="display:inline-block; margin-top:20px;">Register</a>
-                </div>
-                <!-- 5K Elite -->
-                <div class="race-card" style="border-color: var(--brand-crimson);">
-                    <span class="race-dist">5K</span>
-                    <span class="race-name">Elite Performance</span>
-                    <p class="race-info">A high-altitude sprint for competitive athletes. Part of the national
-                        qualifying series. AK No required.</p>
-                    <div class="race-price">KES 500</div>
-                    <a href="register.html" class="btn btn-primary btn-sm"
-                        style="display:inline-block; margin-top:20px;">Register</a>
-                </div>
-                <!-- 5K Corp -->
-                <div class="race-card">
-                    <span class="race-dist">5K</span>
-                    <span class="race-name">Corporate Run</span>
-                    <p class="race-info">Team building for institutional leadership. Packages include branded gear and
-                        physical presence at the start line.</p>
-                    <div class="race-price">Institutional Pack</div>
-                    <a href="register.html" class="btn btn-outline btn-sm"
-                        style="display:inline-block; margin-top:20px;">Inquire</a>
-                </div>
-                <!-- 3K -->
-                <div class="race-card">
-                    <span class="race-dist">3K</span>
-                    <span class="race-name">Community Run</span>
-                    <p class="race-info">Welcoming the local Moso community and students. A celebration of fitness and
-                        the Hekima spirit.</p>
-                    <div class="race-price">Free Entry</div>
-                    <a href="register.html" class="btn btn-outline btn-sm"
-                        style="display:inline-block; margin-top:20px;">Sign Up</a>
-                </div>
+            <div class="race-highlights">
+              <h4>What to Expect</h4>
+              <ul>
+                <li><span class="check">✓</span> Competitive 5KM sprint course through Molo town</li>
+                <li><span class="check">✓</span> Race timing and official results for all participants</li>
+                <li><span class="check">✓</span> Hydration stations positioned at strategic points</li>
+                <li><span class="check">✓</span> Finisher medals and recognition for top performers</li>
+                <li><span class="check">✓</span> Ideal for emerging talent and experienced club runners</li>
+              </ul>
             </div>
-        </section>
-
-        <section class="map-section">
-            <div class="section-header">
-                <span class="section-label">Elevation Map</span>
-                <h2 class="section-title">Molo Mountain Ascent</h2>
-            </div>
-            <div class="map-container">
-                <div class="elevation-profile">
-                    <svg width="100%" height="100%" viewBox="0 0 1000 150" style="position:absolute; bottom:0;">
-                        <path d="M0 130 L 250 80 L 500 10 L 750 60 L 1000 110" fill="none" stroke="var(--brand-gold)"
-                            stroke-width="4" />
-                        <circle cx="0" cy="130" r="6" fill="var(--brand-gold)" />
-                        <circle cx="250" cy="80" r="6" fill="var(--brand-gold)" />
-                        <circle cx="500" cy="10" r="6" fill="var(--brand-gold)" />
-                        <circle cx="750" cy="60" r="6" fill="var(--brand-gold)" />
-                        <circle cx="1000" cy="110" r="6" fill="var(--brand-gold)" />
-                    </svg>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-container">
-            <div class="footer-brand">
-                <img src="assets/Logo 2.png" alt="PHU Logo" style="height:40px; margin-bottom: 20px;">
-                <p style="color: rgba(255,255,255,0.4); font-size: 0.8rem; max-width: 300px;">Producing visionary and
-                    ethical professionals to spur social transformation.</p>
-            </div>
-            <div class="footer-links">
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="races.html">Races</a>
-                <a href="shop.html">Shop</a>
-                <a href="admin.html">Admin</a>
-            </div>
+            <a href="register.html?race=5k" class="btn btn-gold" id="reg-5k-btn">Register for 5KM Elite Sprint</a>
+          </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Proposed Hekima University. All Rights Reserved.</p>
-        </div>
-    </footer>
 
-    <script src="main.js"></script>
+        <!-- 3KM CORPORATE -->
+        <div class="race-full-card reveal-up" id="race-corp">
+          <div class="race-full-img">
+            <img src="marathon_hero_cinematic_0.png" alt="Corporate teams running together" loading="lazy">
+            <div class="race-full-dist">3<span>KM</span></div>
+          </div>
+          <div class="race-full-body">
+            <div class="race-full-meta">
+              <span class="race-category-badge corporate">Corporate Run</span>
+              <span class="race-time-badge">⏰ Start: 8:00 AM</span>
+            </div>
+            <h2>3KM Corporate Team Run</h2>
+            <p class="race-full-desc">A premier networking and team engagement platform designed for corporate organisations and institutional partners. The Corporate Run is more than a race — it is a powerful brand visibility and team-building opportunity at a nationally recognised event.</p>
+            <div class="race-details-grid">
+              <div class="race-detail"><span class="rd-label">Distance</span><span class="rd-val">3 Kilometres</span></div>
+              <div class="race-detail"><span class="rd-label">Category</span><span class="rd-val">Corporate Teams (Min. 5)</span></div>
+              <div class="race-detail"><span class="rd-label">Start Time</span><span class="rd-val">8:00 AM EAT</span></div>
+              <div class="race-detail"><span class="rd-label">Team Entry</span><span class="rd-val">Via Sponsorship Package</span></div>
+              <div class="race-detail"><span class="rd-label">Branding</span><span class="rd-val">Branded Running Gear</span></div>
+              <div class="race-detail"><span class="rd-label">Perks</span><span class="rd-val">VIP Lounge Access</span></div>
+            </div>
+            <div class="race-highlights">
+              <h4>Corporate Package Includes</h4>
+              <ul>
+                <li><span class="check">✓</span> Branded company t-shirts and running bibs</li>
+                <li><span class="check">✓</span> Reserved corporate start-line position</li>
+                <li><span class="check">✓</span> Dedicated corporate finishing zone with team photo</li>
+                <li><span class="check">✓</span> VIP hospitality access in the corporate lounge</li>
+                <li><span class="check">✓</span> Logo branding on event signage and media</li>
+                <li><span class="check">✓</span> Networking with other senior corporate executives</li>
+              </ul>
+            </div>
+            <a href="register.html?race=corporate" class="btn btn-gold" id="reg-corp-btn">Register Corporate Team</a>
+          </div>
+        </div>
+
+        <!-- 3KM COMMUNITY -->
+        <div class="race-full-card reveal-up" id="race-community">
+          <div class="race-full-img">
+            <img src="molo_runners.png" alt="Community runners celebrating together" loading="lazy">
+            <div class="race-full-dist" style="background:var(--crimson);">3<span>KM</span></div>
+          </div>
+          <div class="race-full-body">
+            <div class="race-full-meta">
+              <span class="race-category-badge community">Community Run</span>
+              <span class="race-time-badge">⏰ Start: 8:30 AM</span>
+            </div>
+            <h2>3KM Community Run</h2>
+            <p class="race-full-desc">An inclusive and joyful race welcoming local residents, students, youth groups, schools, churches, and community organisations from Molo, Kuresoi North, and the wider Nakuru County. This is the heart and soul of the marathon — a celebration of togetherness, peace, and community spirit.</p>
+            <div class="race-details-grid">
+              <div class="race-detail"><span class="rd-label">Distance</span><span class="rd-val">3 Kilometres</span></div>
+              <div class="race-detail"><span class="rd-label">Category</span><span class="rd-val">Open — All Welcome</span></div>
+              <div class="race-detail"><span class="rd-label">Start Time</span><span class="rd-val">8:30 AM EAT</span></div>
+              <div class="race-detail"><span class="rd-label">Registration</span><span class="rd-val">Community Subsidised</span></div>
+              <div class="race-detail"><span class="rd-label">Groups Welcome</span><span class="rd-val">Schools, Youth, Churches</span></div>
+              <div class="race-detail"><span class="rd-label">Spirit Award</span><span class="rd-val">Best Group Costume</span></div>
+            </div>
+            <div class="race-highlights">
+              <h4>What to Expect</h4>
+              <ul>
+                <li><span class="check">✓</span> Open to all ages and all fitness levels</li>
+                <li><span class="check">✓</span> Fun, festive atmosphere along the entire 3KM route</li>
+                <li><span class="check">✓</span> Special prizes for best community group and spirit award</li>
+                <li><span class="check">✓</span> Direct link to the Entertainment Village post-race</li>
+                <li><span class="check">✓</span> Youth engagement and peace-building messaging</li>
+              </ul>
+            </div>
+            <a href="register.html?race=community" class="btn btn-gold" id="reg-comm-btn">Register for Community Run</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- COURSE INFO -->
+  <section class="pd-section bg-dark" id="course">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Race Route</span>
+        <h2 class="section-title">Molo Highlands <span class="gold-text">Race Course</span></h2>
+        <p class="section-sub">A scenic and challenging route through the stunning landscapes of Molo, Nakuru County — at an altitude of approximately 2,400m above sea level.</p>
+      </div>
+      <div class="course-info-grid">
+        <div class="course-map-box reveal-up">
+          <div class="elevation-chart">
+            <div class="elev-label">Elevation Profile — 21KM Route</div>
+            <svg viewBox="0 0 800 200" preserveAspectRatio="none" aria-label="Elevation profile chart">
+              <defs>
+                <linearGradient id="elevGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" style="stop-color:rgba(254,213,7,0.4);stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:rgba(254,213,7,0.02);stop-opacity:1" />
+                </linearGradient>
+              </defs>
+              <path d="M0 180 C50 175 100 165 150 140 C200 115 220 100 280 70 C330 45 370 30 420 20 C460 12 500 18 540 35 C580 55 610 70 650 90 C690 115 730 140 800 160 L800 200 L0 200 Z" fill="url(#elevGrad)"/>
+              <path d="M0 180 C50 175 100 165 150 140 C200 115 220 100 280 70 C330 45 370 30 420 20 C460 12 500 18 540 35 C580 55 610 70 650 90 C690 115 730 140 800 160" fill="none" stroke="var(--gold)" stroke-width="3"/>
+              <circle cx="0" cy="180" r="5" fill="var(--gold)"/>
+              <circle cx="420" cy="20" r="7" fill="var(--white)"/>
+              <circle cx="800" cy="160" r="5" fill="var(--gold)"/>
+              <text x="5" y="198" fill="rgba(255,255,255,0.4)" font-size="10">Start</text>
+              <text x="390" y="15" fill="var(--white)" font-size="10">Summit ~2,460m</text>
+              <text x="755" y="178" fill="rgba(255,255,255,0.4)" font-size="10">Finish</text>
+            </svg>
+          </div>
+        </div>
+        <div class="course-facts reveal-up" style="--delay:0.2s">
+          <h3>Route Highlights</h3>
+          <div class="course-fact-list">
+            <div class="cfact"><span class="cfact-icon">📍</span><div><strong>Start &amp; Finish</strong><p>Molo Town Centre — main event grounds</p></div></div>
+            <div class="cfact"><span class="cfact-icon">🏔️</span><div><strong>Terrain</strong><p>Highland roads, rolling hills, scenic forest trails through Molo's tea country</p></div></div>
+            <div class="cfact"><span class="cfact-icon">⛰️</span><div><strong>Altitude</strong><p>Start: ~2,380m · Peak: ~2,460m · Finish: ~2,400m above sea level</p></div></div>
+            <div class="cfact"><span class="cfact-icon">💧</span><div><strong>Hydration</strong><p>Water stations every 3KM on the 21KM route and every 1.5KM on shorter routes</p></div></div>
+            <div class="cfact"><span class="cfact-icon">🏥</span><div><strong>Medical Support</strong><p>First aid stations and roving medical personnel along the entire course</p></div></div>
+            <div class="cfact"><span class="cfact-icon">⏱️</span><div><strong>Cut-off Time</strong><p>21KM: 3 hours · 5KM: 45 minutes · 3KM: Open (no cut-off)</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT TO BRING -->
+  <section class="pd-section bg-near-black" id="preparation">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Preparation Guide</span>
+        <h2 class="section-title">Race Day <span class="gold-text">Essentials</span></h2>
+        <p class="section-sub">Prepare well and enjoy the best possible experience on race day.</p>
+      </div>
+      <div class="prep-grid">
+        <div class="prep-card reveal-up">
+          <div class="prep-icon">👕</div>
+          <h3>What to Wear</h3>
+          <ul>
+            <li>Comfortable running attire suited to highland temperatures</li>
+            <li>Lightweight, breathable running shoes with good grip</li>
+            <li>Official race bib must be visible at all times</li>
+            <li>Bring a light layer — mornings in Molo can be cool</li>
+          </ul>
+        </div>
+        <div class="prep-card reveal-up" style="--delay:0.1s">
+          <div class="prep-icon">🎒</div>
+          <h3>What to Bring</h3>
+          <ul>
+            <li>Government-issued ID or copy of registration confirmation</li>
+            <li>Personal hydration (optional — stations provided)</li>
+            <li>Energy snacks for the 21KM category</li>
+            <li>Cash for food court and vendor stalls at the event village</li>
+          </ul>
+        </div>
+        <div class="prep-card reveal-up" style="--delay:0.2s">
+          <div class="prep-icon">📋</div>
+          <h3>Race Kit Collection</h3>
+          <ul>
+            <li>Race kits available 1–2 days before the event at designated points</li>
+            <li>Bring your registration confirmation email or phone number</li>
+            <li>Kit includes: race bib, timing chip, safety pins, event programme</li>
+            <li>Corporate kits include branded t-shirt and bib</li>
+          </ul>
+        </div>
+        <div class="prep-card reveal-up" style="--delay:0.3s">
+          <div class="prep-icon">🏃</div>
+          <h3>Training Tips</h3>
+          <ul>
+            <li>Train at altitude or include hill runs in your preparation</li>
+            <li>Allow 8–12 weeks of structured training for the 21KM</li>
+            <li>Test your gear during training to avoid race-day surprises</li>
+            <li>Rest adequately in the 2 days leading up to the event</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="page-cta-section" id="races-cta">
+    <div class="container page-cta-inner">
+      <span class="section-eyebrow light">8 August 2026</span>
+      <h2>Your Race. <span class="gold-text">Your Legacy.</span></h2>
+      <p>Join 2,000+ runners from across Kenya and beyond. Register today and secure your place in one of the most meaningful races in Kenya's history.</p>
+      <div class="cta-buttons">
+        <a href="register.html" class="btn btn-gold btn-lg" id="races-register-btn">Register Now</a>
+        <a href="sponsor.html" class="btn btn-outline btn-lg" id="races-sponsor-btn">Become a Sponsor</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer" aria-label="Site footer">
+  <div class="footer-main">
+    <div class="footer-brand">
+      <img src="assets/Logo 2.png" alt="Hekima University Logo">
+      <p>Producing visionary and ethical professionals to spur social transformation. Rooted in the Jesuit tradition of excellence.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Twitter/X">𝕏</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="#" aria-label="YouTube">▶</a>
+      </div>
+    </div>
+    <div class="footer-nav">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Hekima</a>
+      <a href="races.html">Race Categories</a>
+      <a href="sponsor.html">Sponsorship</a>
+      <a href="register.html">Register</a>
+    </div>
+    <div class="footer-nav">
+      <h4>The Marathon</h4>
+      <a href="index.html#schedule">Event Schedule</a>
+      <a href="index.html#volunteer">Volunteer</a>
+      <a href="index.html#faq">FAQs</a>
+      <a href="index.html#countdown">Race Countdown</a>
+    </div>
+    <div class="footer-contact">
+      <h4>Contact</h4>
+      <p>📍 Molo, Kuresoi North<br>Nakuru County, Kenya</p>
+      <p>📅 8 August 2026</p>
+      <p>✉️ info@hekima-marathon.co.ke</p>
+      <p>Organised by Proposed Hekima University &amp; Global Link Media</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Hekima University Molo Marathon. All Rights Reserved.</p>
+    <div class="footer-bottom-links">
+      <a href="sitemap.xml">Sitemap</a>
+      <a href="robots.txt">Robots.txt</a>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
 </body>
-
 </html>
