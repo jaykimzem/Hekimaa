@@ -776,11 +776,13 @@ textarea.form-input { resize: vertical; min-height: 100px; }
   .reg-section { grid-template-columns: 1fr; }
   .reg-sidebar { position: relative; height: auto; min-height: 400px; }
   .reg-sidebar-content { padding: calc(var(--header-h) + 32px) 32px 40px; }
-  .race-full-card { grid-template-columns: 1fr; }
-  .race-full-card:nth-child(even) .race-full-img,
-  .race-full-card:nth-child(even) .race-full-body { order: unset; }
-  .race-full-img { min-height: 280px; }
-  .race-full-body { padding: 32px 32px; }
+  .race-full-card { 
+    grid-template-columns: 1fr; 
+    display: flex; 
+    flex-direction: column;
+  }
+  .race-full-img, .race-full-card:nth-child(even) .race-full-img { order: 1; min-height: 300px; }
+  .race-full-body, .race-full-card:nth-child(even) .race-full-body { order: 2; padding: 40px 24px; }
   .img-text-grid { grid-template-columns: 1fr; gap: 48px; }
   .enquiry-layout { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: repeat(2, 1fr); }
@@ -795,7 +797,12 @@ textarea.form-input { resize: vertical; min-height: 100px; }
   .campus-stats-grid { grid-template-columns: 1fr 1fr; }
   .prep-grid { grid-template-columns: 1fr; }
   .course-info-grid { grid-template-columns: 1fr; }
-  .race-details-grid { grid-template-columns: 1fr 1fr; }
+  .race-details-grid { 
+    grid-template-columns: 1fr 1fr; 
+    gap: 1px;
+  }
+  .race-detail { padding: 12px; }
+  .rd-val { font-size: 0.75rem; }
   .form-grid-2 { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: 1fr; }
   .reg-form-panel { padding: 32px 5% 64px; }
