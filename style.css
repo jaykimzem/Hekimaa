@@ -92,7 +92,8 @@ button { border:none; background:none; font-family:var(--font); cursor:pointer; 
   height: 100%;
   display: flex; align-items: center; justify-content: space-between;
 }
-.nav-logo img { height: 74px; }
+.nav-logo img { height: 110px; transition: height 0.3s ease; }
+.site-header.scrolled .nav-logo img { height: 90px; }
 .main-nav { display:flex; align-items:center; gap:32px; }
 .nav-link {
   font-size: 0.85rem; font-weight: 700;
@@ -241,10 +242,11 @@ button { border:none; background:none; font-family:var(--font); cursor:pointer; 
 }
 .hero-content { position: relative; z-index: 2; max-width: 900px; }
 .hero-eyebrow {
-  display: inline-block; font-size: 0.72rem; font-weight: 700;
-  letter-spacing: 0.35em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 20px;
-  padding: 8px 20px; border: 1px solid rgba(254,213,7,0.35);
+  display: inline-block; font-size: 0.82rem; font-weight: 800;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  background: var(--gold); color: var(--black);
+  margin-bottom: 24px; padding: 10px 24px;
+  box-shadow: 0 4px 15px rgba(254,213,7,0.2);
 }
 .hero-title {
   font-size: clamp(2.8rem,7vw,6rem);
@@ -380,13 +382,15 @@ button { border:none; background:none; font-family:var(--font); cursor:pointer; 
   object-fit: cover; display: block;
 }
 .about-badge {
-  position: absolute; bottom: -20px; right: -20px;
+  position: absolute; bottom: -30px; right: -30px;
   background: var(--gold); color: var(--black);
-  padding: 24px 32px; text-align: center;
+  padding: 32px 48px; text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  z-index: 2;
 }
-.badge-date { display: block; font-size: 1.8rem; font-weight: 900; line-height: 1; }
-.badge-year { display: block; font-size: 1rem; font-weight: 700; }
-.badge-loc { display: block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; margin-top: 4px; }
+.badge-date { display: block; font-size: 2.2rem; font-weight: 900; line-height: 1; margin-bottom: 2px; }
+.badge-year { display: block; font-size: 1.2rem; font-weight: 800; letter-spacing: 0.1em; }
+.badge-loc { display: block; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; margin-top: 8px; text-transform: uppercase; }
 
 /* ═══════════════════════════════ MISSION ═══════════════════════════════ */
 .mission-section {
