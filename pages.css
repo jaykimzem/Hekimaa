@@ -1,0 +1,824 @@
+/* ================================================================
+   HEKIMA MARATHON — pages.css
+   Shared styles for all inner pages (about, races, register, sponsor)
+   ================================================================ */
+
+/* ── Active nav link ── */
+.nav-link.active-link { color: var(--gold) !important; }
+.active-nav-btn { background: var(--white) !important; }
+
+/* ── Page Hero ── */
+.page-hero {
+  position: relative;
+  min-height: 65vh;
+  display: flex; align-items: flex-end;
+  padding: calc(var(--header-h) + 80px) 5% 80px;
+  overflow: hidden;
+}
+.page-hero-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  transform: scale(1.04);
+  animation: heroZoom 10s ease-out forwards;
+}
+.page-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(160deg, rgba(143,0,5,0.55) 0%, rgba(0,0,0,0.90) 60%);
+}
+.page-hero-content {
+  position: relative; z-index: 2;
+  width: 100%;
+}
+.page-breadcrumb {
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4); margin-bottom: 20px;
+  display: flex; gap: 8px; align-items: center;
+}
+.page-breadcrumb a { color: var(--gold); transition: color 0.3s; }
+.page-breadcrumb a:hover { color: var(--white); }
+.page-hero h1 {
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 900; line-height: 1.0;
+  letter-spacing: -0.03em;
+  font-family: 'Montserrat', var(--font);
+  margin-bottom: 20px;
+}
+.page-hero p {
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  color: var(--white-60); max-width: 620px; line-height: 1.7;
+}
+
+/* ── Secondary Sticky Nav ── */
+.secondary-nav {
+  position: sticky; top: var(--header-h);
+  background: rgba(8,8,8,0.9); backdrop-filter: blur(15px);
+  z-index: 99; border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 16px 0; display: block;
+}
+.sn-inner { display: flex; gap: 40px; justify-content: flex-start; }
+.sn-inner a {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--white-40); transition: color 0.3s;
+}
+.sn-inner a:hover { color: var(--white); }
+@media (max-width: 768px) { .sn-inner { gap: 20px; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; } .sn-inner::-webkit-scrollbar { display: none; } }
+
+
+/* ── Section helpers ── */
+.pd-section { padding: 120px 0; }
+.bg-near-black { background: var(--near-black); }
+.bg-dark { background: var(--dark); }
+.bg-black { background: var(--black); }
+
+/* ── Shared card grid patterns ── */
+.two-col-card-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2px; margin-top: 64px;
+}
+.three-col-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px; margin-top: 64px;
+}
+
+/* ── pdcard (vision/mission style cards) ── */
+.pd-card {
+  padding: 56px 48px;
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: border-color 0.4s, transform 0.4s, background 0.4s;
+}
+.pd-card:hover { border-color: rgba(254,213,7,0.4); transform: translateY(-8px); background: rgba(255,255,255,0.06); }
+.pd-card-icon { font-size: 2.5rem; margin-bottom: 24px; }
+.pd-card-label {
+  display: block; font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px;
+}
+.pd-card h3 {
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-weight: 800; margin-bottom: 16px; line-height: 1.2;
+}
+.pd-card p { font-size: 0.95rem; color: var(--white-60); line-height: 1.8; }
+
+/* ── Story blockquote ── */
+.story-lead {
+  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+  font-weight: 300; line-height: 1.75;
+  color: rgba(255,255,255,0.75);
+  max-width: 860px; margin: 40px 0 72px;
+  border-left: 3px solid var(--gold);
+  padding-left: 28px;
+}
+.story-lead strong { color: var(--white); font-weight: 700; }
+
+/* ── Image + Text Grid ── */
+.img-text-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 72px; align-items: start;
+}
+.pd-image { position: relative; }
+.pd-image img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+.img-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.85));
+  padding: 40px 20px 16px;
+  font-size: 0.72rem; color: rgba(255,255,255,0.5);
+  letter-spacing: 0.04em;
+}
+.img-over-badge {
+  position: absolute; top: -16px; right: -16px;
+  background: var(--crimson); color: var(--white);
+  padding: 20px 28px; text-align: center;
+}
+.img-over-badge .badge-num { display: block; font-size: 2rem; font-weight: 900; line-height: 1; }
+.img-over-badge .badge-unit { display: block; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 4px; }
+.pd-text p { font-size: 0.98rem; color: var(--white-60); line-height: 1.85; margin-bottom: 18px; }
+.pd-text strong { color: var(--white); }
+
+/* ── Values Grid ── */
+.values-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px; margin-top: 64px;
+}
+.value-card {
+  padding: 44px 32px; background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  position: relative; overflow: hidden;
+  transition: border-color 0.4s, transform 0.4s;
+  backdrop-filter: blur(5px);
+}
+.value-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--crimson); transition: background 0.3s;
+}
+.value-card:hover { border-color: rgba(254,213,7,0.45); transform: translateY(-8px); }
+.value-card:hover::before { background: var(--gold); }
+.value-num {
+  font-size: 5.5rem; font-weight: 900;
+  color: rgba(255,255,255,0.03);
+  font-family: 'Montserrat', var(--font);
+  position: absolute; top: 8px; right: 12px; line-height: 1;
+  pointer-events: none;
+}
+.value-icon { font-size: 2rem; margin-bottom: 20px; }
+.value-card h3 {
+  font-size: 0.85rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.15em;
+  margin-bottom: 12px;
+}
+.value-card p { font-size: 0.86rem; color: var(--white-60); line-height: 1.7; }
+
+/* ── Academic Schools ── */
+.schools-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px; margin-top: 64px;
+}
+.school-card {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  overflow: hidden; transition: border-color 0.3s, transform 0.3s;
+}
+.school-card:hover { border-color: var(--gold); transform: translateY(-6px); }
+.school-hdr {
+  padding: 28px 28px 20px;
+  background: linear-gradient(135deg, rgba(143,0,5,0.18) 0%, transparent 100%);
+  border-bottom: 1px solid var(--card-border);
+}
+.school-icon { font-size: 1.8rem; margin-bottom: 12px; }
+.school-hdr h3 { font-size: 0.95rem; font-weight: 800; margin-bottom: 6px; }
+.school-tag {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--gold);
+}
+.school-body { padding: 20px 28px 28px; }
+.school-body p { font-size: 0.85rem; color: var(--white-60); line-height: 1.7; margin-bottom: 14px; }
+.school-programs { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.school-programs li {
+  font-size: 0.78rem; color: var(--white-60);
+  padding-left: 16px; position: relative;
+}
+.school-programs li::before { content: '→'; position: absolute; left: 0; color: var(--gold); font-size: 0.7rem; }
+
+/* ── Campus Stats ── */
+.campus-stats-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+.cstat {
+  padding: 20px; background: var(--card-bg);
+  border: 1px solid var(--card-border); text-align: center;
+}
+.cstat-num {
+  display: block; font-size: 1.6rem; font-weight: 900;
+  color: var(--gold); font-family: 'Montserrat', var(--font);
+  margin-bottom: 4px;
+}
+.cstat-lbl {
+  font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--white-40);
+}
+
+/* ── Organizer Cards ── */
+.org-card {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  padding: 40px 28px; text-align: center;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.org-card:hover { border-color: rgba(254,213,7,0.3); transform: translateY(-4px); }
+.org-logo { font-size: 2.6rem; margin-bottom: 16px; }
+.org-role {
+  display: block; font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 12px;
+}
+.org-card h3 { font-size: 0.95rem; font-weight: 800; margin-bottom: 10px; }
+.org-card p { font-size: 0.85rem; color: var(--white-60); line-height: 1.6; }
+
+/* ── Page CTA Section ── */
+.page-cta-section {
+  padding: 120px 0; text-align: center;
+  background: var(--near-black);
+  border-top: 1px solid var(--white-10);
+  position: relative; overflow: hidden;
+}
+.page-cta-inner h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900; margin-bottom: 20px;
+  font-family: 'Montserrat', var(--font);
+}
+.page-cta-inner p {
+  font-size: 1.05rem; color: var(--white-60);
+  max-width: 600px; margin: 0 auto 48px; line-height: 1.7;
+}
+.cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* ── Heritage Section ── */
+.heritage-grid {
+  display: grid; grid-template-columns: 1.2fr 1fr;
+  gap: 80px; align-items: center;
+}
+.heritage-list { display: grid; gap: 24px; margin-top: 40px; }
+.hl-item { display: flex; flex-direction: column; gap: 4px; padding-left: 20px; border-left: 2px solid var(--gold); }
+.hl-item strong { font-size: 0.95rem; font-weight: 800; color: var(--gold); }
+.hl-item span { font-size: 0.88rem; color: var(--white-60); line-height: 1.6; }
+.heritage-visual { position: relative; }
+.heritage-stat-box {
+  position: absolute; top: -30px; left: -30px;
+  background: var(--gold); color: var(--black); padding: 32px; text-align: center;
+  z-index: 2; box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+.hs-num { display: block; font-size: 2.8rem; font-weight: 900; line-height: 1; }
+.hs-label { display: block; font-size: 0.65rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 8px; line-height: 1.4; }
+.heritage-visual img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+
+
+/* ═══════════════════════ RACES PAGE ═══════════════════════ */
+
+/* ── Full Race Cards ── */
+.race-cards-full { display: flex; flex-direction: column; gap: 64px; margin-top: 0; }
+.race-full-card {
+  display: grid; grid-template-columns: 1fr 1.2fr;
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.race-full-card:hover { border-color: rgba(254,213,7,0.3); }
+.race-full-card:nth-child(even) { grid-template-columns: 1.2fr 1fr; }
+.race-full-card:nth-child(even) .race-full-img { order: 2; }
+.race-full-card:nth-child(even) .race-full-body { order: 1; }
+.race-full-img { position: relative; overflow: hidden; min-height: 360px; }
+.race-full-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+.race-full-card:hover .race-full-img img { transform: scale(1.04); }
+.race-full-dist {
+  position: absolute; bottom: 20px; left: 20px;
+  font-size: 3.5rem; font-weight: 900; line-height: 1;
+  color: var(--black); background: var(--gold);
+  padding: 12px 20px;
+  font-family: 'Montserrat', var(--font);
+}
+.race-full-dist span { font-size: 1.4rem; }
+.race-full-body { padding: 48px 48px; display: flex; flex-direction: column; gap: 16px; }
+.race-full-meta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.race-category-badge {
+  display: inline-block; padding: 5px 14px;
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.25em;
+  text-transform: uppercase; background: var(--crimson); color: var(--white);
+}
+.race-category-badge.sprint { background: #1a3a5c; }
+.race-category-badge.corporate { background: #1c2820; color: #4ade80; }
+.race-category-badge.community { background: rgba(143,0,5,0.6); }
+.race-time-badge {
+  font-size: 0.7rem; font-weight: 600; color: var(--white-60);
+  letter-spacing: 0.05em;
+}
+.race-full-body h2 {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 900; line-height: 1.15;
+  font-family: 'Montserrat', var(--font);
+}
+.race-full-desc {
+  font-size: 0.94rem; color: var(--white-60);
+  line-height: 1.8;
+}
+.race-details-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--card-border);
+  border: 1px solid var(--card-border);
+}
+.race-detail {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 14px 16px; background: var(--dark);
+}
+.rd-label {
+  font-size: 0.58rem; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--white-40);
+}
+.rd-val { font-size: 0.82rem; font-weight: 600; color: var(--white); }
+.race-highlights { margin-top: 8px; }
+.race-highlights h4 {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 12px;
+}
+.race-highlights ul { display: flex; flex-direction: column; gap: 8px; }
+.race-highlights li {
+  font-size: 0.86rem; color: var(--white-60);
+  display: flex; gap: 10px; align-items: flex-start; line-height: 1.5;
+}
+
+/* ── Course Info ── */
+.course-info-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 48px; margin-top: 64px; align-items: start;
+}
+.course-map-box {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  padding: 32px; overflow: hidden;
+}
+.elevation-chart { position: relative; }
+.elev-label {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--white-40); margin-bottom: 16px;
+}
+.elevation-chart svg { display: block; width: 100%; height: 200px; }
+.course-facts { margin-top: 10px; }
+.course-facts h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 24px; }
+.course-fact-list { display: flex; flex-direction: column; gap: 16px; }
+.cfact {
+  display: grid; grid-template-columns: 32px 1fr;
+  gap: 16px; align-items: start;
+  padding: 16px 20px; background: var(--card-bg);
+  border: 1px solid var(--card-border);
+}
+.cfact-icon { font-size: 1.3rem; margin-top: 2px; }
+.cfact strong { display: block; font-size: 0.82rem; font-weight: 700; margin-bottom: 4px; }
+.cfact p { font-size: 0.8rem; color: var(--white-60); line-height: 1.5; }
+
+/* ── Preparation Cards ── */
+.prep-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 24px; margin-top: 64px;
+}
+.prep-card {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  padding: 40px 36px;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.prep-card:hover { border-color: rgba(254,213,7,0.25); transform: translateY(-4px); }
+.prep-icon { font-size: 2rem; margin-bottom: 16px; }
+.prep-card h3 { font-size: 0.95rem; font-weight: 800; margin-bottom: 16px; }
+.prep-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.prep-card ul li {
+  font-size: 0.85rem; color: var(--white-60);
+  padding-left: 16px; position: relative; line-height: 1.5;
+}
+.prep-card ul li::before { content: '—'; position: absolute; left: 0; color: var(--gold); font-size: 0.7rem; top: 1px; }
+
+/* ═══════════════════════ REGISTRATION PAGE ═══════════════════════ */
+.reg-section {
+  display: grid; grid-template-columns: 1fr 1.5fr;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.reg-sidebar {
+  position: sticky; top: 0; height: 100vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  overflow: hidden;
+}
+.reg-sidebar-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+}
+.reg-sidebar-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(160deg, rgba(143,0,5,0.6) 0%, rgba(0,0,0,0.93) 70%);
+}
+.reg-sidebar-content {
+  position: relative; z-index: 2;
+  padding: calc(var(--header-h) + 48px) 40px 48px;
+  display: flex; flex-direction: column; gap: 32px;
+  height: 100%;
+  overflow-y: auto;
+}
+.reg-back-link {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--white-60);
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: color 0.3s;
+  margin-top: auto;
+}
+.reg-back-link:hover { color: var(--gold); }
+.reg-event-info { margin-top: auto; }
+.reg-eyebrow {
+  display: block; font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 12px;
+}
+.reg-event-info h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 900; line-height: 1.1;
+  font-family: 'Montserrat', var(--font);
+  margin-bottom: 24px;
+}
+.reg-event-details { display: flex; flex-direction: column; gap: 12px; }
+.reg-detail {
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.rd-icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+.reg-detail div { display: flex; flex-direction: column; }
+.reg-detail strong { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white-40); margin-bottom: 2px; }
+.reg-detail span { font-size: 0.88rem; color: var(--white); }
+.reg-race-mini-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.rmini-card {
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+  padding: 12px 16px;
+  display: flex; flex-direction: column; gap: 4px;
+  transition: background 0.3s;
+}
+.rmini-card:hover { background: rgba(254,213,7,0.1); border-color: rgba(254,213,7,0.3); }
+.rmini-card strong { font-size: 1rem; font-weight: 900; color: var(--gold); font-family: 'Montserrat', var(--font); }
+.rmini-card span { font-size: 0.72rem; color: var(--white-60); }
+.reg-sidebar-note { font-size: 0.78rem; color: var(--white-40); line-height: 1.6; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
+
+/* Form Panel */
+.reg-form-panel {
+  background: var(--near-black);
+  padding: calc(var(--header-h) + 48px) 5% 80px;
+  min-height: 100vh; overflow-y: auto;
+}
+.reg-form-wrapper { max-width: 620px; }
+
+/* Step Indicator */
+.step-indicator {
+  display: flex; align-items: center; margin-bottom: 48px;
+}
+.step-item {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  flex: 1;
+}
+.step-circle {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.78rem; font-weight: 800;
+  border: 2px solid rgba(255,255,255,0.15);
+  color: var(--white-40);
+  transition: all 0.3s;
+}
+.step-item.active .step-circle {
+  background: var(--gold); border-color: var(--gold); color: var(--black);
+}
+.step-item.done .step-circle {
+  background: rgba(254,213,7,0.2); border-color: var(--gold); color: var(--gold);
+  font-size: 0; /* hide number */
+}
+.step-item.done .step-circle::after { content: '✓'; font-size: 0.78rem; color: var(--gold); }
+.step-item span {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--white-40);
+  transition: color 0.3s;
+}
+.step-item.active span { color: var(--gold); }
+.step-item.done span { color: var(--white-60); }
+.step-line { flex: 1; height: 1px; background: rgba(255,255,255,0.1); margin: 0 4px; margin-bottom: 24px; }
+
+/* Form Steps */
+.form-step { display: none; }
+.form-step.active { display: block; }
+.form-step-header { margin-bottom: 40px; }
+.form-step-num {
+  display: block; font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 10px;
+}
+.form-step-header h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 900; margin-bottom: 10px;
+  font-family: 'Montserrat', var(--font);
+}
+.form-step-header p { font-size: 0.9rem; color: var(--white-60); }
+
+/* Form Elements */
+.form-group { margin-bottom: 24px; }
+.form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-label {
+  display: block; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--white-60); margin-bottom: 8px;
+}
+.form-input {
+  width: 100%; background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--white);
+  padding: 14px 16px; font-size: 0.92rem;
+  font-family: var(--font); line-height: 1.4;
+  transition: border-color 0.3s, background 0.3s;
+  appearance: none; -webkit-appearance: none;
+  border-radius: 0;
+}
+.form-input:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: rgba(254,213,7,0.05);
+}
+.form-input::placeholder { color: rgba(255,255,255,0.25); }
+.form-input option { background: #111; color: var(--white); }
+textarea.form-input { resize: vertical; min-height: 100px; }
+.form-hint { font-size: 0.72rem; color: var(--white-40); margin-top: 6px; line-height: 1.5; }
+.req { color: var(--crimson); }
+
+/* Radio Group */
+.radio-group { display: flex; flex-direction: column; gap: 12px; }
+.radio-label {
+  display: flex; align-items: center; gap: 12px;
+  cursor: pointer; font-size: 0.9rem; color: var(--white-60);
+  transition: color 0.3s;
+}
+.radio-label:hover { color: var(--white); }
+.radio-label input[type="radio"] { accent-color: var(--gold); width: 16px; height: 16px; flex-shrink: 0; }
+
+/* Checkbox */
+.checkbox-label {
+  display: flex; align-items: flex-start; gap: 14px;
+  cursor: pointer; font-size: 0.88rem; color: var(--white-60);
+  line-height: 1.6;
+}
+.checkbox-label input[type="checkbox"] { accent-color: var(--gold); width: 16px; height: 16px; flex-shrink: 0; margin-top: 3px; }
+.checkbox-label:hover { color: var(--white); }
+
+/* Race Select Cards */
+.race-select-cards { display: flex; flex-direction: column; gap: 12px; }
+.race-select-card {
+  display: flex; align-items: center; gap: 0;
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  cursor: pointer; transition: border-color 0.3s; position: relative;
+  overflow: hidden;
+}
+.race-select-card:hover { border-color: rgba(254,213,7,0.4); }
+.race-select-card input[type="radio"] {
+  position: absolute; opacity: 0; pointer-events: none;
+}
+.race-select-card:has(input:checked) {
+  border-color: var(--gold);
+  background: rgba(254,213,7,0.05);
+}
+.rsc-content {
+  display: flex; align-items: center; gap: 20px;
+  padding: 20px 24px; flex: 1;
+}
+.rsc-dist {
+  font-size: 2rem; font-weight: 900; color: var(--gold);
+  font-family: 'Montserrat', var(--font); line-height: 1;
+  min-width: 60px;
+}
+.rsc-dist span { font-size: 0.8rem; font-weight: 700; }
+.rsc-info {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.rsc-info strong { font-size: 0.92rem; font-weight: 700; color: var(--white); }
+.rsc-info span { font-size: 0.78rem; color: var(--white-60); }
+.rsc-price {
+  font-size: 0.78rem !important; color: var(--gold) !important; font-weight: 700 !important;
+}
+.rsc-check {
+  width: 48px; height: 100%; display: none;
+  align-items: center; justify-content: center;
+  background: var(--gold); color: var(--black);
+  font-size: 1.2rem; font-weight: 900; flex-shrink: 0;
+  padding: 20px 0;
+}
+.race-select-card:has(input:checked) .rsc-check { display: flex; }
+
+/* Form Navigation */
+.form-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 40px; padding-top: 32px;
+  border-top: 1px solid var(--white-10);
+}
+
+/* Form Divider */
+.form-divider {
+  text-align: center; position: relative; margin: 32px 0;
+}
+.form-divider::before {
+  content: ''; position: absolute; top: 50%; left: 0; right: 0;
+  height: 1px; background: rgba(255,255,255,0.1);
+}
+.form-divider span {
+  position: relative; display: inline-block;
+  background: var(--near-black); padding: 0 16px;
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--white-40);
+}
+
+/* Review Summary */
+.reg-summary {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  padding: 32px; margin-bottom: 32px;
+  display: flex; flex-direction: column; gap: 0;
+}
+.rs-section { border-bottom: 1px solid var(--card-border); padding: 20px 0; }
+.rs-section:last-child { border-bottom: none; }
+.rs-section h4 {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+}
+.rs-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 6px 0; gap: 16px;
+}
+.rs-row span { font-size: 0.8rem; color: var(--white-40); }
+.rs-row strong { font-size: 0.85rem; color: var(--white); text-align: right; }
+
+/* Waiver Box */
+.waiver-box {
+  background: rgba(143,0,5,0.1); border: 1px solid rgba(143,0,5,0.3);
+  padding: 24px; margin-bottom: 28px;
+}
+.waiver-box h4 { font-size: 0.78rem; font-weight: 700; margin-bottom: 10px; }
+.waiver-box p { font-size: 0.8rem; color: var(--white-60); line-height: 1.7; }
+
+/* Error Message */
+.form-error-msg {
+  background: rgba(143,0,5,0.15); border: 1px solid rgba(143,0,5,0.4);
+  color: #ff6b6b; padding: 14px 18px;
+  font-size: 0.85rem; margin-bottom: 24px;
+  display: none;
+}
+
+/* Success State */
+.reg-success {
+  text-align: center; padding: 40px 20px;
+}
+.success-icon {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: rgba(254,213,7,0.15); border: 2px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; color: var(--gold);
+  margin: 0 auto 28px; font-weight: 900;
+}
+.reg-success h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 900; margin-bottom: 12px; }
+.reg-success > p { font-size: 1rem; color: var(--white-60); margin-bottom: 40px; }
+.bib-display {
+  display: inline-flex; flex-direction: column;
+  align-items: center; gap: 8px;
+  border: 2px dashed rgba(254,213,7,0.4);
+  padding: 32px 48px; margin: 0 auto 24px; display: flex;
+}
+.bib-label {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--white-40);
+}
+.bib-number {
+  font-size: 4.5rem; font-weight: 900;
+  color: var(--gold); font-family: 'Montserrat', var(--font);
+  line-height: 1;
+}
+.bib-note { font-size: 0.72rem; color: var(--white-40); }
+.bib-race-tag {
+  display: inline-block; padding: 6px 16px;
+  background: var(--crimson); color: var(--white);
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; margin-bottom: 32px;
+}
+.success-next-steps {
+  text-align: left; background: var(--card-bg);
+  border: 1px solid var(--card-border); padding: 28px 32px;
+  margin-bottom: 32px;
+}
+.success-next-steps h4 { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+.success-next-steps ol { padding-left: 20px; display: flex; flex-direction: column; gap: 10px; }
+.success-next-steps li { font-size: 0.88rem; color: var(--white-60); line-height: 1.6; }
+.success-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* ═══════════════════════ SPONSOR PAGE ═══════════════════════ */
+
+/* Why Sponsor Grid */
+.why-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px; margin-top: 64px;
+}
+.why-card {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  padding: 40px 32px;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.why-card:hover { border-color: rgba(254,213,7,0.3); transform: translateY(-4px); }
+.why-icon { font-size: 2rem; margin-bottom: 16px; }
+.why-card h3 { font-size: 0.95rem; font-weight: 800; margin-bottom: 12px; }
+.why-card p { font-size: 0.86rem; color: var(--white-60); line-height: 1.7; }
+
+/* Benefits Table */
+.benefits-table-wrap { overflow-x: auto; margin-top: 64px; }
+.benefits-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.benefits-table th, .benefits-table td {
+  padding: 14px 20px; text-align: center;
+  border: 1px solid var(--card-border);
+}
+.benefits-table th {
+  background: var(--card-bg); font-size: 0.72rem;
+  font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--white-60);
+}
+.benefits-table th small { display: block; color: var(--gold); font-size: 0.68rem; font-weight: 900; margin-top: 4px; }
+.benefits-table th:first-child, .benefits-table td:first-child { text-align: left; color: var(--white-60); }
+.benefits-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+.benefits-table td { color: var(--white-60); }
+.col-title th { color: var(--gold); }
+.benefits-table td:nth-child(2) { color: var(--gold); font-weight: 700; }
+
+/* Enquiry Layout */
+.enquiry-layout {
+  display: grid; grid-template-columns: 1.5fr 1fr;
+  gap: 60px; margin-top: 64px; align-items: start;
+}
+.enquiry-contact h3 { font-size: 1rem; font-weight: 800; margin-bottom: 12px; }
+.enquiry-contact > p { font-size: 0.88rem; color: var(--white-60); line-height: 1.7; margin-bottom: 24px; }
+.contact-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; }
+.contact-item { display: flex; gap: 14px; align-items: flex-start; }
+.contact-item > span { font-size: 1.2rem; margin-top: 2px; }
+.contact-item div { display: flex; flex-direction: column; gap: 4px; }
+.contact-item strong { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white-40); }
+.contact-item a, .contact-item span:last-child { font-size: 0.88rem; color: var(--white-60); transition: color 0.3s; }
+.contact-item a:hover { color: var(--gold); }
+.download-prospectus { background: var(--card-bg); border: 1px solid var(--card-border); padding: 28px 24px; }
+.download-prospectus h4 { font-size: 0.78rem; font-weight: 700; margin-bottom: 10px; }
+.download-prospectus p { font-size: 0.82rem; color: var(--white-60); margin-bottom: 16px; line-height: 1.6; }
+.enquiry-success { text-align: center; padding: 48px 32px; background: var(--card-bg); border: 1px solid var(--card-border); }
+.enquiry-success h3 { font-size: 1.4rem; font-weight: 800; margin: 16px 0 12px; }
+.enquiry-success p { font-size: 0.9rem; color: var(--white-60); line-height: 1.7; }
+
+/* ═══════════════════════ RESPONSIVE ═══════════════════════ */
+@media (max-width: 1100px) {
+  .schools-grid { grid-template-columns: repeat(2, 1fr); }
+  .reg-section { grid-template-columns: 1fr; }
+  .reg-sidebar { position: relative; height: auto; min-height: 400px; }
+  .reg-sidebar-content { padding: calc(var(--header-h) + 32px) 32px 40px; }
+  .race-full-card { 
+    grid-template-columns: 1fr; 
+    display: flex; 
+    flex-direction: column;
+  }
+  .race-full-img, .race-full-card:nth-child(even) .race-full-img { order: 1; min-height: 300px; }
+  .race-full-body, .race-full-card:nth-child(even) .race-full-body { order: 2; padding: 40px 24px; }
+  .img-text-grid { grid-template-columns: 1fr; gap: 48px; }
+  .enquiry-layout { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .page-hero { min-height: 55vh; padding: calc(var(--header-h) + 48px) 5% 56px; }
+  .two-col-card-grid { grid-template-columns: 1fr; }
+  .three-col-grid { grid-template-columns: 1fr; }
+  .values-grid { grid-template-columns: 1fr 1fr; }
+  .schools-grid { grid-template-columns: 1fr; }
+  .campus-stats-grid { grid-template-columns: 1fr 1fr; }
+  .prep-grid { grid-template-columns: 1fr; }
+  .course-info-grid { grid-template-columns: 1fr; }
+  .race-details-grid { 
+    grid-template-columns: 1fr 1fr; 
+    gap: 1px;
+  }
+  .race-detail { padding: 12px; }
+  .rd-val { font-size: 0.75rem; }
+  .form-grid-2 { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; }
+  .reg-form-panel { padding: 32px 5% 64px; }
+  .reg-form-wrapper { max-width: 100%; }
+  .form-nav { flex-direction: column; gap: 12px; }
+  .form-nav .btn { width: 100%; text-align: center; }
+  .reg-race-mini-cards { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .values-grid { grid-template-columns: 1fr; }
+  .race-details-grid { grid-template-columns: 1fr; }
+  .success-actions { flex-direction: column; }
+  .bib-display { padding: 24px 32px; }
+  .bib-number { font-size: 3.5rem; }
+  .reg-race-mini-cards { grid-template-columns: 1fr; }
+  .step-indicator { gap: 0; }
+  .step-item span { display: none; }
+}
