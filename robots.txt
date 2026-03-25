@@ -1,0 +1,20 @@
+# robots.txt — Hekima University Molo Marathon 2026
+# https://hekimaa.vercel.app/
+
+# Allow all legitimate search engine crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin panel from public indexing
+Disallow: /admin.html
+Disallow: /admin/
+
+# Disallow any PHP backend files
+Disallow: /api/
+Disallow: /*.php$
+
+# Crawl delay (optional, be courteous to servers)
+Crawl-delay: 10
+
+# Point to sitemap
+Sitemap: https://hekimaa.vercel.app/sitemap.xml

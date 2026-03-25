@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel & Stay | The Proposed Hekima University Molo Marathon</title>
+  <meta name="description" content="Plan your trip to Molo. Find information on partner hotels, transport services, and staycations in Nakuru and Nairobi.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="pages.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="site-header scrolled">
+  <div class="header-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/Logo 2.png" alt="Hekima University Logo">
+    </a>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <div class="nav-item-dropdown">
+        <a href="about.html" class="nav-link">About Us</a>
+        <div class="dropdown-content">
+          <a href="about.html">The University</a>
+          <a href="team.html">The Team</a>
+          <a href="media.html">Media & Newsletter</a>
+        </div>
+      </div>
+      <a href="races.html" class="nav-link">Races</a>
+      <a href="sponsor.html" class="nav-link">Sponsors</a>
+      <a href="shop.html" class="nav-link">Shop</a>
+      <a href="transport.html" class="nav-link active-link">Travel & Stay</a>
+      <a href="register.html" class="nav-btn" id="nav-register-btn" style="margin-left: 16px;">Register Now</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" style="display: none;">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <a href="index.html">Home</a>
+  <a href="about.html">About PHU</a>
+  <a href="team.html">The Team</a>
+  <a href="media.html">Media & Newsletter</a>
+  <a href="races.html">Races</a>
+  <a href="sponsor.html">Sponsors</a>
+  <a href="shop.html">Shop</a>
+  <a href="transport.html">Travel & Stay</a>
+  <a href="register.html" class="mobile-register">Register Now</a>
+</div>
+
+<main>
+  <section class="page-hero" style="min-height: 40vh;">
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content container">
+      <h1>Travel & <span class="gold-text">Stay</span></h1>
+      <p>Seamless travel arrangements for international and national participants. We handle the hassle so you can focus on the run.</p>
+    </div>
+  </section>
+
+  <section class="pd-section bg-black">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Travel Easy</span>
+        <h2 class="section-title">Partner <span class="gold-text">Services</span></h2>
+        <p class="section-sub">From flight bookings to luxury staycations, our partners provide full-service support for your marathon experience.</p>
+      </div>
+
+      <div class="travel-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px;">
+        <!-- Flights & Booking -->
+        <div class="travel-card" style="background: var(--card-bg); border: 1px solid var(--card-border); padding: 40px;">
+          <div style="font-size: 2.5rem; margin-bottom: 24px;">✈️</div>
+          <h3 style="font-size: 1.25rem; margin-bottom: 12px;">Flights &amp; International Bookings</h3>
+          <p style="font-size: 0.9rem; color: var(--white-60); line-height: 1.7; margin-bottom: 24px;">Special rates for international runners flying into Jomo Kenyatta International Airport (Nairobi) or Eldoret International Airport.</p>
+          <ul style="font-size: 0.85rem; color: var(--white-40); margin-bottom: 24px; display: flex; flex-direction: column; gap: 8px;">
+            <li>✓ Priority Flight Booking</li>
+            <li>✓ Visa Assistance</li>
+            <li>✓ Meet & Greet at Airport</li>
+          </ul>
+          <a href="#" class="btn btn-outline" style="width: 100%; text-align: center;">Enquire for Flights</a>
+        </div>
+
+        <!-- Accommodation -->
+        <div class="travel-card" style="background: var(--card-bg); border: 1px solid var(--card-border); padding: 40px;">
+          <div style="font-size: 2.5rem; margin-bottom: 24px;">🏨</div>
+          <h3 style="font-size: 1.25rem; margin-bottom: 12px;">Hotels &amp; Staycations</h3>
+          <p style="font-size: 0.9rem; color: var(--white-60); line-height: 1.7; margin-bottom: 24px;">Partner hotels in Nakuru and Nairobi offer exclusive "Marathon Packages" including healthy meals and race-day shuttles.</p>
+          <ul style="font-size: 0.85rem; color: var(--white-40); margin-bottom: 24px; display: flex; flex-direction: column; gap: 8px;">
+            <li>✓ Luxury Hotels in Nakuru</li>
+            <li>✓ Game Lodges & Staycations</li>
+            <li>✓ Budget-friendly Student Hostel options</li>
+          </ul>
+          <a href="#" class="btn btn-outline" style="width: 100%; text-align: center;">View Partner Hotels</a>
+        </div>
+
+        <!-- Ground Transport -->
+        <div class="travel-card" style="background: var(--card-bg); border: 1px solid var(--card-border); padding: 40px;">
+          <div style="font-size: 2.5rem; margin-bottom: 24px;">🚌</div>
+          <h3 style="font-size: 1.25rem; margin-bottom: 12px;">Ground Transport</h3>
+          <p style="font-size: 0.9rem; color: var(--white-60); line-height: 1.7; margin-bottom: 24px;">Reliable transport services between Nairobi, Nakuru, and the race venue in Molo for all participants.</p>
+          <ul style="font-size: 0.85rem; color: var(--white-40); margin-bottom: 24px; display: flex; flex-direction: column; gap: 8px;">
+            <li>✓ Private Airport Transfers</li>
+            <li>✓ Group Shuttle Services</li>
+            <li>✓ Car Hire Services</li>
+          </ul>
+          <a href="#" class="btn btn-outline" style="width: 100%; text-align: center;">Book Transport</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-main">
+    <div class="footer-brand">
+      <img src="assets/Logo 2.png" alt="Hekima University Logo">
+      <p>Producing visionary and ethical professionals to spur social transformation.</p>
+    </div>
+    <div class="footer-contact">
+      <h4>Travel Desk</h4>
+      <p>✉️ travel@phumolomarathon.co.ke</p>
+      <p>📞 0758 111 770 / 0720 137 421</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Proposed Hekima University Molo Marathon. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
