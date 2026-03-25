@@ -791,7 +791,9 @@ button { border:none; background:none; font-family:var(--font); cursor:pointer; 
   .tl-time { display:none; }
   .sponsor-grid { grid-template-columns: 1fr; }
   .sponsor-title .sc-benefits { columns: 1; }
-  .footer-main { grid-template-columns: 1fr; gap: 40px; }
+  .footer-main { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+  .footer-brand img { margin: 0 auto 24px; }
+  .footer-socials { justify-content: center; }
   .footer-bottom { flex-direction: column; text-align: center; }
   .timer-block { min-width: 80px; padding: 20px 16px; }
   .timer-sep { display: none; }

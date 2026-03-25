@@ -788,6 +788,13 @@ textarea.form-input { resize: vertical; min-height: 100px; }
   .why-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
+@media (max-width: 991px) {
+  .heritage-grid { grid-template-columns: 1fr; gap: 40px; }
+  .heritage-visual { order: -1; margin-bottom: 20px; }
+  .heritage-stat-box { top: -20px; left: 0; padding: 20px; }
+  .hs-num { font-size: 2rem; }
+}
+
 @media (max-width: 768px) {
   .page-hero { min-height: 55vh; padding: calc(var(--header-h) + 48px) 5% 56px; }
   .two-col-card-grid { grid-template-columns: 1fr; }
@@ -798,8 +805,8 @@ textarea.form-input { resize: vertical; min-height: 100px; }
   .prep-grid { grid-template-columns: 1fr; }
   .course-info-grid { grid-template-columns: 1fr; }
   .race-details-grid { 
-    grid-template-columns: 1fr 1fr; 
-    gap: 1px;
+    grid-template-columns: 1fr;
+    gap: 0;
   }
   .race-detail { padding: 12px; }
   .rd-val { font-size: 0.75rem; }
