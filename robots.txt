@@ -1,5 +1,5 @@
 # robots.txt — Hekima University Molo Marathon 2026
-# https://hekimaa.vercel.app/
+# https://phumolomarathon.co.ke/
 
 # Allow all legitimate search engine crawlers
 User-agent: *
@@ -17,4 +17,4 @@ Disallow: /*.php$
 Crawl-delay: 10
 
 # Point to sitemap
-Sitemap: https://hekimaa.vercel.app/sitemap.xml
+Sitemap: https://phumolomarathon.co.ke/sitemap.xml
