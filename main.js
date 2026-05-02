@@ -84,7 +84,7 @@
     if (!daysEl) return;
 
     // Race date: 8 August 2026 06:00 EAT (UTC+3)
-    const raceDate = new Date('2026-08-08T06:00:00+03:00');
+    const raceDate = new Date('2026-08-08T07:00:00+03:00');
 
     function pad(n, len = 2) {
       return String(n).padStart(len, '0');

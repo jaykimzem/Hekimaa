@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register for Activation | Hekima University Molo Marathon 2026</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="pages.css">
+</head>
+<body class="bg-near-black">
+
+<!-- Navigation -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="nav-logo"><img src="assets/Logo 2.png" alt="Hekima Logo"></a>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="milestones.html" class="nav-link">Back to Milestones</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container" style="padding-top: 150px; padding-bottom: 100px; max-width: 600px;">
+  <div class="register-form-container">
+    <h1 id="activation-title">Register for <span class="gold-text">Activation</span></h1>
+    <p id="activation-sub">Join us for this community event leading up to the main marathon.</p>
+    
+    <form id="activation-form" style="margin-top: 40px;">
+      <input type="hidden" name="event_type" id="event-type">
+      <div class="form-group">
+        <label class="form-label">Full Name <span class="req">*</span></label>
+        <input type="text" name="name" class="form-input" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address <span class="req">*</span></label>
+        <input type="email" name="email" class="form-input" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone Number <span class="req">*</span></label>
+        <input type="tel" name="phone" class="form-input" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Why do you want to join this activation?</label>
+        <textarea name="message" class="form-input" rows="3"></textarea>
+      </div>
+      <button type="submit" class="btn btn-gold w-full" id="submit-btn">Complete Registration</button>
+    </form>
+
+    <div id="activation-success" style="display:none; text-align: center; padding: 40px 0;">
+      <div class="success-icon" style="font-size: 3rem; margin-bottom: 20px;">✓</div>
+      <h2>Registration <span class="gold-text">Successful!</span></h2>
+      <p>Thank you for signing up. We will send you more details about the event via email shortly.</p>
+      <a href="milestones.html" class="btn btn-outline" style="margin-top: 20px;">Back to Milestones</a>
+    </div>
+  </div>
+</main>
+
+<script>
+  // Get event from URL
+  const params = new URLSearchParams(window.location.search);
+  const event = params.get('event');
+  if (event) {
+    document.getElementById('event-type').value = event;
+    const titleMap = {
+      'molo': 'Molo Activation',
+      'karura': 'Youth Karura Activation',
+      'sponsors': 'Sponsors Breakfast',
+      'volunteers': 'Volunteers Briefing',
+      'final': 'Nairobi Final Activation'
+    };
+    if (titleMap[event]) {
+      document.getElementById('activation-title').innerHTML = `Register for <span class="gold-text">${titleMap[event]}</span>`;
+    }
+  }
+
+  document.getElementById('activation-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Processing...';
+
+    const formData = new FormData(this);
+    fetch('api/contact_submit.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        this.style.display = 'none';
+        document.getElementById('activation-success').style.display = 'block';
+      } else {
+        alert('Error: ' + data.message);
+        btn.disabled = false;
+        btn.textContent = 'Complete Registration';
+      }
+    })
+    .catch(err => {
+      alert('System error.');
+      btn.disabled = false;
+      btn.textContent = 'Complete Registration';
+    });
+  });
+</script>
+</body>
+</html>
