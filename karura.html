@@ -483,7 +483,19 @@
       method: 'POST',
       body: formData
     })
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) {
+          throw new Error('Server returned ' + res.status + ' ' + res.statusText);
+      }
+      return res.text().then(text => {
+          try {
+              return JSON.parse(text);
+          } catch (e) {
+              console.error('Invalid JSON:', text);
+              throw new Error('Invalid server response. Please contact support.');
+          }
+      });
+    })
     .then(data => {
       if (data.success) {
         alert(data.message);
@@ -497,7 +509,8 @@
       }
     })
     .catch(err => {
-      alert('Network error. Please try again.');
+      console.error(err);
+      alert('Error: ' + err.message);
       btn.disabled = false;
       btn.textContent = originalText;
     });
