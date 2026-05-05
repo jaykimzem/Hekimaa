@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+// v1.0.1 - Force redeploy
 
 const inter = Inter({ subsets: ['latin'] })
 
