@@ -1,0 +1,7 @@
+# Ignore sensitive configuration files
+includes/payhero_config.php
+includes/db.php
+.env
+logs/*.json
+logs/*.log
+temp/

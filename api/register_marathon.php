@@ -11,10 +11,15 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $data = $_POST;
 
 // Basic validation
-if (empty($data['email']) || empty($data['phone']) || empty($data['id_number'])) {
-    echo json_encode(['success' => false, 'message' => 'Required fields are missing.']);
+if (empty($data['phone']) || empty($data['race_category'])) {
+    echo json_encode(['success' => false, 'message' => 'Phone and Race Category are required.']);
     exit();
 }
+
+$email = $data['email'] ?? null;
+$first_name = $data['first_name'] ?? 'Runner';
+$last_name = $data['last_name'] ?? time();
+
 
 try {
     $pdo->beginTransaction();
@@ -22,18 +27,19 @@ try {
     // 1. Create or Update User
     $stmt = $pdo->prepare("INSERT INTO users (first_name, last_name, email, phone, date_of_birth, gender, nationality, id_number, county) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) 
-        ON DUPLICATE KEY UPDATE first_name=VALUES(first_name), last_name=VALUES(last_name), phone=VALUES(phone)");
+        ON DUPLICATE KEY UPDATE first_name=VALUES(first_name), last_name=VALUES(last_name)");
     $stmt->execute([
-        $data['first_name'], $data['last_name'], $data['email'], $data['phone'], 
-        $data['date_of_birth'], $data['gender'], $data['nationality'], $data['id_number'], $data['county'] ?? null
+        $first_name, $last_name, $email, $data['phone'], 
+        $data['date_of_birth'] ?? null, $data['gender'] ?? null, $data['nationality'] ?? null, $data['id_number'] ?? null, $data['county'] ?? null
     ]);
     
     $user_id = $pdo->lastInsertId();
     if (!$user_id) {
-        $user = $pdo->prepare("SELECT id FROM users WHERE email = ?");
-        $user->execute([$data['email']]);
+        $user = $pdo->prepare("SELECT id FROM users WHERE phone = ?");
+        $user->execute([$data['phone']]);
         $user_id = $user->fetchColumn();
     }
+
 
     // 2. Create Pending Payment Record
     $amount = 500.00; // Flat price as per requirements
@@ -61,26 +67,28 @@ try {
     ];
 
     if ($payMethod === 'mpesa_stk') {
-        // Initiate PayHero STK Push
-        /*
-        $payload = [
-            'amount' => $amount,
-            'phone_number' => $data['phone'],
-            'channel_id' => PAYHERO_CHANNEL_ID,
-            'external_reference' => $reference,
-            'callback_url' => PAYMENT_CALLBACK_URL
-        ];
-        // ... curl call ...
-        */
-        $response['message'] = 'STK Push initiated.';
+        require_once '../includes/mpesa_helper.php';
+        $stk = MpesaHelper::stkPush($data['phone'], $amount, $reference);
+        
+        if ($stk['success']) {
+            $checkoutID = $stk['data']['CheckoutRequestID'] ?? null;
+            if ($checkoutID) {
+                $upd = $pdo->prepare("UPDATE payments SET checkout_request_id = ? WHERE id = ?");
+                $upd->execute([$checkoutID, $payment_id]);
+            }
+            $response['message'] = 'STK Push initiated. Please check your phone.';
+        } else {
+            $response['success'] = false;
+            $response['message'] = 'M-Pesa error: ' . $stk['message'];
+        }
     } elseif ($payMethod === 'mpesa_manual') {
         $response['message'] = 'Manual payment instructions provided.';
-        $response['till_number'] = '9462547';
+        $response['paybill'] = MPESA_PAYBILL;
     } elseif ($payMethod === 'card') {
-        // Here you would generate a redirect URL for Card Payment (PayHero/PesaPal/etc)
         $response['message'] = 'Redirecting to card gateway.';
-        $response['redirect_url'] = 'https://payhero.co.ke/pay/HekimaMarathon'; // Example
+        $response['redirect_url'] = '#'; 
     }
+
 
     $pdo->commit();
     echo json_encode($response);

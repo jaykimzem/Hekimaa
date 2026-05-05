@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS payments (
     transaction_id VARCHAR(100) UNIQUE NULL,
     reference_id VARCHAR(100) UNIQUE NOT NULL, -- Our internal ref for PayHero
     status ENUM('pending', 'success', 'failed', 'cancelled') DEFAULT 'pending',
+    checkout_request_id VARCHAR(100) NULL,
     metadata JSON NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -98,6 +99,34 @@ CREATE TABLE IF NOT EXISTS admins (
     email VARCHAR(150) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     role ENUM('superadmin', 'manager', 'editor') DEFAULT 'manager',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Karura Run Registrations (Paid)
+CREATE TABLE IF NOT EXISTS karura_registrations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    names VARCHAR(200) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    email VARCHAR(150) NOT NULL,
+    company VARCHAR(200) NULL,
+    emergency_contact VARCHAR(20) NOT NULL,
+    payment_status ENUM('pending', 'success', 'failed') DEFAULT 'pending',
+    transaction_id VARCHAR(100) NULL,
+    checkout_request_id VARCHAR(100) NULL,
+    reference VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Karura Sponsorship Requests
+CREATE TABLE IF NOT EXISTS karura_sponsorships (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    names VARCHAR(200) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    reg_no VARCHAR(50) NOT NULL,
+    institution VARCHAR(200) NOT NULL,
+    program VARCHAR(200) NOT NULL,
+    emergency_contact VARCHAR(20) NOT NULL,
+    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karura Youth Run 2026 | Hekima University Molo Marathon Activation</title>
+  <meta name="description" content="Join the Karura Youth Run on 23 May 2026. A vibrant youth-led run through Karura Forest to champion education and environmental stewardship.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="pages.css">
+  <style>
+    :root {
+      --karura-green: #2ecc71;
+      --karura-green-dark: #27ae60;
+      --karura-yellow: #f1c40f;
+      --vibrant-gradient: linear-gradient(135deg, #2ecc71 0%, #3498db 100%);
+    }
+
+    .karura-hero {
+      position: relative;
+      height: 80vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .karura-hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('karura_youth_run_hero_1778014334967.png');
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+      transition: transform 0.5s ease;
+    }
+
+    .karura-hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+      z-index: -1;
+    }
+
+    .karura-hero-content {
+      max-width: 900px;
+      padding: 0 20px;
+    }
+
+    .karura-hero-eyebrow {
+      display: inline-block;
+      background: var(--karura-green);
+      color: #000;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+    }
+
+    .karura-hero-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    .karura-hero-desc {
+      font-size: 1.25rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 40px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .karura-meta {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      padding: 12px 24px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .meta-icon { font-size: 1.5rem; }
+    .meta-text strong { display: block; font-size: 1.1rem; }
+    .meta-text span { font-size: 0.85rem; opacity: 0.8; }
+
+    /* Form Sections */
+    .karura-forms {
+      padding: 100px 0;
+      background: #0a0a0a;
+      position: relative;
+    }
+
+    .forms-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .form-card {
+      background: #151515;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 40px;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--karura-green);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .form-card.sponsor-card:hover {
+      border-color: var(--karura-yellow);
+    }
+
+    .form-header {
+      margin-bottom: 30px;
+    }
+
+    .form-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      background: var(--karura-green);
+      color: #000;
+    }
+
+    .sponsor-card .form-badge {
+      background: var(--karura-yellow);
+    }
+
+    .form-header h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .form-header p {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.9rem;
+    }
+
+    .karura-form {
+      display: grid;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .form-input {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 12px 16px;
+      border-radius: 8px;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--karura-green);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .sponsor-card .form-input:focus {
+      border-color: var(--karura-yellow);
+    }
+
+    .btn-karura {
+      background: var(--karura-green);
+      color: #000;
+      font-weight: 800;
+      padding: 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      margin-top: 10px;
+    }
+
+    .btn-karura:hover {
+      background: var(--karura-green-dark);
+      transform: scale(1.02);
+    }
+
+    .btn-sponsor {
+      background: var(--karura-yellow);
+    }
+
+    .btn-sponsor:hover {
+      background: #d4ac0d;
+    }
+
+    @media (max-width: 992px) {
+      .forms-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Vibrant Accents */
+    .vibrant-circle {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: var(--karura-green);
+      filter: blur(150px);
+      opacity: 0.1;
+      z-index: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="loader" role="status" aria-label="Loading">
+  <div class="loader-inner">
+    <div class="loader-logo"><img src="assets/Logo 2.png" alt="Hekima University Logo"></div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+    <p class="loader-text">Warming up for Karura&hellip;</p>
+  </div>
+</div>
+
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="nav-logo" aria-label="Hekima Marathon Home">
+      <img src="assets/Logo 2.png" alt="Hekima University Logo">
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About Us</a>
+      <a href="races.html" class="nav-link">Races</a>
+      <a href="karura.html" class="nav-link active">Karura Run</a>
+      <a href="sponsor.html" class="nav-link">Sponsors</a>
+      <a href="register.html" class="nav-btn">Register Now</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- Hero Section -->
+  <section class="karura-hero">
+    <div class="karura-hero-bg"></div>
+    <div class="karura-hero-content reveal-up">
+      <span class="karura-hero-eyebrow">Youth Run Activation</span>
+      <h1 class="karura-hero-title">Karura Forest<br><span style="color: var(--karura-green);">Launch</span></h1>
+      <p class="karura-hero-desc">Engaging the next generation. A vibrant youth-led run through Karura Forest to champion education and environmental stewardship through sport.</p>
+      
+      <div class="karura-meta">
+        <div class="meta-item">
+          <span class="meta-icon">📅</span>
+          <div class="meta-text">
+            <strong>23 MAY 2026</strong>
+            <span>Save the Date</span>
+          </div>
+        </div>
+        <div class="meta-item">
+          <span class="meta-icon">📍</span>
+          <div class="meta-text">
+            <strong>Nairobi</strong>
+            <span>Karura Forest</span>
+          </div>
+        </div>
+        <div class="meta-item">
+          <span class="meta-icon">🌱</span>
+          <div class="meta-text">
+            <strong>Youth Led</strong>
+            <span>Impact Driven</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-cta">
+        <a href="#register" class="btn btn-karura" style="padding: 18px 40px; border-radius: 50px;">Sign Up to Run</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Forms Section -->
+  <section class="karura-forms" id="register">
+    <div class="vibrant-circle" style="top: 10%; left: -10%;"></div>
+    <div class="vibrant-circle" style="bottom: 10%; right: -10%; background: var(--karura-yellow);"></div>
+    
+    <div class="container">
+      <div class="section-header" style="text-align: center; margin-bottom: 60px;">
+        <h2 class="section-title">Join the <span class="gold-text">Movement</span></h2>
+        <p class="section-sub">Choose your participation category below and be part of history.</p>
+      </div>
+
+      <div class="forms-grid">
+        <!-- Form 1: Paid Signup -->
+        <div class="form-card reveal-up">
+          <div class="form-header">
+            <span class="form-badge">RUNNER REGISTRATION</span>
+            <h2>Pay & <span style="color: var(--karura-green);">Sign Up</span></h2>
+            <p>Secure your spot in the Karura Youth Run. Paybill: 614090. Registration fee: KES 500.</p>
+          </div>
+          <form class="karura-form" id="karura-paid-form">
+            <div class="form-group">
+              <label for="p-names">Full Names *</label>
+              <input type="text" id="p-names" name="names" class="form-input" placeholder="e.g. Jane Doe" required>
+            </div>
+            <div class="form-group">
+              <label for="p-phone">M-Pesa Phone *</label>
+              <input type="tel" id="p-phone" name="phone" class="form-input" placeholder="07XXXXXXXX" required>
+            </div>
+            <div class="form-group">
+              <label for="p-email">Email Address *</label>
+              <input type="email" id="p-email" name="email" class="form-input" placeholder="jane@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="p-company">Company Name (Optional)</label>
+              <input type="text" id="p-company" name="company" class="form-input" placeholder="e.g. Global Link Marketing">
+            </div>
+            <div class="form-group">
+              <label for="p-emergency">Emergency Contact *</label>
+              <input type="tel" id="p-emergency" name="emergency_contact" class="form-input" placeholder="07XXXXXXXX" required>
+            </div>
+            <button type="submit" class="btn-karura">Pay & Register →</button>
+          </form>
+        </div>
+
+        <!-- Form 2: Sponsorship Request -->
+        <div class="form-card sponsor-card reveal-up" style="--delay: 0.2s">
+          <div class="form-header">
+            <span class="form-badge">SPONSORSHIP REQUEST</span>
+            <h2>Request <span style="color: var(--karura-yellow);">Sponsorship</span></h2>
+            <p>Are you a student? Request for sponsorship to participate in the run.</p>
+          </div>
+          <form class="karura-form" id="karura-sponsor-form">
+            <div class="form-group">
+              <label for="s-names">Full Names *</label>
+              <input type="text" id="s-names" name="names" class="form-input" placeholder="e.g. John Doe" required>
+            </div>
+            <div class="form-group">
+              <label for="s-phone">Phone Number *</label>
+              <input type="tel" id="s-phone" name="phone" class="form-input" placeholder="07XXXXXXXX" required>
+            </div>
+            <div class="form-group">
+              <label for="s-regno">Registration No *</label>
+              <input type="text" id="s-regno" name="reg_no" class="form-input" placeholder="e.g. PHU/2026/001" required>
+            </div>
+            <div class="form-group">
+              <label for="s-school">School / Institution *</label>
+              <input type="text" id="s-school" name="institution" class="form-input" placeholder="e.g. Hekima University" required>
+            </div>
+            <div class="form-group">
+              <label for="s-program">Program Undertaking *</label>
+              <input type="text" id="s-program" name="program" class="form-input" placeholder="e.g. B.Sc. Innovation" required>
+            </div>
+            <div class="form-group">
+              <label for="s-emergency">Emergency Contact *</label>
+              <input type="tel" id="s-emergency" name="emergency_contact" class="form-input" placeholder="07XXXXXXXX" required>
+            </div>
+            <button type="submit" class="btn-karura btn-sponsor">Submit Request →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Info Section -->
+  <section class="experience-section">
+    <div class="container">
+      <div class="exp-grid">
+        <div class="exp-text reveal-up">
+          <h2 class="section-title">Why the <span class="gold-text">Karura Run?</span></h2>
+          <p>The Karura Youth Run is the official Nairobi activation for the Proposed Hekima University Molo Marathon. It brings together the energy of the city's youth with the tranquility of Karura Forest.</p>
+          <ul class="exp-list">
+            <li><span class="check" style="color: var(--karura-green)">✓</span> Promote High Quality Education</li>
+            <li><span class="check" style="color: var(--karura-green)">✓</span> Environmental Stewardship</li>
+            <li><span class="check" style="color: var(--karura-green)">✓</span> Networking & Community Building</li>
+            <li><span class="check" style="color: var(--karura-green)">✓</span> Health & Wellness through Sport</li>
+          </ul>
+        </div>
+        <div class="exp-village reveal-up" style="--delay: 0.2s">
+          <div class="village-card" style="background: var(--vibrant-gradient);">
+            <h3 class="village-title" style="color: white;">Event Schedule</h3>
+            <div class="village-features" style="color: white;">
+              <span>🕒 06:30 AM — Arrival & Warm-up</span>
+              <span>🕒 07:30 AM — Flag Off</span>
+              <span>🕒 10:00 AM — Awards & Networking</span>
+              <span>🕒 11:30 AM — Tree Planting</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <!-- Footer content same as index.html -->
+  <div class="footer-main">
+    <div class="footer-brand">
+      <img src="assets/Logo 2.png" alt="Hekima University Logo">
+      <p>Producing visionary and ethical professionals to spur social transformation.</p>
+    </div>
+    <div class="footer-nav">
+      <h4>Navigation</h4>
+      <a href="index.html">Home</a>
+      <a href="karura.html">Karura Run</a>
+      <a href="races.html">Race Categories</a>
+      <a href="register.html">Register Now</a>
+    </div>
+    <div class="footer-contact">
+      <h4>Contact</h4>
+      <p>📍 Nairobi — Karura Forest</p>
+      <p>📅 23 May 2026</p>
+      <p>✉️ enquiries@phumolomarathon.co.ke</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Proposed Hekima University Molo Marathon. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+  // Karura Form Handling
+  document.getElementById('karura-paid-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('button');
+    const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+    const formData = new FormData(this);
+    formData.append('type', 'paid');
+
+    fetch('api/karura_submit.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        alert(data.message);
+        if (data.reference) {
+          startPolling(data.reference, btn, originalText);
+        }
+      } else {
+        alert(data.message || 'Error occurred');
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    })
+    .catch(err => {
+      alert('Network error. Please try again.');
+      btn.disabled = false;
+      btn.textContent = originalText;
+    });
+  });
+
+  document.getElementById('karura-sponsor-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('button');
+    const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+    const formData = new FormData(this);
+    formData.append('type', 'sponsorship');
+
+    fetch('api/karura_submit.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        alert(data.message);
+        this.reset();
+      } else {
+        alert(data.message || 'Error occurred');
+      }
+      btn.disabled = false;
+      btn.textContent = originalText;
+    })
+    .catch(err => {
+      alert('Network error. Please try again.');
+      btn.disabled = false;
+      btn.textContent = originalText;
+    });
+  });
+
+  function startPolling(ref, btn, originalText) {
+    const pollInterval = setInterval(() => {
+      fetch('api/check_status.php?ref=' + ref)
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.payment_status === 'success') {
+          clearInterval(pollInterval);
+          alert('Payment Confirmed! Your registration for Karura Run is complete.');
+          btn.textContent = 'Registration Confirmed ✓';
+          btn.style.background = '#27ae60';
+        } else if (data.success && data.payment_status === 'failed') {
+          clearInterval(pollInterval);
+          alert('Payment failed. Please try again.');
+          btn.disabled = false;
+          btn.textContent = originalText;
+        }
+      });
+    }, 3000);
+
+    // Timeout after 3 minutes
+    setTimeout(() => {
+      clearInterval(pollInterval);
+      if (btn.textContent.indexOf('Confirmed') === -1) {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    }, 180000);
+  }
+</script>
+</body>
+</html>

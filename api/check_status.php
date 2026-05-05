@@ -9,22 +9,29 @@ if (!$ref) {
     exit();
 }
 
-$stmt = $pdo->prepare("
-    SELECT p.status as payment_status, r.status as reg_status, r.bib_number 
-    FROM payments p 
-    JOIN registrations r ON r.payment_id = p.id 
-    WHERE p.reference_id = ?
-");
+$stmt = $pdo->prepare("SELECT id, status as payment_status FROM payments WHERE reference_id = ?");
 $stmt->execute([$ref]);
-$status = $stmt->fetch();
+$payment = $stmt->fetch();
 
-if ($status) {
-    echo json_encode([
+if ($payment) {
+    $response = [
         'success' => true,
-        'payment_status' => $status['payment_status'],
-        'reg_status' => $status['reg_status'],
-        'bib_number' => $status['bib_number']
-    ]);
+        'payment_status' => $payment['payment_status'],
+        'reg_status' => null,
+        'bib_number' => null
+    ];
+
+    // Try to get bib if it's a marathon reg
+    $reg = $pdo->prepare("SELECT status, bib_number FROM registrations WHERE payment_id = ?");
+    $reg->execute([$payment['id']]);
+    $regData = $reg->fetch();
+    
+    if ($regData) {
+        $response['reg_status'] = $regData['status'];
+        $response['bib_number'] = $regData['bib_number'];
+    }
+
+    echo json_encode($response);
 } else {
     echo json_encode(['success' => false, 'message' => 'Reference not found.']);
 }

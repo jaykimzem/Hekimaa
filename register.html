@@ -45,6 +45,7 @@
         </div>
       </div>
       <a href="races.html" class="nav-link">Races</a>
+      <a href="karura.html" class="nav-link">Karura Run</a>
       <a href="sponsor.html" class="nav-link">Sponsors</a>
       <a href="shop.html" class="nav-link">Merchandise</a>
       <a href="transport.html" class="nav-link">Travel &amp; Stay</a>
@@ -66,6 +67,7 @@
   <a href="https://phu.ac.ke" target="_blank" rel="noopener">PHU (Official Site) ↗</a>
   <a href="https://globallinkmarketing.co.ke" target="_blank" rel="noopener">Global Link Marketing ↗</a>
   <a href="races.html">Races</a>
+  <a href="karura.html">Karura Run</a>
   <a href="sponsor.html">Sponsors</a>
   <a href="shop.html">Merchandise</a>
   <a href="transport.html">Travel &amp; Stay</a>
@@ -112,43 +114,37 @@
         <div class="step-indicator" role="tablist" aria-label="Registration steps">
           <div class="step-item active" id="step-ind-1" role="tab" aria-selected="true">
             <div class="step-circle">1</div>
-            <span>Race</span>
+            <span>Payment</span>
           </div>
           <div class="step-line"></div>
           <div class="step-item" id="step-ind-2" role="tab" aria-selected="false">
             <div class="step-circle">2</div>
-            <span>Details</span>
+            <span>Profile</span>
           </div>
           <div class="step-line"></div>
           <div class="step-item" id="step-ind-3" role="tab" aria-selected="false">
             <div class="step-circle">3</div>
-            <span>Health</span>
-          </div>
-          <div class="step-line"></div>
-          <div class="step-item" id="step-ind-4" role="tab" aria-selected="false">
-            <div class="step-circle">4</div>
-            <span>Confirm</span>
+            <span>Finish</span>
           </div>
         </div>
 
         <form id="reg-form" novalidate>
 
-          <!-- ═══ STEP 1: Race Selection ═══ -->
+          <!-- ═══ STEP 1: Express Payment ═══ -->
           <div class="form-step active" id="step-1" role="tabpanel" aria-labelledby="step-ind-1">
             <div class="form-step-header">
-              <span class="form-step-num">Step 1 of 4</span>
-              <h2>Choose Your <span class="gold-text">Race</span></h2>
-              <p>Select the race category you wish to participate in.</p>
+              <span class="form-step-num">Express Registration</span>
+              <h2>Secure Your <span class="gold-text">Spot</span></h2>
+              <p>Select your race and enter your M-Pesa number for instant registration.</p>
             </div>
 
             <div class="race-select-cards" role="radiogroup" aria-label="Select race category">
               <label class="race-select-card" for="race-21k">
-                <input type="radio" name="race_category" id="race-21k" value="21k" required>
+                <input type="radio" name="race_category" id="race-21k" value="21k" checked>
                 <div class="rsc-content">
                   <div class="rsc-dist">21<span>KM</span></div>
                   <div class="rsc-info">
                     <strong>Half Marathon</strong>
-                    <span>All athletes — International &amp; National · Start: 7:00 AM</span>
                     <span class="rsc-price">KES 500</span>
                   </div>
                 </div>
@@ -161,7 +157,6 @@
                   <div class="rsc-dist">10<span>KM</span></div>
                   <div class="rsc-info">
                     <strong>10KM Open Run</strong>
-                    <span>All athletes participate · Start: 8:00 AM</span>
                     <span class="rsc-price">KES 500</span>
                   </div>
                 </div>
@@ -173,9 +168,8 @@
                 <div class="rsc-content">
                   <div class="rsc-dist">5<span>KM</span></div>
                   <div class="rsc-info">
-                    <strong>Corporate Challenge</strong>
-                    <span>Teams of 5+ · Networking &amp; branding · Start: 9:00 AM</span>
-                    <span class="rsc-price">KES 500 per person</span>
+                    <strong>Corporate</strong>
+                    <span class="rsc-price">KES 500</span>
                   </div>
                 </div>
                 <div class="rsc-check">✓</div>
@@ -186,8 +180,7 @@
                 <div class="rsc-content">
                   <div class="rsc-dist" style="color:var(--crimson)">5<span>KM</span></div>
                   <div class="rsc-info">
-                    <strong>Community Run</strong>
-                    <span>Open to everyone · Fun &amp; Peace · Start: 9:00 AM</span>
+                    <strong>Community</strong>
                     <span class="rsc-price">KES 500</span>
                   </div>
                 </div>
@@ -195,240 +188,92 @@
               </label>
             </div>
 
-            <!-- AK Number (for elite categories) -->
-            <div class="form-group ak-toggle-group">
-              <div class="checkbox-group" style="margin-bottom: 12px;">
-                <input type="checkbox" id="has-ak" name="has_ak" class="form-checkbox">
-                <label for="has-ak" class="checkbox-label">I have an Athletics Kenya (AK) Membership Number</label>
+            <div class="form-group" style="margin-top: 30px;">
+              <label class="form-label" for="phone">M-Pesa Phone Number <span class="req">*</span></label>
+              <div class="phone-input-wrapper" style="position: relative;">
+                <input type="tel" id="phone" name="phone" class="form-input" placeholder="07XXXXXXXX" required style="font-size: 1.2rem; padding: 15px; border-color: var(--gold);">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/M-PESA_LOGO-01.svg" alt="M-Pesa" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); height: 24px;">
               </div>
-              <div id="ak-field-container" style="display: none;">
-                <label class="form-label" for="ak-number">Athletics Kenya Membership Number</label>
-                <input type="text" id="ak-number" name="ak_number" class="form-input" placeholder="e.g. AK-12345" autocomplete="off">
-                <p class="form-hint">Providing your AK number helps with elite seeding and ranking.</p>
-              </div>
+              <p class="form-hint">A payment prompt will be sent to this number.</p>
             </div>
 
-            <div class="form-nav">
-              <div></div>
-              <button type="button" class="btn btn-gold" id="step1-next">Next: Personal Details →</button>
+            <div class="payment-options" style="display: none;">
+                <input type="radio" name="payment_method" value="mpesa_stk" checked>
+            </div>
+
+            <div class="waiver-box" style="margin-top: 20px; font-size: 0.75rem; opacity: 0.8;">
+              <p>By clicking "Pay & Register", you agree to the <a href="terms.html">Terms</a> and <a href="legal.html">Indemnity Waiver</a>. A flat fee of KES 500 applies.</p>
+            </div>
+
+            <div class="form-nav" style="margin-top: 30px;">
+              <button type="submit" class="btn btn-gold btn-lg btn-block" id="express-pay-btn" style="width: 100%; justify-content: center; font-size: 1.1rem; padding: 18px;">
+                <i class="fas fa-bolt"></i> Pay &amp; Secure My BIB →
+              </button>
+            </div>
+
+            <div class="manual-pay-hint" style="text-align: center; margin-top: 20px;">
+                <p style="font-size: 0.85rem; color: var(--white-40);">Prefer manual payment? Use Paybill: <strong style="color: var(--gold);">614090</strong></p>
             </div>
           </div>
 
-          <!-- ═══ STEP 2: Personal Details ═══ -->
+          <!-- ═══ STEP 2: Profile Details (Post-Payment) ═══ -->
           <div class="form-step" id="step-2" role="tabpanel" aria-labelledby="step-ind-2">
             <div class="form-step-header">
-              <span class="form-step-num">Step 2 of 4</span>
-              <h2>Personal <span class="gold-text">Details</span></h2>
-              <p>Please provide accurate information — this will appear on your race bib and confirmation.</p>
+              <span class="form-step-num">Step 2 of 2</span>
+              <h2>Complete Your <span class="gold-text">Profile</span></h2>
+              <p>Awesome! Your payment is being processed. Please provide these details for your BIB and kit collection.</p>
             </div>
 
             <div class="form-grid-2">
               <div class="form-group">
                 <label class="form-label" for="first-name">First Name <span class="req">*</span></label>
-                <input type="text" id="first-name" name="first_name" class="form-input" placeholder="e.g. John" required autocomplete="given-name">
+                <input type="text" id="first-name" name="first_name" class="form-input" placeholder="e.g. John" required>
               </div>
               <div class="form-group">
                 <label class="form-label" for="last-name">Last Name <span class="req">*</span></label>
-                <input type="text" id="last-name" name="last_name" class="form-input" placeholder="e.g. Kamau" required autocomplete="family-name">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="email">Email Address <span class="req">*</span></label>
-              <input type="email" id="email" name="email" class="form-input" placeholder="your.email@example.com" required autocomplete="email">
-              <p class="form-hint">Your race confirmation and digital ticket will be sent to this email.</p>
-            </div>
-
-            <div class="form-grid-2">
-              <div class="form-group">
-                <label class="form-label" for="phone">Phone Number <span class="req">*</span></label>
-                <input type="tel" id="phone" name="phone" class="form-input" placeholder="+254 7XX XXX XXX" required autocomplete="tel">
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="dob">Date of Birth <span class="req">*</span></label>
-                <input type="date" id="dob" name="date_of_birth" class="form-input" required>
+                <input type="text" id="last-name" name="last_name" class="form-input" placeholder="e.g. Kamau" required>
               </div>
             </div>
 
             <div class="form-grid-2">
               <div class="form-group">
-                <label class="form-label" for="gender">Gender <span class="req">*</span></label>
-                <select id="gender" name="gender" class="form-input" required>
-                  <option value="">Select gender</option>
+                <label class="form-label" for="id-number">ID / Passport <span class="req">*</span></label>
+                <input type="text" id="id-number" name="id_number" class="form-input" placeholder="12345678" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email">Email Address</label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com">
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="date_of_birth" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="gender">Gender</label>
+                <select id="gender" name="gender" class="form-input">
                   <option value="male">Male</option>
                   <option value="female">Female</option>
-                  <option value="other">Other / Prefer not to say</option>
                 </select>
               </div>
-              <div class="form-group">
-                <label class="form-label" for="nationality">Nationality <span class="req">*</span></label>
-                <select id="nationality" name="nationality" class="form-input" required>
-                  <option value="">Select nationality</option>
-                  <option value="kenyan" selected>Kenyan</option>
-                  <option value="ugandan">Ugandan</option>
-                  <option value="tanzanian">Tanzanian</option>
-                  <option value="rwandan">Rwandan</option>
-                  <option value="ethiopian">Ethiopian</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="id-number">National ID / Passport Number <span class="req">*</span></label>
-              <input type="text" id="id-number" name="id_number" class="form-input" placeholder="e.g. 12345678" required autocomplete="off">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="county">County / Region</label>
-              <select id="county" name="county" class="form-input">
-                <option value="">Select your county (optional)</option>
-                <option value="nakuru">Nakuru County</option>
-                <option value="nairobi">Nairobi City County</option>
-                <option value="mombasa">Mombasa County</option>
-                <option value="kisumu">Kisumu County</option>
-                <option value="other">Other County</option>
-                <option value="international">Outside Kenya</option>
-              </select>
-            </div>
-
-            <!-- Corporate-specific field -->
-            <div class="form-group corp-only" style="display:none">
-              <label class="form-label" for="org-name">Organisation / Company Name <span class="req">*</span></label>
-              <input type="text" id="org-name" name="organisation" class="form-input" placeholder="e.g. Safaricom PLC" autocomplete="organization">
-            </div>
-
-            <div class="form-nav">
-              <button type="button" class="btn btn-outline" id="step2-back">← Back</button>
-              <button type="button" class="btn btn-gold" id="step2-next">Next: Health Info →</button>
-            </div>
-          </div>
-
-          <!-- ═══ STEP 3: Health & Emergency ═══ -->
-          <div class="form-step" id="step-3" role="tabpanel" aria-labelledby="step-ind-3">
-            <div class="form-step-header">
-              <span class="form-step-num">Step 3 of 4</span>
-              <h2>Health &amp; <span class="gold-text">Emergency</span></h2>
-              <p>Your safety is our priority. Please provide accurate health and emergency contact information.</p>
             </div>
 
             <div class="form-group">
               <label class="form-label" for="tshirt-size">T-Shirt Size <span class="req">*</span></label>
               <select id="tshirt-size" name="tshirt_size" class="form-input" required>
-                <option value="">Select your t-shirt size</option>
-                <option value="xs">XS — Extra Small</option>
-                <option value="s">S — Small</option>
-                <option value="m">M — Medium</option>
-                <option value="l">L — Large</option>
-                <option value="xl">XL — Extra Large</option>
-                <option value="xxl">XXL — Double Extra Large</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Do you have any medical conditions we should be aware of?</label>
-              <div class="radio-group">
-                <label class="radio-label"><input type="radio" name="medical_condition" value="no" checked><span>No, I am in good health</span></label>
-                <label class="radio-label"><input type="radio" name="medical_condition" value="yes"><span>Yes, I have a condition to declare</span></label>
-              </div>
-            </div>
-
-            <div class="form-group medical-detail" style="display:none">
-              <label class="form-label" for="medical-notes">Please describe your medical condition(s)</label>
-              <textarea id="medical-notes" name="medical_notes" class="form-input" rows="3" placeholder="e.g. Asthma, diabetic, heart condition — please be specific"></textarea>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="blood-group">Blood Group</label>
-              <select id="blood-group" name="blood_group" class="form-input">
-                <option value="">Unknown / Not sure</option>
-                <option value="A+">A+</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B-">B-</option>
-                <option value="AB+">AB+</option>
-                <option value="AB-">AB-</option>
-                <option value="O+">O+</option>
-                <option value="O-">O-</option>
-              </select>
-            </div>
-
-            <div class="form-divider"><span>Emergency Contact</span></div>
-
-            <div class="form-grid-2">
-              <div class="form-group">
-                <label class="form-label" for="emerg-name">Emergency Contact Name <span class="req">*</span></label>
-                <input type="text" id="emerg-name" name="emergency_name" class="form-input" placeholder="Full name" required>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="emerg-relation">Relationship <span class="req">*</span></label>
-                <select id="emerg-relation" name="emergency_relation" class="form-input" required>
-                  <option value="">Select</option>
-                  <option value="spouse">Spouse / Partner</option>
-                  <option value="parent">Parent</option>
-                  <option value="sibling">Sibling</option>
-                  <option value="child">Child</option>
-                  <option value="friend">Friend</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="emerg-phone">Emergency Contact Phone <span class="req">*</span></label>
-              <input type="tel" id="emerg-phone" name="emergency_phone" class="form-input" placeholder="+254 7XX XXX XXX" required>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="how-heard">How did you hear about the marathon?</label>
-              <select id="how-heard" name="how_heard" class="form-input">
-                <option value="">Select an option</option>
-                <option value="social-media">Social Media</option>
-                <option value="radio">Radio / TV</option>
-                <option value="word-of-mouth">Word of Mouth</option>
-                <option value="official-website">Official Website</option>
-                <option value="employer">Employer / Organisation</option>
-                <option value="other">Other</option>
+                <option value="m">Medium (M)</option>
+                <option value="s">Small (S)</option>
+                <option value="l">Large (L)</option>
+                <option value="xl">Extra Large (XL)</option>
               </select>
             </div>
 
             <div class="form-nav">
-              <button type="button" class="btn btn-outline" id="step3-back">← Back</button>
-              <button type="button" class="btn btn-gold" id="step3-next">Review Registration →</button>
+              <button type="button" class="btn btn-gold btn-block" id="finish-profile-btn" style="width: 100%; justify-content: center;">Save &amp; Get My BIB →</button>
             </div>
           </div>
-
-          <!-- ═══ STEP 4: Confirmation ═══ -->
-          <div class="form-step" id="step-4" role="tabpanel" aria-labelledby="step-ind-4">
-            <div class="form-step-header">
-              <span class="form-step-num">Step 4 of 4</span>
-              <h2>Review &amp; <span class="gold-text">Confirm</span></h2>
-              <p>Please review your registration details before submitting.</p>
-            </div>
-
-            <!-- Summary display (populated by JS) -->
-            <div class="reg-summary" id="reg-summary" aria-live="polite">
-              <div class="rs-section">
-                <h4>Race Category</h4>
-                <div class="rs-row"><span>Selected Race</span><strong id="sum-race">—</strong></div>
-                <div class="rs-row" id="sum-ak-row" style="display:none"><span>AK Membership</span><strong id="sum-ak">—</strong></div>
-              </div>
-              <div class="rs-section">
-                <h4>Personal Details</h4>
-                <div class="rs-row"><span>Full Name</span><strong id="sum-name">—</strong></div>
-                <div class="rs-row"><span>Email</span><strong id="sum-email">—</strong></div>
-                <div class="rs-row"><span>Phone</span><strong id="sum-phone">—</strong></div>
-                <div class="rs-row"><span>Gender</span><strong id="sum-gender">—</strong></div>
-                <div class="rs-row"><span>Nationality</span><strong id="sum-nationality">—</strong></div>
-                <div class="rs-row"><span>ID / Passport</span><strong id="sum-id">—</strong></div>
-              </div>
-              <div class="rs-section">
-                <h4>Health &amp; Emergency</h4>
-                <div class="rs-row"><span>T-Shirt Size</span><strong id="sum-tshirt">—</strong></div>
-                <div class="rs-row"><span>Medical Condition</span><strong id="sum-medical">—</strong></div>
-                <div class="rs-row"><span>Emergency Contact</span><strong id="sum-emerg">—</strong></div>
-              </div>
-            </div>
 
             <!-- Payment Selection -->
             <div class="rs-section" style="margin-top: 30px; border-top: 2px solid var(--white-10); padding-top: 30px;">
@@ -452,8 +297,8 @@
                   <div class="poc-content">
                     <div class="poc-icon">🧾</div>
                     <div class="poc-text">
-                      <strong>M-Pesa Buy Goods (Till)</strong>
-                      <span>Till Number: <strong style="color: var(--gold);">9462547</strong></span>
+                      <strong>M-Pesa Paybill</strong>
+                      <span>Paybill Number: <strong style="color: var(--gold);">614090</strong></span>
                     </div>
                   </div>
                 </label>
@@ -593,26 +438,15 @@
 <script src="main.js"></script>
 <script>
 (function() {
+
   'use strict';
 
-  // ── Read URL for pre-selected race ──
-  const params = new URLSearchParams(window.location.search);
-  const preRace = params.get('race');
-  if (preRace) {
-    const radioMap = { '21k': 'race-21k', '10k': 'race-10k', 'corporate': 'race-corp', 'community': 'race-community' };
-    const radioId = radioMap[preRace];
-    if (radioId) {
-      const radio = document.getElementById(radioId);
-      if (radio) radio.checked = true;
-    }
-  }
-
   // ── Step Navigation ──
-  const steps = [1, 2, 3, 4].map(n => document.getElementById('step-' + n));
-  const indicators = [1, 2, 3, 4].map(n => document.getElementById('step-ind-' + n));
+  const steps = [1, 2].map(n => document.getElementById('step-' + n));
+  const indicators = [1, 2, 3].map(n => document.getElementById('step-ind-' + n));
   let currentStep = 1;
+  let activeReference = null;
 
-  // ── Step switching ──
   function showStep(n) {
     steps.forEach((step, idx) => {
       if (idx === n - 1) step.classList.add('active');
@@ -627,159 +461,23 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // ── AK Toggle logic ──
-  const akCheckbox = document.getElementById('has-ak');
-  const akContainer = document.getElementById('ak-field-container');
-  if (akCheckbox) {
-    akCheckbox.addEventListener('change', function() {
-      akContainer.style.display = this.checked ? 'block' : 'none';
-      if (!this.checked) document.getElementById('ak-number').value = '';
-    });
-  }
+  // ── Step 1: Express Pay ──
+  const regForm = document.getElementById('reg-form');
+  const expressPayBtn = document.getElementById('express-pay-btn');
 
-  // ── Step Validation ──
-  function validateStep1() {
-    const race = document.querySelector('input[name="race_category"]:checked');
-    if (!race) { showError('Please select a race category to continue.'); return false; }
-    return true;
-  }
-
-  // ── AK field visibility ──
-  const raceRadios = document.querySelectorAll('input[name="race_category"]');
-  const akField = document.getElementById('ak-field');
-  const corpFields = document.querySelectorAll('.corp-only');
-
-  // ── Medical condition toggle ──
-  const medRadios = document.querySelectorAll('input[name="medical_condition"]');
-  const medDetail = document.querySelector('.medical-detail');
-  medRadios.forEach(r => {
-    r.addEventListener('change', () => {
-      medDetail.style.display = (r.value === 'yes' && r.checked) ? 'block' : 'none';
-    });
-  });
-
-
-
-  // ── Validate Step 2 ──
-  function validateStep2() {
-    const firstName = document.getElementById('first-name').value.trim();
-    const lastName = document.getElementById('last-name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const dob = document.getElementById('dob').value;
-    const gender = document.getElementById('gender').value;
-    const nationality = document.getElementById('nationality').value;
-    const idNum = document.getElementById('id-number').value.trim();
-    if (!firstName || !lastName) { showError('Please enter your full name.'); return false; }
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError('Please enter a valid email address.'); return false; }
-    if (!phone) { showError('Please enter your phone number.'); return false; }
-    if (!dob) { showError('Please enter your date of birth.'); return false; }
-    if (!gender) { showError('Please select your gender.'); return false; }
-    if (!nationality) { showError('Please select your nationality.'); return false; }
-    if (!idNum) { showError('Please enter your National ID or Passport number.'); return false; }
-    return true;
-  }
-
-  // ── Validate Step 3 ──
-  function validateStep3() {
-    const tshirt = document.getElementById('tshirt-size').value;
-    const emergName = document.getElementById('emerg-name').value.trim();
-    const emergRel = document.getElementById('emerg-relation').value;
-    const emergPhone = document.getElementById('emerg-phone').value.trim();
-    if (!tshirt) { showError('Please select your t-shirt size.'); return false; }
-    if (!emergName) { showError('Please enter an emergency contact name.'); return false; }
-    if (!emergRel) { showError('Please select your relationship to your emergency contact.'); return false; }
-    if (!emergPhone) { showError('Please enter your emergency contact phone number.'); return false; }
-    return true;
-  }
-
-  function showError(msg) {
-    let el = document.getElementById('form-error-msg');
-    if (!el) {
-      el = document.createElement('div');
-      el.id = 'form-error-msg';
-      el.className = 'form-error-msg';
-      document.querySelector('.form-step.active').prepend(el);
-    }
-    el.textContent = msg;
-    el.style.display = 'block';
-    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    setTimeout(() => { el.style.display = 'none'; }, 4000);
-  }
-
-  // ── Race labels ──
-  const raceLabels = {
-    '21k': '21KM Half Marathon (KES 500)',
-    '10k': '10KM Open Run (KES 500)',
-    'corporate': '5KM Corporate Challenge (KES 500/person)',
-    'community': '5KM Community Run (KES 500)'
-  };
-
-  // ── BIB number ranges per category ──
-  function getBibNumber(raceVal, gender) {
-    const g = (gender || '').toLowerCase();
-    if (raceVal === '21k') return g === 'female' ? (12000 + Math.floor(Math.random()*800)) : (11000 + Math.floor(Math.random()*800));
-    if (raceVal === '10k') return g === 'female' ? (22000 + Math.floor(Math.random()*800)) : (21000 + Math.floor(Math.random()*800));
-    if (raceVal === 'corporate') return g === 'female' ? (32000 + Math.floor(Math.random()*800)) : (31000 + Math.floor(Math.random()*800));
-    if (raceVal === 'community') return g === 'female' ? (42000 + Math.floor(Math.random()*800)) : (41000 + Math.floor(Math.random()*800));
-    return 10000 + Math.floor(Math.random()*9000);
-  }
-
-  // ── Populate summary ──
-  function populateSummary() {
-    const race = document.querySelector('input[name="race_category"]:checked');
-    const raceVal = race ? race.value : '';
-    document.getElementById('sum-race').textContent = raceLabels[raceVal] || '—';
-
-    const akRow = document.getElementById('sum-ak-row');
-    if (raceVal === '21k') {
-      akRow.style.display = '';
-      document.getElementById('sum-ak').textContent = document.getElementById('ak-number').value || '—';
-    } else {
-      akRow.style.display = 'none';
-    }
-    const fn = document.getElementById('first-name').value.trim();
-    const ln = document.getElementById('last-name').value.trim();
-    document.getElementById('sum-name').textContent = fn && ln ? fn + ' ' + ln : '—';
-    document.getElementById('sum-email').textContent = document.getElementById('email').value || '—';
-    document.getElementById('sum-phone').textContent = document.getElementById('phone').value || '—';
-    document.getElementById('sum-gender').textContent = document.getElementById('gender').value || '—';
-    document.getElementById('sum-nationality').textContent = document.getElementById('nationality').value || '—';
-    document.getElementById('sum-id').textContent = document.getElementById('id-number').value || '—';
-    document.getElementById('sum-tshirt').textContent = document.getElementById('tshirt-size').value.toUpperCase() || '—';
-    const medYes = document.querySelector('input[name="medical_condition"][value="yes"]');
-    document.getElementById('sum-medical').textContent = medYes && medYes.checked ? 'Yes — declared' : 'None declared';
-    const en = document.getElementById('emerg-name').value.trim();
-    const ep = document.getElementById('emerg-phone').value.trim();
-    document.getElementById('sum-emerg').textContent = en ? en + ' (' + ep + ')' : '—';
-  }
-
-  // ── Button handlers ──
-  document.getElementById('step1-next').addEventListener('click', () => {
-    if (validateStep1()) showStep(2);
-  });
-  document.getElementById('step2-back').addEventListener('click', () => showStep(1));
-  document.getElementById('step2-next').addEventListener('click', () => {
-    if (validateStep2()) showStep(3);
-  });
-  document.getElementById('step3-back').addEventListener('click', () => showStep(2));
-  document.getElementById('step3-next').addEventListener('click', () => {
-    if (validateStep3()) { populateSummary(); showStep(4); }
-  });
-  document.getElementById('step4-back').addEventListener('click', () => showStep(3));
-
-  // ── Form Submit ──
-  document.getElementById('reg-form').addEventListener('submit', function(e) {
+  regForm.addEventListener('submit', function(e) {
     e.preventDefault();
-    const terms = document.getElementById('accept-terms');
-    if (!terms.checked) { showError('Please read and accept the Waiver & Indemnity to complete your registration.'); return; }
+    if (currentStep === 2) return; // Handled by finish-profile-btn
+
+    const phone = document.getElementById('phone').value.trim();
+    if (!phone || !/^(07|01|254)[0-9]{8}$/.test(phone.replace(/\s/g, ''))) {
+      showError('Please enter a valid M-Pesa phone number.');
+      return;
+    }
 
     const formData = new FormData(this);
-    const submitBtn = this.querySelector('button[type="submit"]');
-    const originalBtnText = submitBtn.innerHTML;
-    
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Initializing Payment...';
+    expressPayBtn.disabled = true;
+    expressPayBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending STK Push...';
 
     fetch('api/register_marathon.php', {
       method: 'POST',
@@ -788,68 +486,68 @@
     .then(res => res.json())
     .then(data => {
       if (data.success) {
-        const payMethod = formData.get('payment_method');
-        
-        // Show "Payment Pending" screen
-        document.getElementById('reg-form').style.display = 'none';
-        document.querySelector('.step-indicator').style.display = 'none';
-        
-        const container = document.querySelector('.register-form-container');
-        const pendingEl = document.createElement('div');
-        pendingEl.id = 'reg-pending';
-        pendingEl.className = 'success-screen';
-        
-        if (payMethod === 'mpesa_stk') {
-          pendingEl.innerHTML = `
-            <div class="success-icon" style="background: var(--gold);"><i class="fas fa-mobile-alt"></i></div>
-            <h2>STK Push <span class="gold-text">Sent</span></h2>
-            <p>We've sent an M-Pesa prompt to <strong>${formData.get('phone')}</strong>.</p>
-            <p style="font-size: 0.9rem; color: var(--white-40);">Please enter your PIN on your phone to complete. We are waiting for confirmation...</p>
-            <div class="polling-indicator" style="margin-top: 30px;">
-              <div class="loader-bar"><div class="loader-fill"></div></div>
-              <p style="font-size: 0.8rem; margin-top: 10px;">Waiting for confirmation...</p>
-            </div>
-          `;
-          startPolling(data.reference);
-        } else if (payMethod === 'mpesa_manual') {
-          pendingEl.innerHTML = `
-            <div class="success-icon" style="background: var(--gold);"><i class="fas fa-receipt"></i></div>
-            <h2>Manual <span class="gold-text">Payment</span></h2>
-            <p>Please pay <strong>KES 500</strong> to the following Till Number:</p>
-            <div style="background: #111; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid var(--gold);">
-              <div style="font-size: 0.8rem; color: var(--white-40);">M-Pesa Buy Goods</div>
-              <div style="font-size: 2rem; font-weight: 800; color: var(--gold);">9462547</div>
-            </div>
-            <p style="font-size: 0.9rem; color: var(--white-40);">Once paid, please enter the M-Pesa Transaction Code below to complete your registration.</p>
-            <div style="margin-top: 20px;">
-              <input type="text" id="manual-trans-code" class="form-input" placeholder="e.g. RBT5XXXXXX" style="text-align: center; margin-bottom: 15px;">
-              <button onclick="verifyManualCode('${data.reference}')" class="btn btn-gold w-full">Verify Code & Finish</button>
-            </div>
-          `;
-        } else {
-          pendingEl.innerHTML = `
-            <div class="success-icon" style="background: var(--gold);"><i class="fas fa-credit-card"></i></div>
-            <h2>Card <span class="gold-text">Payment</span></h2>
-            <p>Click the button below to pay securely via our card gateway.</p>
-            <a href="${data.redirect_url || '#'}" target="_blank" class="btn btn-gold w-full" style="margin-top: 20px;">Pay with Card</a>
-            <p style="font-size: 0.8rem; color: var(--white-40); margin-top: 20px;">After payment, your BIB number will be automatically confirmed.</p>
-          `;
-          startPolling(data.reference);
-        }
-        
-        container.appendChild(pendingEl);
+        activeReference = data.reference;
+        // Success! Now move to Step 2 to collect profile details while payment is pending
+        showStep(2);
+        startPolling(data.reference);
       } else {
-        showError(data.message || 'Registration failed. Please try again.');
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnText;
+        showError(data.message || 'Payment failed to initiate. Please try again.');
+        expressPayBtn.disabled = false;
+        expressPayBtn.innerHTML = '<i class="fas fa-bolt"></i> Pay & Secure My BIB →';
       }
     })
     .catch(err => {
       showError('System error. Please check your connection.');
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = originalBtnText;
+      expressPayBtn.disabled = false;
+      expressPayBtn.innerHTML = '<i class="fas fa-bolt"></i> Pay & Secure My BIB →';
     });
   });
+
+  // ── Step 2: Update Profile ──
+  const finishProfileBtn = document.getElementById('finish-profile-btn');
+  finishProfileBtn.addEventListener('click', function() {
+    const fn = document.getElementById('first-name').value.trim();
+    const ln = document.getElementById('last-name').value.trim();
+    const id = document.getElementById('id-number').value.trim();
+    const tshirt = document.getElementById('tshirt-size').value;
+
+    if (!fn || !ln || !id || !tshirt) {
+      showError('Please fill in all required fields to complete your BIB registration.');
+      return;
+    }
+
+    const formData = new FormData(regForm);
+    finishProfileBtn.disabled = true;
+    finishProfileBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving Profile...';
+
+    fetch('api/update_registration.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+          // If already paid, show success. Otherwise show "Waiting for Payment"
+          checkPaymentStatusBeforeSuccess();
+      } else {
+        showError(data.message || 'Failed to update profile.');
+        finishProfileBtn.disabled = false;
+        finishProfileBtn.innerHTML = 'Save & Get My BIB →';
+      }
+    });
+  });
+
+  function checkPaymentStatusBeforeSuccess() {
+      // Show a "Finalizing" state
+      document.getElementById('step-2').innerHTML = `
+        <div style="text-align:center; padding: 40px 0;">
+            <div class="loader-bar" style="margin-bottom: 20px;"><div class="loader-fill"></div></div>
+            <h3>Finalizing Your BIB...</h3>
+            <p>We are just waiting for the M-Pesa payment confirmation. Don't close this page.</p>
+        </div>
+      `;
+      // Polling is already running from Step 1
+  }
 
   function startPolling(ref) {
     const pollInterval = setInterval(() => {
@@ -866,63 +564,55 @@
       });
     }, 3000);
 
-    // Stop polling after 2 minutes
-    setTimeout(() => { clearInterval(pollInterval); }, 120000);
+    setTimeout(() => { clearInterval(pollInterval); }, 300000); // 5 mins max
   }
 
   function showSuccess(data) {
-    const pending = document.getElementById('reg-pending');
-    if (pending) pending.style.display = 'none';
+    regForm.style.display = 'none';
+    document.querySelector('.step-indicator').style.display = 'none';
     
     const successEl = document.getElementById('reg-success');
     successEl.style.display = 'block';
 
-    const fn = document.getElementById('first-name').value.trim();
-    const ln = document.getElementById('last-name').value.trim();
-    const race = document.querySelector('input[name="race_category"]:checked');
-
-    document.getElementById('success-welcome').textContent = 'Welcome to the race, ' + fn + ' ' + ln + '!';
+    const fn = document.getElementById('first-name').value.trim() || 'Runner';
+    const ln = document.getElementById('last-name').value.trim() || '';
+    
+    document.getElementById('success-welcome').textContent = 'Registration Confirmed! Welcome, ' + fn + '.';
     document.getElementById('bib-number').textContent = '#' + (data.bib_number || 'TBA');
-    document.getElementById('bib-race-info').innerHTML = '<span class="bib-race-tag">' + (raceLabels[race ? race.value : ''] || 'Marathon 2026') + '</span>';
+    
+    const race = document.querySelector('input[name="race_category"]:checked');
+    const raceLabels = { '21k': '21KM Half Marathon', '10k': '10KM Open Run', 'corporate': '5KM Corporate', 'community': '5KM Community' };
+    document.getElementById('bib-race-info').innerHTML = `<span class="bib-race-tag">${raceLabels[race.value]}</span>`;
   }
 
   function handlePaymentFailure() {
-    const pending = document.getElementById('reg-pending');
-    if (pending) {
-      pending.innerHTML = `
-        <div class="success-icon" style="background: var(--danger);"><i class="fas fa-times"></i></div>
-        <h2>Payment <span class="gold-text">Failed</span></h2>
-        <p>Your transaction was not successful or was cancelled.</p>
-        <button onclick="location.reload()" class="btn btn-gold" style="margin-top: 20px;">Try Again</button>
-      `;
-    }
+      showError('Payment was not completed. Please try again.');
+      setTimeout(() => location.reload(), 3000);
   }
 
-  window.verifyManualCode = function(ref) {
-    const code = document.getElementById('manual-trans-code').value.trim();
-    if (!code) { alert('Please enter your transaction code.'); return; }
-    
-    const btn = event.target;
-    btn.disabled = true;
-    btn.textContent = 'Verifying...';
-    
-    fetch('api/verify_manual.php', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ reference: ref, code: code })
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.success) {
-        showSuccess(data);
-      } else {
-        alert(data.message || 'Verification failed. Please double check the code.');
-        btn.disabled = false;
-        btn.textContent = 'Verify Code & Finish';
-      }
-    });
+  function showError(msg) {
+    let el = document.getElementById('form-error-msg');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'form-error-msg';
+      el.className = 'form-error-msg';
+      document.querySelector('.form-step.active').prepend(el);
+    }
+    el.textContent = msg;
+    el.style.display = 'block';
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => { el.style.display = 'none'; }, 5000);
   }
+
+  // Pre-select race from URL
+  const params = new URLSearchParams(window.location.search);
+  const preRace = params.get('race');
+  if (preRace) {
+    const radio = document.querySelector(`input[value="${preRace}"]`);
+    if (radio) radio.checked = true;
+  }
+
 })();
-</script>
+
 </body>
 </html>
