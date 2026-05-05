@@ -26,7 +26,7 @@ export default function RegistrationsPage() {
   const fetchAll = useCallback(async () => {
     setLoading(true)
     const { data } = await supabaseAdmin.from('registrations').select('*').order('bib_number')
-    setRegistrations(data || [])
+    setRegistrations((data as Registration[]) || [])
     setLoading(false)
   }, [])
 

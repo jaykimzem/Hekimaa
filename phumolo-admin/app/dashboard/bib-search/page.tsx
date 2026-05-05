@@ -28,7 +28,7 @@ export default function BibSearchPage() {
       .eq('bib_number', parseInt(query.trim()))
       .single()
 
-    setResult(data || null)
+    setResult((data as Registration | null) || null)
     setLoading(false)
   }
 

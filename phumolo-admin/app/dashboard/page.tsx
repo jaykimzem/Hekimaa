@@ -26,7 +26,7 @@ export default function DashboardPage() {
       .from('registrations')
       .select('*')
       .order('submitted_at', { ascending: false })
-    setRegistrations(data || [])
+    setRegistrations((data as Registration[]) || [])
     setLoading(false)
   }, [])
 
