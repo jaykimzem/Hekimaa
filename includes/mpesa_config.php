@@ -1,10 +1,10 @@
 <?php
 // Safaricom Daraja API Credentials
-define('MPESA_CONSUMER_KEY', 'jekbXu4J8x6GOoA08VC9LuUsrEgJR2y8Aas7jHMuUXSzIHUi');
-define('MPESA_CONSUMER_SECRET', 'GcXJDSLjP3bXofoC8PZY7g86B8WFT3SlvVBtIXFjcQ7GAlTjSLzpiaDhYT4TZ1QH');
+define('MPESA_CONSUMER_KEY', 'AOzHQg79Scm1xk2oN0mHeQBAAMRb4cctuTf9yczXmeUvLS60');
+define('MPESA_CONSUMER_SECRET', 'NxhEtNzhwIdLS1fNsv31Hqw6AOiiF6ylhG2ZYtHlS8RAY9cmO0OwvDaRDACi6G6j');
 define('MPESA_PAYBILL', '614090');
 define('MPESA_SHORTCODE', '614090');
-define('MPESA_PASSKEY', 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'); // Default sandbox passkey - USER NEEDS TO PROVIDE PRODUCTION PASSKEY
+define('MPESA_PASSKEY', 'b36c58bb7615e3a4301796f6ef98600129f399eeded62805e2d37e8f06829635');
 
 // Environment: 'sandbox' or 'production'
 define('MPESA_ENV', 'production'); 
