@@ -39,7 +39,7 @@ export default function RunnerProfile({ params }: { params: Promise<{ bib: strin
   const updateStatus = async () => {
     if (!runner) return
     setSaving(true)
-    await (supabaseAdmin.from('registrations') as any).update({ payment_status: status }).eq('id', runner.id)
+    await supabaseAdmin.from('registrations').update({ payment_status: status }).eq('id', runner.id)
     setRunner({ ...runner, payment_status: status as Registration['payment_status'] })
     setSaving(false)
     setSaved(true)

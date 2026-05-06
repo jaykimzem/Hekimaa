@@ -81,8 +81,7 @@ export default function RegistrationsPage() {
     URL.revokeObjectURL(url)
   }
 
-  const SortIcon = ({ field }: { field: SortField }) =>
-    sortField === field ? <span className="ml-1 text-orange-500">{sortDir === 'asc' ? '↑' : '↓'}</span> : <span className="ml-1 text-zinc-600">↕</span>
+
 
   return (
     <div className="space-y-6">
@@ -123,15 +122,15 @@ export default function RegistrationsPage() {
           <table className="w-full text-sm">
             <thead className="bg-zinc-800">
               <tr className="text-zinc-400 text-xs uppercase tracking-wider">
-                <Th field="bib_number" label="BIB" onSort={handleSort}><SortIcon field="bib_number" /></Th>
-                <Th field="first_name" label="Full Name" onSort={handleSort}><SortIcon field="first_name" /></Th>
-                <Th field="gender" label="Gender" onSort={handleSort}><SortIcon field="gender" /></Th>
-                <Th field="age" label="Age" onSort={handleSort}><SortIcon field="age" /></Th>
-                <Th field="race_category" label="Category" onSort={handleSort}><SortIcon field="race_category" /></Th>
-                <Th field="shirt_size" label="Shirt" onSort={handleSort}><SortIcon field="shirt_size" /></Th>
-                <Th field="shirt_color" label="Color" onSort={handleSort}><SortIcon field="shirt_color" /></Th>
-                <Th field="payment_status" label="Status" onSort={handleSort}><SortIcon field="payment_status" /></Th>
-                <Th field="submitted_at" label="Date" onSort={handleSort}><SortIcon field="submitted_at" /></Th>
+                <Th field="bib_number" label="BIB" onSort={handleSort}><SortIcon field="bib_number" sortField={sortField} sortDir={sortDir} /></Th>
+                <Th field="first_name" label="Full Name" onSort={handleSort}><SortIcon field="first_name" sortField={sortField} sortDir={sortDir} /></Th>
+                <Th field="gender" label="Gender" onSort={handleSort}><SortIcon field="gender" sortField={sortField} sortDir={sortDir} /></Th>
+                <Th field="age" label="Age" onSort={handleSort}><SortIcon field="age" sortField={sortField} sortDir={sortDir} /></Th>
+                <Th field="race_category" label="Category" onSort={handleSort}><SortIcon field="race_category" sortField={sortField} sortDir={sortDir} /></Th>
+                <Th field="shirt_size" label="Shirt" onSort={handleSort}><SortIcon field="shirt_size" sortField={sortField} sortDir={sortDir} /></Th>
+                <Th field="shirt_color" label="Color" onSort={handleSort}><SortIcon field="shirt_color" sortField={sortField} sortDir={sortDir} /></Th>
+                <Th field="payment_status" label="Status" onSort={handleSort}><SortIcon field="payment_status" sortField={sortField} sortDir={sortDir} /></Th>
+                <Th field="submitted_at" label="Date" onSort={handleSort}><SortIcon field="submitted_at" sortField={sortField} sortDir={sortDir} /></Th>
                 <th className="px-4 py-3 text-left">View</th>
               </tr>
             </thead>
@@ -174,6 +173,14 @@ export default function RegistrationsPage() {
         )}
       </div>
     </div>
+  )
+}
+
+function SortIcon({ field, sortField, sortDir }: { field: SortField; sortField: SortField; sortDir: SortDir }) {
+  return sortField === field ? (
+    <span className="ml-1 text-orange-500">{sortDir === 'asc' ? '↑' : '↓'}</span>
+  ) : (
+    <span className="ml-1 text-zinc-600">↕</span>
   )
 }
 

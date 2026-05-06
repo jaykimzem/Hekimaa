@@ -6,11 +6,7 @@ import { Registration } from '@/lib/supabase'
 import { format } from 'date-fns'
 import Link from 'next/link'
 
-const STATUS_STYLES: Record<string, string> = {
-  Confirmed: 'bg-green-500/10 text-green-400 border-green-500/20',
-  Pending: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
-  Cancelled: 'bg-red-500/10 text-red-400 border-red-500/20',
-}
+
 
 export default function BibSearchPage() {
   const [query, setQuery] = useState('')

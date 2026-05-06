@@ -96,7 +96,7 @@ async function submitRegistration(formData) {
           </button>
         </div>
         <p className="text-zinc-400 text-sm mb-4">
-          Drop this snippet into your <code className="text-orange-400 bg-zinc-800 px-1 py-0.5 rounded">phumolomarathon.co.ke</code> registration form's submit handler.
+          Drop this snippet into your <code className="text-orange-400 bg-zinc-800 px-1 py-0.5 rounded">phumolomarathon.co.ke</code> registration form&apos;s submit handler.
           BIB numbers are automatically assigned by the database — no extra code needed.
         </p>
         <pre className="bg-black rounded-xl p-4 overflow-x-auto text-xs text-green-400 leading-relaxed whitespace-pre-wrap">
@@ -108,7 +108,7 @@ async function submitRegistration(formData) {
       <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
         <h2 className="text-white font-bold mb-2">Database Setup</h2>
         <p className="text-zinc-400 text-sm mb-4">
-          If you haven't set up the database yet, run the schema file in your Supabase SQL Editor:
+          If you haven&apos;t set up the database yet, run the schema file in your Supabase SQL Editor:
         </p>
         <div className="bg-black rounded-xl p-4 text-orange-400 text-sm font-mono">
           📁 phumolo-admin/supabase-schema.sql
