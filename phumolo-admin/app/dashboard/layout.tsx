@@ -3,14 +3,17 @@
 import { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const SESSION_KEY = 'phumolo_admin_session'
 
 const navItems = [
-  { href: '/dashboard', label: 'Dashboard', icon: '📊' },
+  { href: '/dashboard',               label: 'Dashboard',     icon: '📊' },
   { href: '/dashboard/registrations', label: 'Registrations', icon: '📋' },
-  { href: '/dashboard/bib-search', label: 'BIB Search', icon: '🔢' },
-  { href: '/dashboard/settings', label: 'Settings', icon: '⚙️' },
+  { href: '/dashboard/volunteers',    label: 'Volunteers',    icon: '🙋' },
+  { href: '/dashboard/karura',        label: 'Karura Run',    icon: '🌿' },
+  { href: '/dashboard/bib-search',    label: 'BIB Search',    icon: '🔢' },
+  { href: '/dashboard/settings',      label: 'Settings',      icon: '⚙️' },
 ]
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -37,7 +40,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-10 h-10 border-2 border-orange-500/30 border-t-orange-500 rounded-full animate-spin" />
+          <div className="w-10 h-10 border-2 border-[#C5A059]/30 border-t-[#C5A059] rounded-full animate-spin" />
           <p className="text-zinc-500 text-sm">Loading dashboard…</p>
         </div>
       </div>
@@ -53,14 +56,18 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         } lg:translate-x-0 lg:static`}
       >
         {/* Brand */}
-        <div className="px-6 py-6 border-b border-zinc-800">
+        <div className="px-6 py-5 border-b border-zinc-800">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center text-xl shadow-lg shadow-orange-500/30">
-              🏃
-            </div>
+            <Image
+              src="/logo.png"
+              alt="Phumolo Marathon Logo"
+              width={44}
+              height={44}
+              className="rounded-lg object-contain bg-white p-0.5"
+            />
             <div>
               <p className="text-white font-black text-sm leading-tight">PHUMOLO</p>
-              <p className="text-orange-500 text-xs font-bold tracking-[0.2em]">ADMIN PORTAL</p>
+              <p className="text-[#C5A059] text-xs font-bold tracking-[0.2em]">ADMIN PORTAL</p>
             </div>
           </div>
         </div>
@@ -76,7 +83,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 onClick={() => setSidebarOpen(false)}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${
                   active
-                    ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/20'
+                    ? 'bg-[#C5A059] text-black shadow-lg shadow-[#C5A059]/20'
                     : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
                 }`}
               >
@@ -90,7 +97,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         {/* Admin info */}
         <div className="px-4 py-4 border-t border-zinc-800">
           <div className="flex items-center gap-3 p-3 rounded-xl bg-zinc-900">
-            <div className="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center text-white text-sm font-black">
+            <div className="w-8 h-8 rounded-full bg-[#C5A059] flex items-center justify-center text-black text-sm font-black">
               A
             </div>
             <div className="flex-1 min-w-0">
@@ -126,7 +133,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           >
             ☰
           </button>
-          <p className="text-orange-500 font-black text-sm tracking-widest">PHUMOLO</p>
+          <p className="text-[#C5A059] font-black text-sm tracking-widest">PHUMOLO</p>
           <button onClick={handleLogout} className="text-zinc-500 text-xs hover:text-red-400 transition">
             Logout
           </button>

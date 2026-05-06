@@ -469,7 +469,10 @@
 
 <script src="main.js"></script>
 <script>
-  // Karura Form Handling
+  const SUPABASE_URL = 'https://lqttzudtwarkwyxcnssd.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_UYNtiM0r3GfdtYpIdR-AeQ_oH2ivH7p';
+
+  // Karura Paid Registration
   document.getElementById('karura-paid-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const btn = this.querySelector('button');
@@ -478,45 +481,43 @@
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
 
     const formData = new FormData(this);
-    formData.append('type', 'paid');
+    const payload = {
+      names:             formData.get('names') || '',
+      phone:             formData.get('phone') || '',
+      email:             formData.get('email') || '',
+      company:           formData.get('company') || '',
+      emergency_contact: formData.get('emergency_contact') || '',
+      payment_status:    'Pending'
+    };
 
-    fetch('/api/register', {
+    fetch(SUPABASE_URL + '/rest/v1/karura_registrations', {
       method: 'POST',
-      body: formData
+      headers: {
+        'apikey':        SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Content-Type':  'application/json',
+        'Prefer':        'return=minimal'
+      },
+      body: JSON.stringify(payload)
     })
     .then(res => {
-      if (!res.ok) {
-          throw new Error('Server returned ' + res.status + ' ' + res.statusText);
-      }
-      return res.text().then(text => {
-          try {
-              return JSON.parse(text);
-          } catch (e) {
-              console.error('Invalid JSON:', text);
-              throw new Error('Invalid server response. Please contact support.');
-          }
-      });
-    })
-    .then(data => {
-      if (data.success) {
-        alert(data.message);
-        if (data.reference) {
-          startPolling(data.reference, btn, originalText);
-        }
+      if (res.ok) {
+        alert('Registration submitted! You will receive a payment prompt shortly. Paybill: 614090.');
+        this.reset();
       } else {
-        alert(data.message || 'Error occurred');
-        btn.disabled = false;
-        btn.textContent = originalText;
+        return res.text().then(txt => { throw new Error(txt || 'Submission failed.'); });
       }
     })
     .catch(err => {
-      console.error(err);
       alert('Error: ' + err.message);
+    })
+    .finally(() => {
       btn.disabled = false;
       btn.textContent = originalText;
     });
   });
 
+  // Karura Sponsorship Request
   document.getElementById('karura-sponsor-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const btn = this.querySelector('button');
@@ -525,58 +526,43 @@
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
 
     const formData = new FormData(this);
-    formData.append('type', 'sponsorship');
+    const payload = {
+      names:             formData.get('names') || '',
+      phone:             formData.get('phone') || '',
+      reg_no:            formData.get('reg_no') || '',
+      institution:       formData.get('institution') || '',
+      program:           formData.get('program') || '',
+      emergency_contact: formData.get('emergency_contact') || '',
+      status:            'Pending'
+    };
 
-    fetch('/api/register', {
+    fetch(SUPABASE_URL + '/rest/v1/sponsorship_requests', {
       method: 'POST',
-      body: formData
+      headers: {
+        'apikey':        SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Content-Type':  'application/json',
+        'Prefer':        'return=minimal'
+      },
+      body: JSON.stringify(payload)
     })
-    .then(res => res.json())
-    .then(data => {
-      if (data.success) {
-        alert(data.message);
+    .then(res => {
+      if (res.ok) {
+        alert('Sponsorship request submitted! Our team will review and contact you.');
         this.reset();
       } else {
-        alert(data.message || 'Error occurred');
+        return res.text().then(txt => { throw new Error(txt || 'Submission failed.'); });
       }
-      btn.disabled = false;
-      btn.textContent = originalText;
     })
     .catch(err => {
-      alert('Network error. Please try again.');
+      alert('Error: ' + err.message);
+    })
+    .finally(() => {
       btn.disabled = false;
       btn.textContent = originalText;
     });
   });
-
-  function startPolling(ref, btn, originalText) {
-    const pollInterval = setInterval(() => {
-      fetch('/api/check-status?ref=' + ref)
-      .then(res => res.json())
-      .then(data => {
-        if (data.success && data.payment_status === 'success') {
-          clearInterval(pollInterval);
-          alert('Payment Confirmed! Your registration for Karura Run is complete.');
-          btn.textContent = 'Registration Confirmed ✓';
-          btn.style.background = '#27ae60';
-        } else if (data.success && data.payment_status === 'failed') {
-          clearInterval(pollInterval);
-          alert('Payment failed. Please try again.');
-          btn.disabled = false;
-          btn.textContent = originalText;
-        }
-      });
-    }, 3000);
-
-    // Timeout after 3 minutes
-    setTimeout(() => {
-      clearInterval(pollInterval);
-      if (btn.textContent.indexOf('Confirmed') === -1) {
-        btn.disabled = false;
-        btn.textContent = originalText;
-      }
-    }, 180000);
-  }
 </script>
 </body>
 </html>
+
