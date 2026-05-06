@@ -24,8 +24,8 @@ export async function POST(request: Request) {
     // Extract Transaction ID
     let transaction_id = ''
     if (resultCode === 0 && callback.CallbackMetadata?.Item) {
-      const item = callback.CallbackMetadata.Item.find((i: { Name: string, Value?: any }) => i.Name === 'MpesaReceiptNumber')
-      if (item) transaction_id = item.Value
+      const item = callback.CallbackMetadata.Item.find((i: { Name: string, Value?: unknown }) => i.Name === 'MpesaReceiptNumber')
+      if (item) transaction_id = item.Value as string
     }
 
     // 1. Check Marathon Payments
@@ -47,7 +47,7 @@ export async function POST(request: Request) {
           .from('registrations')
           .select('id, race_category, user_id, users(gender)')
           .eq('payment_id', payment.id)
-          .single() as Promise<{ data: { id: string; race_category: string; users: { gender: string } | null } | null; error: any }>)
+          .single() as Promise<{ data: { id: string; race_category: string; users: { gender: string } | null } | null; error: unknown }>)
 
         if (reg && !regError) {
           const gender = (reg.users as { gender: string } | null)?.gender || 'Other'

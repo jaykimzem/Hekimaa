@@ -25,7 +25,7 @@ export type Payment = {
   reference_id: string
   status: 'pending' | 'success' | 'failed' | 'cancelled'
   checkout_request_id: string | null
-  metadata: any | null
+  metadata: unknown | null
   created_at?: string
 }
 
@@ -99,7 +99,7 @@ export type ActivityLog = {
   user_id?: string | null
   event_type: string
   description: string
-  metadata?: any | null
+  metadata?: unknown | null
   ip_address?: string | null
   created_at: string
 }

@@ -60,7 +60,7 @@ export async function POST(request: Request) {
       } else {
         stkMessage = 'Registration saved, but M-Pesa push failed: ' + (stk.ResponseDescription || 'Unknown error')
       }
-    } catch (stkErr: any) {
+    } catch (stkErr: unknown) {
       console.error('STK Push Error:', stkErr)
       stkMessage = 'Registration saved, but could not trigger M-Pesa push.'
     }
