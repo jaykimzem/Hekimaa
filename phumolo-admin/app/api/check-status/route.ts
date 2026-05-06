@@ -15,7 +15,7 @@ export async function GET(request: Request) {
       .from('payments')
       .select('id, status')
       .eq('reference_id', ref)
-      .single()
+      .single() as { data: { id: string; status: string } | null; error: Error | null }
 
     if (paymentError || !payment) {
       return NextResponse.json({ success: false, message: 'Reference not found.' }, { status: 404 })
