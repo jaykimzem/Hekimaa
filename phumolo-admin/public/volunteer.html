@@ -570,13 +570,33 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Submitting...';
 
-        fetch('/api/volunteer', {
+        // Build JSON payload matching the Supabase volunteers table schema
+        const payload = {
+          full_name:                formData.get('fullname') || formData.get('leader_name') || formData.get('group_name') || '',
+          email:                    formData.get('email')    || formData.get('leader_email') || '',
+          phone:                    formData.get('phone')    || formData.get('leader_phone') || '',
+          category:                 formData.get('category') || 'group',
+          organization:             formData.get('organization') || formData.get('group_name') || '',
+          id_number:                formData.get('id_number') || '',
+          residence:                formData.get('residence') || '',
+          transport_assistance:     formData.get('transport') === 'yes',
+          accommodation_assistance: formData.get('accommodation') === 'yes',
+          stipend_expectation:      formData.get('stipend_expectation') === 'yes',
+          stipend_amount:           formData.get('stipend_amount') ? parseFloat(formData.get('stipend_amount')) : null
+        };
+
+        fetch('https://lqttzudtwarkwyxcnssd.supabase.co/rest/v1/volunteers', {
           method: 'POST',
-          body: formData
+          headers: {
+            'apikey':        'sb_publishable_UYNtiM0r3GfdtYpIdR-AeQ_oH2ivH7p',
+            'Authorization': 'Bearer sb_publishable_UYNtiM0r3GfdtYpIdR-AeQ_oH2ivH7p',
+            'Content-Type':  'application/json',
+            'Prefer':        'return=minimal'
+          },
+          body: JSON.stringify(payload)
         })
-        .then(res => res.json())
-        .then(data => {
-          if (data.success) {
+        .then(res => {
+          if (res.ok) {
             document.getElementById('form-success').classList.add('active');
             f.reset();
             if (f.id === 'group-volunteer-form') {
@@ -585,11 +605,11 @@ document.addEventListener('DOMContentLoaded', () => {
                countInput.value = 1;
             }
           } else {
-            alert(data.message || 'Submission failed.');
+            return res.text().then(txt => { throw new Error(txt || 'Submission failed.'); });
           }
         })
         .catch(err => {
-          alert('System error occurred.');
+          alert('Submission error: ' + err.message);
         })
         .finally(() => {
           submitBtn.disabled = false;
