@@ -2,6 +2,7 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
 export type Registration = {
   id: string
@@ -44,7 +45,7 @@ export function getSupabase() {
 }
 
 export function getSupabaseAdmin() {
-  if (!_supabaseAdmin) _supabaseAdmin = createClient<Database>(supabaseUrl, supabaseAnonKey)
+  if (!_supabaseAdmin) _supabaseAdmin = createClient<Database>(supabaseUrl, supabaseServiceKey)
   return _supabaseAdmin
 }
 

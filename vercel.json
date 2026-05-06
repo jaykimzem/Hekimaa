@@ -1,16 +1,4 @@
 {
-  "rewrites": [
-    {
-      "source": "/api/volunteer",
-      "destination": "/phumolo-admin/api/volunteer"
-    },
-    {
-      "source": "/api/register",
-      "destination": "/phumolo-admin/api/register"
-    },
-    {
-      "source": "/api/(.*)",
-      "destination": "/phumolo-admin/api/$1"
-    }
-  ]
+  "cleanUrls": true,
+  "trailingSlash": false
 }
