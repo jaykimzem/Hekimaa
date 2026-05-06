@@ -1,24 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { supabaseAdmin } from '@/lib/supabase'
+import { supabaseAdmin, Volunteer } from '@/lib/supabase'
 import { format } from 'date-fns'
 
-type Volunteer = {
-  id: string
-  full_name: string
-  email: string
-  phone: string
-  category: string
-  organization: string
-  id_number: string
-  residence: string
-  transport_assistance: boolean
-  accommodation_assistance: boolean
-  stipend_expectation: boolean
-  stipend_amount: number | null
-  submitted_at: string
-}
+
 
 const CATEGORY_LABELS: Record<string, string> = {
   crowd_control: 'Crowd Control',
@@ -37,11 +23,11 @@ export default function VolunteersPage() {
   const [search, setSearch] = useState('')
 
   useEffect(() => {
-    ;(supabaseAdmin.from('volunteers') as any)
+    supabaseAdmin.from('volunteers')
       .select('*')
       .order('submitted_at', { ascending: false })
-      .then(({ data }: any) => {
-        setVolunteers(data || [])
+      .then(({ data }) => {
+        setVolunteers((data as Volunteer[]) || [])
         setLoading(false)
       })
   }, [])
@@ -65,7 +51,7 @@ export default function VolunteersPage() {
       v.stipend_amount ?? '',
       format(new Date(v.submitted_at), 'dd MMM yyyy HH:mm')
     ])
-    const csv = [headers, ...rows].map(r => r.map(c => `"${c}"`).join(',')).join('\n')
+    const csv = [headers, ...rows].map((r: (string | number | boolean | null)[]) => r.map(c => `"${c ?? ''}"`).join(',')).join('\n')
     const blob = new Blob([csv], { type: 'text/csv' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a'); a.href = url; a.download = 'volunteers.csv'; a.click()

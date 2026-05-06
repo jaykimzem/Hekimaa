@@ -50,8 +50,8 @@ export default function KaruraPage() {
 
   useEffect(() => {
     Promise.all([
-      (supabaseAdmin.from('karura_registrations') as any).select('*').order('submitted_at', { ascending: false }),
-      (supabaseAdmin.from('sponsorship_requests') as any).select('*').order('submitted_at', { ascending: false }),
+      supabaseAdmin.from('karura_registrations').select('*').order('submitted_at', { ascending: false }),
+      supabaseAdmin.from('sponsorship_requests').select('*').order('submitted_at', { ascending: false }),
     ]).then(([{ data: regs }, { data: sponsors }]) => {
       setRegistrations(regs || [])
       setSponsorships(sponsors || [])

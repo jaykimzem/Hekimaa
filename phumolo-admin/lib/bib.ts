@@ -20,8 +20,8 @@ export async function generateBibNumber(raceCategory: string, gender: string): P
   const start = parseInt(prefix + '000')
   const end = parseInt(prefix + '999')
 
-  const { data, error } = await (supabaseAdmin
-    .from('registrations') as any)
+  const { data, error } = await supabaseAdmin
+    .from('registrations')
     .select('bib_number')
     .gte('bib_number', start)
     .lte('bib_number', end)

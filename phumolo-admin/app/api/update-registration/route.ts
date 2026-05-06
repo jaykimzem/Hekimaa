@@ -11,17 +11,17 @@ export async function POST(request: Request) {
     }
 
     // 1. Update user details
-    const { data: user, error: userError } = await (supabaseAdmin
-      .from('users') as any)
+    const { data: user, error: userError } = await supabaseAdmin
+      .from('users')
       .update({
-        first_name: data.first_name,
-        last_name: data.last_name,
-        email: data.email || null,
-        date_of_birth: data.date_of_birth || null,
-        gender: data.gender || null,
-        id_number: data.id_number || null
+        first_name: data.first_name as string,
+        last_name: data.last_name as string,
+        email: (data.email as string) || null,
+        date_of_birth: (data.date_of_birth as string) || null,
+        gender: (data.gender as string) || null,
+        id_number: (data.id_number as string) || null
       })
-      .eq('phone', data.phone)
+      .eq('phone', data.phone as string)
       .select('id')
       .single()
 
@@ -29,8 +29,8 @@ export async function POST(request: Request) {
 
     // 2. Update latest registration
     if (user) {
-      const { data: reg, error: regSearchError } = await (supabaseAdmin
-        .from('registrations') as any)
+      const { data: reg, error: regSearchError } = await supabaseAdmin
+        .from('registrations')
         .select('id')
         .eq('user_id', user.id)
         .order('id', { ascending: false })
@@ -38,15 +38,16 @@ export async function POST(request: Request) {
         .single()
 
       if (reg && !regSearchError) {
-        await (supabaseAdmin
-          .from('registrations') as any)
-          .update({ tshirt_size: data.tshirt_size || 'M' })
+        await supabaseAdmin
+          .from('registrations')
+          .update({ tshirt_size: (data.tshirt_size as string) || 'M' })
           .eq('id', reg.id)
       }
     }
 
     return NextResponse.json({ success: true, message: 'Profile updated successfully.' })
-  } catch (error: any) {
-    return NextResponse.json({ success: false, message: 'Update failed: ' + error.message }, { status: 500 })
+  } catch (error: unknown) {
+    const err = error as Error
+    return NextResponse.json({ success: false, message: 'Update failed: ' + err.message }, { status: 500 })
   }
 }

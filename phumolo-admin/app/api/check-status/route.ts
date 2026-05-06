@@ -11,8 +11,8 @@ export async function GET(request: Request) {
 
   try {
     // 1. Get payment status
-    const { data: payment, error: paymentError } = await (supabaseAdmin
-      .from('payments') as any)
+    const { data: payment, error: paymentError } = await supabaseAdmin
+      .from('payments')
       .select('id, status')
       .eq('reference_id', ref)
       .single()
@@ -21,16 +21,16 @@ export async function GET(request: Request) {
       return NextResponse.json({ success: false, message: 'Reference not found.' }, { status: 404 })
     }
 
-    const response: any = {
+    const response = {
       success: true,
       payment_status: payment.status,
-      reg_status: null,
-      bib_number: null
+      reg_status: null as string | null,
+      bib_number: null as string | null
     }
 
     // 2. Try to get bib if it's a marathon reg
-    const { data: reg, error: regError } = await (supabaseAdmin
-      .from('registrations') as any)
+    const { data: reg, error: regError } = await supabaseAdmin
+      .from('registrations')
       .select('status, bib_number')
       .eq('payment_id', payment.id)
       .single()
@@ -41,7 +41,8 @@ export async function GET(request: Request) {
     }
 
     return NextResponse.json(response)
-  } catch (error: any) {
-    return NextResponse.json({ success: false, message: 'System error: ' + error.message }, { status: 500 })
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Unknown error'
+    return NextResponse.json({ success: false, message: 'System error: ' + message }, { status: 500 })
   }
 }

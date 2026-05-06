@@ -4,10 +4,10 @@ import { supabaseAdmin } from '@/lib/supabase'
 export async function POST(request: Request) {
   try {
     const formData = await request.formData()
-    const data = Object.fromEntries(formData.entries())
+    const data = Object.fromEntries(formData.entries()) as Record<string, string>
 
     // 1. Insert volunteer record
-    const { error: volunteerError } = await (supabaseAdmin.from('volunteers') as any).insert([{
+    const { error: volunteerError } = await supabaseAdmin.from('volunteers').insert([{
       full_name: data.fullname || data.group_name || 'Unnamed',
       email: data.email || data.leader_email || '',
       phone: data.phone || data.leader_phone || '',
@@ -24,14 +24,15 @@ export async function POST(request: Request) {
     if (volunteerError) throw volunteerError
 
     // 2. Log activity
-    await (supabaseAdmin.from('activity_logs') as any).insert([{
+    await supabaseAdmin.from('activity_logs').insert([{
       event_type: 'volunteer_signup',
       description: `New volunteer signup: ${data.fullname || data.group_name}`
     }])
 
     return NextResponse.json({ success: true, message: 'Your volunteer application has been submitted successfully!' })
-  } catch (error: any) {
-    console.error('Volunteer submission error:', error)
-    return NextResponse.json({ success: false, message: 'System error: ' + error.message }, { status: 500 })
+  } catch (error: unknown) {
+    const err = error as Error
+    console.error('Volunteer submission error:', err)
+    return NextResponse.json({ success: false, message: 'System error: ' + err.message }, { status: 500 })
   }
 }
