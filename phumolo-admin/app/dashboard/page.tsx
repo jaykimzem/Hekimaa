@@ -276,7 +276,7 @@ function GenderBar({ label, count, total, color }: { label: string; count: numbe
   )
 }
 
-export function StatusBadge({ status }: { status: string }) {
+function StatusBadge({ status }: { status: string }) {
   const styles: Record<string, string> = {
     Confirmed: 'bg-green-500/10 text-green-400 border-green-500/20',
     Pending: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
