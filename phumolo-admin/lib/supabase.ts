@@ -1,25 +1,7 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-
-// Singleton clients to avoid "multiple instances" warning
-let _supabase: ReturnType<typeof createClient> | null = null
-let _supabaseAdmin: ReturnType<typeof createClient> | null = null
-
-export function getSupabase() {
-  if (!_supabase) _supabase = createClient(supabaseUrl, supabaseAnonKey)
-  return _supabase
-}
-
-export function getSupabaseAdmin() {
-  if (!_supabaseAdmin) _supabaseAdmin = createClient(supabaseUrl, supabaseAnonKey)
-  return _supabaseAdmin
-}
-
-// Convenience exports
-export const supabase = getSupabase()
-export const supabaseAdmin = getSupabaseAdmin()
 
 export type Registration = {
   id: string
@@ -39,3 +21,34 @@ export type Registration = {
   payment_status: 'Pending' | 'Confirmed' | 'Cancelled'
   submitted_at: string
 }
+
+export type Database = {
+  public: {
+    Tables: {
+      registrations: {
+        Row: Registration
+        Insert: Partial<Registration>
+        Update: Partial<Registration>
+      }
+    }
+  }
+}
+
+// Singleton clients to avoid "multiple instances" warning
+let _supabase: SupabaseClient<Database> | null = null
+let _supabaseAdmin: SupabaseClient<Database> | null = null
+
+export function getSupabase() {
+  if (!_supabase) _supabase = createClient<Database>(supabaseUrl, supabaseAnonKey)
+  return _supabase
+}
+
+export function getSupabaseAdmin() {
+  if (!_supabaseAdmin) _supabaseAdmin = createClient<Database>(supabaseUrl, supabaseAnonKey)
+  return _supabaseAdmin
+}
+
+// Convenience exports
+export const supabase = getSupabase()
+export const supabaseAdmin = getSupabaseAdmin()
+
