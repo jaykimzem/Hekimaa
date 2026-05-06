@@ -33,8 +33,8 @@ export async function GET(request: Request) {
       .from('registrations')
       .select('status, bib_number')
       .eq('payment_id', payment.id)
-      .single()
-    
+      .single() as { data: { status: string; bib_number: string } | null; error: Error | null }
+
     if (reg && !regError) {
       response.reg_status = reg.status
       response.bib_number = reg.bib_number
