@@ -1,4 +1,4 @@
-import { createClient, SupabaseClient } from '@supabase/supabase-js'
+import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -25,7 +25,7 @@ export type Payment = {
   reference_id: string
   status: 'pending' | 'success' | 'failed' | 'cancelled'
   checkout_request_id: string | null
-  metadata: unknown | null
+  metadata: Record<string, unknown> | null
   created_at?: string
 }
 
@@ -65,6 +65,7 @@ export type Volunteer = {
   stipend_expectation: boolean
   stipend_amount: number | null
   status: 'pending' | 'reviewed' | 'accepted' | 'rejected'
+  submitted_at: string
   created_at?: string
 }
 
@@ -99,68 +100,26 @@ export type ActivityLog = {
   user_id?: string | null
   event_type: string
   description: string
-  metadata?: unknown | null
+  metadata?: Record<string, unknown> | null
   ip_address?: string | null
   created_at: string
 }
 
-export type Database = {
-  public: {
-    Tables: {
-      users: {
-        Row: User
-        Insert: Partial<User>
-        Update: Partial<User>
-      }
-      payments: {
-        Row: Payment
-        Insert: Partial<Payment>
-        Update: Partial<Payment>
-      }
-      registrations: {
-        Row: Registration
-        Insert: Partial<Registration>
-        Update: Partial<Registration>
-      }
-      volunteers: {
-        Row: Volunteer
-        Insert: Partial<Volunteer>
-        Update: Partial<Volunteer>
-      }
-      karura_registrations: {
-        Row: KaruraRegistration
-        Insert: Partial<KaruraRegistration>
-        Update: Partial<KaruraRegistration>
-      }
-      sponsorship_requests: {
-        Row: SponsorshipRequest
-        Insert: Partial<SponsorshipRequest>
-        Update: Partial<SponsorshipRequest>
-      }
-      activity_logs: {
-        Row: ActivityLog
-        Insert: Partial<ActivityLog>
-        Update: Partial<ActivityLog>
-      }
-    }
-  }
-}
-
-// Singleton clients to avoid "multiple instances" warning
-let _supabase: SupabaseClient<Database> | null = null
-let _supabaseAdmin: SupabaseClient<Database> | null = null
+// Untyped singleton clients — avoids Supabase Insert/Update type conflicts
+// while keeping our own types for UI components
+let _supabase: ReturnType<typeof createClient> | null = null
+let _supabaseAdmin: ReturnType<typeof createClient> | null = null
 
 export function getSupabase() {
-  if (!_supabase) _supabase = createClient<Database>(supabaseUrl, supabaseAnonKey)
+  if (!_supabase) _supabase = createClient(supabaseUrl, supabaseAnonKey)
   return _supabase
 }
 
 export function getSupabaseAdmin() {
-  if (!_supabaseAdmin) _supabaseAdmin = createClient<Database>(supabaseUrl, supabaseServiceKey)
+  if (!_supabaseAdmin) _supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey)
   return _supabaseAdmin
 }
 
 // Convenience exports
 export const supabase = getSupabase()
 export const supabaseAdmin = getSupabaseAdmin()
-

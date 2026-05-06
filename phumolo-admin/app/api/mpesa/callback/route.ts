@@ -4,7 +4,7 @@ import { generateBibNumber } from '@/lib/bib'
 
 export async function POST(request: Request) {
   try {
-    const data = await request.json()
+    const data = await request.json() as Record<string, unknown>
     
     if (!data.Body?.stkCallback) {
       return NextResponse.json({ ResultCode: 1, ResultDesc: 'Invalid callback data' }, { status: 400 })
@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     await supabaseAdmin.from('activity_logs').insert([{
       event_type: 'mpesa_callback',
       description: `M-Pesa callback received for ${checkoutRequestID}. ResultCode: ${resultCode}`,
-      metadata: data
+      metadata: data as Record<string, unknown>
     }])
 
     // Extract Transaction ID
@@ -40,7 +40,7 @@ export async function POST(request: Request) {
       if (resultCode === 0) {
         // Success
         await supabaseAdmin.from('payments')
-          .update({ status: 'success', transaction_id, metadata: data })
+          .update({ status: 'success', transaction_id, metadata: data as Record<string, unknown> })
           .eq('id', payment.id)
 
         const { data: reg, error: regError } = await (supabaseAdmin
@@ -60,7 +60,7 @@ export async function POST(request: Request) {
       } else {
         // Failed
         await supabaseAdmin.from('payments')
-          .update({ status: 'failed', metadata: data })
+          .update({ status: 'failed', metadata: data as Record<string, unknown> })
           .eq('id', payment.id)
       }
     } else {
