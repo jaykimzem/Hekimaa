@@ -1,0 +1,47 @@
+import { NextResponse } from 'next/server'
+import { supabaseAdmin } from '@/lib/supabase'
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url)
+  const ref = searchParams.get('ref')
+
+  if (!ref) {
+    return NextResponse.json({ success: false, message: 'Missing reference.' }, { status: 400 })
+  }
+
+  try {
+    // 1. Get payment status
+    const { data: payment, error: paymentError } = await (supabaseAdmin
+      .from('payments') as any)
+      .select('id, status')
+      .eq('reference_id', ref)
+      .single()
+
+    if (paymentError || !payment) {
+      return NextResponse.json({ success: false, message: 'Reference not found.' }, { status: 404 })
+    }
+
+    const response: any = {
+      success: true,
+      payment_status: payment.status,
+      reg_status: null,
+      bib_number: null
+    }
+
+    // 2. Try to get bib if it's a marathon reg
+    const { data: reg, error: regError } = await (supabaseAdmin
+      .from('registrations') as any)
+      .select('status, bib_number')
+      .eq('payment_id', payment.id)
+      .single()
+    
+    if (reg && !regError) {
+      response.reg_status = reg.status
+      response.bib_number = reg.bib_number
+    }
+
+    return NextResponse.json(response)
+  } catch (error: any) {
+    return NextResponse.json({ success: false, message: 'System error: ' + error.message }, { status: 500 })
+  }
+}

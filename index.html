@@ -698,7 +698,7 @@
     // Actually, register_marathon.php can handle all if we want, but let's keep it consistent.
     // For simplicity, let's just use register_marathon.php which is already set up for all categories.
     
-    fetch('api/register_marathon.php', {
+    fetch('/api/register', {
       method: 'POST',
       body: formData
     })
@@ -738,7 +738,7 @@
 
   function pollPaymentStatus(ref, btn, originalText) {
     const interval = setInterval(() => {
-        fetch('api/check_status.php?ref=' + ref)
+        fetch('/api/check-status?ref=' + ref)
         .then(res => res.json())
         .then(data => {
             if (data.success && data.payment_status === 'success') {

@@ -570,7 +570,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Submitting...';
 
-        fetch('api/volunteer_submit.php', {
+        fetch('/api/volunteer', {
           method: 'POST',
           body: formData
         })

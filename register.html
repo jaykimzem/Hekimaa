@@ -479,7 +479,7 @@
     expressPayBtn.disabled = true;
     expressPayBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending STK Push...';
 
-    fetch('api/register_marathon.php', {
+    fetch('/api/register', {
       method: 'POST',
       body: formData
     })
@@ -520,7 +520,7 @@
     finishProfileBtn.disabled = true;
     finishProfileBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving Profile...';
 
-    fetch('api/update_registration.php', {
+    fetch('/api/update-registration', {
       method: 'POST',
       body: formData
     })
@@ -551,7 +551,7 @@
 
   function startPolling(ref) {
     const pollInterval = setInterval(() => {
-      fetch('api/check_status.php?ref=' + ref)
+      fetch('/api/check-status?ref=' + ref)
       .then(res => res.json())
       .then(data => {
         if (data.success && data.payment_status === 'success') {

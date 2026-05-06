@@ -480,7 +480,7 @@
     const formData = new FormData(this);
     formData.append('type', 'paid');
 
-    fetch('api/karura_submit.php', {
+    fetch('/api/register', {
       method: 'POST',
       body: formData
     })
@@ -527,7 +527,7 @@
     const formData = new FormData(this);
     formData.append('type', 'sponsorship');
 
-    fetch('api/karura_submit.php', {
+    fetch('/api/register', {
       method: 'POST',
       body: formData
     })
@@ -551,7 +551,7 @@
 
   function startPolling(ref, btn, originalText) {
     const pollInterval = setInterval(() => {
-      fetch('api/check_status.php?ref=' + ref)
+      fetch('/api/check-status?ref=' + ref)
       .then(res => res.json())
       .then(data => {
         if (data.success && data.payment_status === 'success') {

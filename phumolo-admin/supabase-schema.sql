@@ -62,5 +62,41 @@ CREATE POLICY "Service role full access" ON registrations
   FOR ALL USING (auth.role() = 'service_role');
 
 -- 8. Allow public to read their own entry by phone (optional)
-CREATE POLICY "Public read by phone" ON registrations
-  FOR SELECT USING (true);
+-- 9. Volunteers table
+CREATE TABLE IF NOT EXISTS volunteers (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  full_name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  phone TEXT NOT NULL,
+  category TEXT NOT NULL,
+  organization TEXT,
+  id_number TEXT,
+  residence TEXT,
+  transport_assistance BOOLEAN DEFAULT false,
+  accommodation_assistance BOOLEAN DEFAULT false,
+  stipend_expectation BOOLEAN DEFAULT false,
+  stipend_amount NUMERIC,
+  submitted_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- 10. Activity logs table
+CREATE TABLE IF NOT EXISTS activity_logs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  event_type TEXT NOT NULL,
+  description TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- 11. Enable RLS for new tables
+ALTER TABLE volunteers ENABLE ROW LEVEL SECURITY;
+ALTER TABLE activity_logs ENABLE ROW LEVEL SECURITY;
+
+-- 12. Allow public inserts for volunteers
+CREATE POLICY "Allow public volunteer inserts" ON volunteers
+  FOR INSERT WITH CHECK (true);
+
+-- 13. Service role access for both
+CREATE POLICY "Service role volunteer access" ON volunteers
+  FOR ALL USING (auth.role() = 'service_role');
+CREATE POLICY "Service role activity access" ON activity_logs
+  FOR ALL USING (auth.role() = 'service_role');
