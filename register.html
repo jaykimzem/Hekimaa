@@ -541,7 +541,9 @@
     .then(async res => {
       const data = await res.json();
       if (data.success) {
-          checkPaymentStatusBeforeSuccess();
+          // ONE CHANGE: Show success immediately, don't wait for payment
+          const bib = document.getElementById('bib-number').textContent.replace('#', '');
+          showSuccess({ success: true, bib_number: bib });
       } else {
         throw new Error(data.message || 'Failed to update profile.');
       }
@@ -555,16 +557,7 @@
   });
 
   function checkPaymentStatusBeforeSuccess() {
-      // Show a "Finalizing" state
-      const step2 = document.getElementById('step-2');
-      step2.innerHTML = `
-        <div style="text-align:center; padding: 40px 0;">
-            <div class="loader-bar" style="margin-bottom: 20px;"><div class="loader-fill"></div></div>
-            <h3 style="color:var(--gold)">Confirming Your Payment...</h3>
-            <p>We are waiting for the M-Pesa confirmation. Your BIB is already reserved.</p>
-            <p style="font-size:0.8rem; margin-top:15px; opacity:0.6">Reference: ${activeReference}</p>
-        </div>
-      `;
+      // No longer used, we show success immediately
   }
 
   function startPolling(ref) {
