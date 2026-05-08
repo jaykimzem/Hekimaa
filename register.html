@@ -464,48 +464,61 @@
   // ── Step 1: Express Pay ──
   const regForm = document.getElementById('reg-form');
   const expressPayBtn = document.getElementById('express-pay-btn');
+  const VERCEL_API_BASE = ''; // Leave empty if same domain, or set to 'https://phumolo-admin.vercel.app'
 
   regForm.addEventListener('submit', function(e) {
     e.preventDefault();
-    if (currentStep === 2) return; // Handled by finish-profile-btn
+    console.log('Form submission started...');
 
-    const phone = document.getElementById('phone').value.trim();
-    if (!phone || !/^(07|01|254)[0-9]{8}$/.test(phone.replace(/\s/g, ''))) {
+    if (currentStep === 2) return; // Step 2 is handled by finish-profile-btn
+
+    const phoneInput = document.getElementById('phone');
+    const phone = phoneInput.value.trim();
+    if (!phone || !/^(07|01|254|\+254)[0-9]{7,12}$/.test(phone.replace(/\s/g, ''))) {
       showError('Please enter a valid M-Pesa phone number.');
       return;
     }
 
     const formData = new FormData(this);
     expressPayBtn.disabled = true;
-    expressPayBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending STK Push...';
+    const originalBtnText = expressPayBtn.innerHTML;
+    expressPayBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
 
-    fetch('/api/register', {
+    fetch(VERCEL_API_BASE + '/api/register', {
       method: 'POST',
       body: formData
     })
-    .then(res => res.json())
-    .then(data => {
+    .then(async res => {
+      const data = await res.json();
+      console.log('Register Response:', data);
+      
       if (data.success) {
         activeReference = data.reference;
-        // Success! Now move to Step 2 to collect profile details while payment is pending
+        // Assign BIB immediately if returned
+        if (data.bib_number) {
+            document.getElementById('bib-number').textContent = '#' + data.bib_number;
+        }
+        
+        // Success! Now move to Step 2
         showStep(2);
         startPolling(data.reference);
       } else {
-        showError(data.message || 'Payment failed to initiate. Please try again.');
-        expressPayBtn.disabled = false;
-        expressPayBtn.innerHTML = '<i class="fas fa-bolt"></i> Pay & Secure My BIB →';
+        throw new Error(data.message || 'Registration failed.');
       }
     })
     .catch(err => {
-      showError('System error. Please check your connection.');
+      console.error('Registration Error:', err);
+      showError(err.message || 'System error. Please check your connection.');
       expressPayBtn.disabled = false;
-      expressPayBtn.innerHTML = '<i class="fas fa-bolt"></i> Pay & Secure My BIB →';
+      expressPayBtn.innerHTML = originalBtnText;
     });
   });
 
   // ── Step 2: Update Profile ──
   const finishProfileBtn = document.getElementById('finish-profile-btn');
-  finishProfileBtn.addEventListener('click', function() {
+  finishProfileBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    
     const fn = document.getElementById('first-name').value.trim();
     const ln = document.getElementById('last-name').value.trim();
     const id = document.getElementById('id-number').value.trim();
@@ -518,40 +531,45 @@
 
     const formData = new FormData(regForm);
     finishProfileBtn.disabled = true;
+    const originalBtnText = finishProfileBtn.innerHTML;
     finishProfileBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving Profile...';
 
-    fetch('/api/update-registration', {
+    fetch(VERCEL_API_BASE + '/api/update-registration', {
       method: 'POST',
       body: formData
     })
-    .then(res => res.json())
-    .then(data => {
+    .then(async res => {
+      const data = await res.json();
       if (data.success) {
-          // If already paid, show success. Otherwise show "Waiting for Payment"
           checkPaymentStatusBeforeSuccess();
       } else {
-        showError(data.message || 'Failed to update profile.');
-        finishProfileBtn.disabled = false;
-        finishProfileBtn.innerHTML = 'Save & Get My BIB →';
+        throw new Error(data.message || 'Failed to update profile.');
       }
+    })
+    .catch(err => {
+      console.error('Update Error:', err);
+      showError(err.message);
+      finishProfileBtn.disabled = false;
+      finishProfileBtn.innerHTML = originalBtnText;
     });
   });
 
   function checkPaymentStatusBeforeSuccess() {
       // Show a "Finalizing" state
-      document.getElementById('step-2').innerHTML = `
+      const step2 = document.getElementById('step-2');
+      step2.innerHTML = `
         <div style="text-align:center; padding: 40px 0;">
             <div class="loader-bar" style="margin-bottom: 20px;"><div class="loader-fill"></div></div>
-            <h3>Finalizing Your BIB...</h3>
-            <p>We are just waiting for the M-Pesa payment confirmation. Don't close this page.</p>
+            <h3 style="color:var(--gold)">Confirming Your Payment...</h3>
+            <p>We are waiting for the M-Pesa confirmation. Your BIB is already reserved.</p>
+            <p style="font-size:0.8rem; margin-top:15px; opacity:0.6">Reference: ${activeReference}</p>
         </div>
       `;
-      // Polling is already running from Step 1
   }
 
   function startPolling(ref) {
     const pollInterval = setInterval(() => {
-      fetch('/api/check-status?ref=' + ref)
+      fetch(VERCEL_API_BASE + '/api/check-status?ref=' + ref)
       .then(res => res.json())
       .then(data => {
         if (data.success && data.payment_status === 'success') {
@@ -561,28 +579,54 @@
           clearInterval(pollInterval);
           handlePaymentFailure();
         }
-      });
-    }, 3000);
+      })
+      .catch(err => console.warn('Polling error:', err));
+    }, 4000);
 
     setTimeout(() => { clearInterval(pollInterval); }, 300000); // 5 mins max
   }
 
   function showSuccess(data) {
     regForm.style.display = 'none';
-    document.querySelector('.step-indicator').style.display = 'none';
+    const indicators = document.querySelector('.step-indicator');
+    if (indicators) indicators.style.display = 'none';
     
     const successEl = document.getElementById('reg-success');
     successEl.style.display = 'block';
 
     const fn = document.getElementById('first-name').value.trim() || 'Runner';
-    const ln = document.getElementById('last-name').value.trim() || '';
     
     document.getElementById('success-welcome').textContent = 'Registration Confirmed! Welcome, ' + fn + '.';
-    document.getElementById('bib-number').textContent = '#' + (data.bib_number || 'TBA');
+    if (data.bib_number) {
+        document.getElementById('bib-number').textContent = '#' + data.bib_number;
+    }
     
     const race = document.querySelector('input[name="race_category"]:checked');
     const raceLabels = { '21k': '21KM Half Marathon', '10k': '10KM Open Run', 'corporate': '5KM Corporate', 'community': '5KM Community' };
-    document.getElementById('bib-race-info').innerHTML = `<span class="bib-race-tag">${raceLabels[race.value]}</span>`;
+    const raceTag = document.getElementById('bib-race-info');
+    if (raceTag && race) {
+        raceTag.innerHTML = `<span class="bib-race-tag">${raceLabels[race.value]}</span>`;
+    }
+  }
+
+  function handlePaymentFailure() {
+      showError('Payment was not completed. Please try again.');
+      setTimeout(() => location.reload(), 3000);
+  }
+
+  function showError(msg) {
+    let el = document.getElementById('form-error-msg');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'form-error-msg';
+      el.style.cssText = 'background:rgba(220,53,69,0.1); color:#ff4d4d; padding:15px; border-radius:8px; margin-bottom:20px; border-left:4px solid #ff4d4d; font-size:0.9rem;';
+      const activeStep = document.querySelector('.form-step.active');
+      if (activeStep) activeStep.prepend(el);
+    }
+    el.textContent = msg;
+    el.style.display = 'block';
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => { el.style.display = 'none'; }, 8000);
   }
 
   function handlePaymentFailure() {
