@@ -73,33 +73,52 @@
     }
   }
 
-  document.getElementById('activation-form').addEventListener('submit', function(e) {
+  const SUPABASE_URL = 'https://lqttzudtwarkwyxcnssd.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_UYNtiM0r3GfdtYpIdR-AeQ_oH2ivH7p';
+
+  document.getElementById('activation-form').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('submit-btn');
-    btn.disabled = true;
-    btn.textContent = 'Processing...';
+    const form = this;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
 
-    const formData = new FormData(this);
-    fetch('api/contact_submit.php', {
-      method: 'POST',
-      body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.success) {
-        this.style.display = 'none';
-        document.getElementById('activation-success').style.display = 'block';
-      } else {
-        alert('Error: ' + data.message);
-        btn.disabled = false;
-        btn.textContent = 'Complete Registration';
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+    try {
+      const response = await fetch(SUPABASE_URL + '/rest/v1/activations', {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          event_type: data.event_type,
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          message: data.message,
+          submitted_at: new Date().toISOString()
+        })
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || 'Submission failed');
       }
-    })
-    .catch(err => {
-      alert('System error.');
+
+      form.style.display = 'none';
+      document.getElementById('activation-success').style.display = 'block';
+
+    } catch (err) {
+      console.error('Activation Error:', err);
+      alert('Registration Failed: ' + err.message);
       btn.disabled = false;
-      btn.textContent = 'Complete Registration';
-    });
+      btn.innerHTML = 'Complete Registration';
+    }
   });
 </script>
 </body>

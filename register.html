@@ -154,7 +154,6 @@
 
               <div style="display:grid; gap:15px;">
                 <a href="index.html" class="btn btn-gold">Back to Homepage</a>
-                <p style="font-size:0.85rem; opacity:0.5;">Please follow the M-Pesa prompt on your phone to complete the payment.</p>
               </div>
           </div>
         </div>
@@ -167,7 +166,7 @@
 <!-- Supabase Integration for Resilient Registration -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  // Supabase Configuration (Bypasses Vercel API cache)
+  // Supabase Configuration
   const SUPABASE_URL = 'https://lqttzudtwarkwyxcnssd.supabase.co';
   const SUPABASE_ANON_KEY = 'sb_publishable_UYNtiM0r3GfdtYpIdR-AeQ_oH2ivH7p';
   const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -260,17 +259,9 @@
       
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
-      // 5. Trigger M-Pesa STK Push (Background / Async)
-      const VERCEL_API_BASE = 'https://phumolo-admin-portal.vercel.app';
-      fetch(VERCEL_API_BASE + '/api/register', {
-        method: 'POST',
-        body: formData,
-        mode: 'cors'
-      }).catch(err => console.warn('Background STK trigger failed:', err));
-
     } catch (err) {
       console.error('Registration Error:', err);
-      alert('Registration Failed: ' + err.message + '\n\nIf the error persists, please check your internet connection or use Paybill 614090.');
+      alert('Registration Failed: ' + err.message + '\n\nIf the error persists, please check your internet connection.');
       btn.disabled = false;
       btn.innerHTML = 'Complete Registration & Get BIB →';
     }

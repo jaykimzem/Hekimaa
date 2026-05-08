@@ -497,46 +497,63 @@
 
 <script src="main.js"></script>
 <script>
-(function() {
-  'use strict';
-  document.getElementById('enquiry-form').addEventListener('submit', function(e) {
+  // Supabase Configuration
+  const SUPABASE_URL = 'https://lqttzudtwarkwyxcnssd.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_UYNtiM0r3GfdtYpIdR-AeQ_oH2ivH7p';
+
+  document.getElementById('enquiry-form').addEventListener('submit', async function(e) {
     e.preventDefault();
-    const name = document.getElementById('enq-name').value.trim();
-    const email = document.getElementById('enq-email').value.trim();
-    const org = document.getElementById('enq-org').value.trim();
-    const tier = document.getElementById('enq-tier').value;
-    if (!name || !email || !org || !tier) {
+    const btn = document.getElementById('enq-submit-btn');
+    const form = this;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    // Basic Validation
+    if (!data.name || !data.email || !data.organisation || !data.tier) {
       alert('Please fill in all required fields.');
       return;
     }
 
-    const formData = new FormData(this);
-    const submitBtn = document.getElementById('enq-submit-btn');
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending Enquiry...';
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending Enquiry...';
 
-    fetch('api/contact_submit.php', {
-      method: 'POST',
-      body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.success) {
-        this.style.display = 'none';
-        document.getElementById('enquiry-success').style.display = 'block';
-      } else {
-        alert(data.message || 'Submission failed.');
+    try {
+      const response = await fetch(SUPABASE_URL + '/rest/v1/sponsorship_enquiries', {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          name: data.name,
+          job_title: data.job_title,
+          organisation: data.organisation,
+          email: data.email,
+          phone: data.phone,
+          tier: data.tier,
+          message: data.message,
+          submitted_at: new Date().toISOString()
+        })
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || 'Submission failed');
       }
-    })
-    .catch(err => {
-      alert('System error occurred.');
-    })
-    .finally(() => {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Send Sponsorship Enquiry';
-    });
+
+      form.style.display = 'none';
+      document.getElementById('enquiry-success').style.display = 'block';
+      window.scrollTo({ top: form.offsetTop - 100, behavior: 'smooth' });
+
+    } catch (err) {
+      console.error('Enquiry Error:', err);
+      alert('Enquiry Failed: ' + err.message);
+      btn.disabled = false;
+      btn.innerHTML = 'Send Sponsorship Enquiry';
+    }
   });
-})();
 </script>
 </body>
 </html>

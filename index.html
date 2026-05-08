@@ -184,94 +184,6 @@
     </div>
   </section>
 
-  <!-- ═══ EXPRESS REGISTRATION ═══ -->
-
-  <section class="express-reg-section reveal-up" id="quick-pay" aria-label="Express Registration">
-    <div class="container">
-      <div class="express-reg-card">
-        <div class="erc-header">
-          <div class="erc-badge">FLASH REGISTRATION</div>
-          <h2>Secure Your BIB <span class="gold-text">Instantly</span></h2>
-          <p>Skip the long forms. Pay now, complete details later.</p>
-        </div>
-        <form id="express-stk-form" class="erc-form">
-          <div class="erc-grid">
-            <div class="erc-field">
-              <label>Select Event</label>
-              <select name="race_category" class="form-input" id="erc-race">
-                <option value="21k">21KM Half Marathon — KES 500</option>
-                <option value="10k" selected>10KM Open Run — KES 500</option>
-                <option value="corporate">5KM Corporate — KES 500</option>
-                <option value="community">5KM Community — KES 500</option>
-                <option value="karura">Karura Youth Run Activation — KES 500</option>
-              </select>
-            </div>
-            <div class="erc-field">
-              <label>M-Pesa Phone</label>
-              <input type="tel" name="phone" id="erc-phone" placeholder="07XXXXXXXX" class="form-input" required>
-            </div>
-            <div class="erc-action">
-              <button type="submit" class="btn btn-gold btn-block" id="erc-submit-btn">Pay &amp; Register →</button>
-            </div>
-          </div>
-        </form>
-        <p class="erc-footer">Fast, secure M-Pesa STK Push. Paybill: 614090. Standard fee KES 500.</p>
-      </div>
-    </div>
-  </section>
-
-  <style>
-    .express-reg-section { padding: 80px 0; background: var(--bg-dark); }
-    .express-reg-card { 
-      background: linear-gradient(145deg, #1a1a1a, #111);
-      border: 1px solid var(--gold-40);
-      padding: 50px;
-      border-radius: 4px;
-      max-width: 900px;
-      margin: 0 auto;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-      position: relative;
-      overflow: hidden;
-    }
-    .express-reg-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -10%;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, var(--gold-20) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .erc-badge { 
-      display: inline-block; 
-      background: var(--gold); 
-      color: #000; 
-      font-size: 0.7rem; 
-      font-weight: 800; 
-      padding: 4px 12px; 
-      border-radius: 2px; 
-      margin-bottom: 15px;
-      letter-spacing: 1px;
-    }
-    .erc-header { margin-bottom: 30px; text-align: center; }
-    .erc-header h2 { font-size: 2.5rem; margin-bottom: 10px; }
-    .erc-grid { 
-      display: grid; 
-      grid-template-columns: 1fr 1fr auto; 
-      gap: 20px; 
-      align-items: flex-end; 
-    }
-    .erc-field label { display: block; font-size: 0.8rem; color: var(--white-40); margin-bottom: 8px; font-weight: 600; }
-    .erc-footer { text-align: center; margin-top: 25px; font-size: 0.8rem; color: var(--white-40); }
-    
-    @media (max-width: 768px) {
-      .erc-grid { grid-template-columns: 1fr; }
-      .express-reg-card { padding: 30px 20px; }
-    }
-  </style>
-
-
   <!-- ═══ SPONSORS BELT ═══ -->
   <section class="sponsors-belt" aria-label="Our Partners">
     <div class="container">
@@ -374,8 +286,6 @@
             <p style="font-size: 1.1rem; line-height: 1.8; color: var(--white-60); margin-bottom: 32px; font-style: italic; border-left: 3px solid var(--gold); padding-left: 24px;">
               "The Proposed Hekima University is more than just a project; it is a promise of transformation etched into the hills of Molo. What began as a bold dream of Jesuit excellence is now taking shape — brick by brick, heart by heart. Our progress is visible in the rising foundations of our administration block, but our true vision lies in the thousands of lives that will be touched by higher quality education. We are building a sanctuary of knowledge where ethical leadership meets academic rigor, ensuring that tomorrow's leaders are equipped to navigate a changing world with wisdom and grace."
             </p>
-            
-
           </div>
         </div>
       </div>
@@ -677,86 +587,5 @@
 </footer>
 
 <script src="main.js"></script>
-<script>
-  // Express STK Push Handling
-  document.getElementById('express-stk-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const btn = document.getElementById('erc-submit-btn');
-    const originalText = btn.textContent;
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-
-    const race = document.getElementById('erc-race').value;
-    const phone = document.getElementById('erc-phone').value;
-
-    const formData = new FormData();
-    formData.append('race_category', race);
-    formData.append('phone', phone);
-    formData.append('payment_method', 'mpesa_stk');
-
-    // Use register_marathon.php for marathon races, or karura_submit.php for karura?
-    // Actually, register_marathon.php can handle all if we want, but let's keep it consistent.
-    // For simplicity, let's just use register_marathon.php which is already set up for all categories.
-    
-    fetch('/api/register', {
-      method: 'POST',
-      body: formData
-    })
-    .then(res => {
-      if (!res.ok) {
-          throw new Error('Server returned ' + res.status + ' ' + res.statusText);
-      }
-      return res.text().then(text => {
-          try {
-              return JSON.parse(text);
-          } catch (e) {
-              console.error('Invalid JSON:', text);
-              throw new Error('Invalid server response. Please check your database connection.');
-          }
-      });
-    })
-    .then(data => {
-      if (data.success) {
-        alert(data.message);
-        // Start polling for payment status
-        if (data.reference) {
-            pollPaymentStatus(data.reference, btn, originalText);
-        }
-      } else {
-        alert(data.message || 'Error occurred');
-        btn.disabled = false;
-        btn.textContent = originalText;
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      alert('Error: ' + err.message);
-      btn.disabled = false;
-      btn.textContent = originalText;
-    });
-  });
-
-  function pollPaymentStatus(ref, btn, originalText) {
-    const interval = setInterval(() => {
-        fetch('/api/check-status?ref=' + ref)
-        .then(res => res.json())
-        .then(data => {
-            if (data.success && data.payment_status === 'success') {
-                clearInterval(interval);
-                alert('Payment Confirmed! Your registration is complete. We will contact you soon for more details.');
-                btn.textContent = 'Paid ✓';
-                btn.style.background = '#27ae60';
-            } else if (data.success && data.payment_status === 'failed') {
-                clearInterval(interval);
-                alert('Payment failed. Please try again.');
-                btn.disabled = false;
-                btn.textContent = originalText;
-            }
-        });
-    }, 3000);
-    
-    setTimeout(() => clearInterval(interval), 180000); // 3 mins timeout
-  }
-</script>
 </body>
 </html>
