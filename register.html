@@ -152,9 +152,11 @@
                 <div id="bib-race-info" style="margin-top:20px;"></div>
               </div>
 
-              <div style="display:grid; gap:15px;">
-                <a href="index.html" class="btn btn-gold">Back to Homepage</a>
+              <div style="display:grid; gap:15px;" id="success-actions">
+                <button id="retry-payment-btn" class="btn btn-gold" style="display:none;">Retry M-Pesa Payment</button>
+                <a href="index.html" class="btn btn-outline">Back to Homepage</a>
               </div>
+              <p id="payment-status-note" style="margin-top:15px; font-size:0.85rem; opacity:0.7;"></p>
           </div>
         </div>
 
@@ -199,6 +201,50 @@
     } catch (e) {
       console.error('BIB Logic Error:', e);
       return 9999;
+    }
+  }
+
+  // M-Pesa Integration Logic
+  async function initiateMpesaPayment(phone, amount, bib) {
+    const statusNote = document.getElementById('payment-status-note');
+    const retryBtn = document.getElementById('retry-payment-btn');
+    
+    statusNote.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending M-Pesa STK Push to your phone...';
+    statusNote.style.color = 'var(--gold)';
+    retryBtn.style.display = 'none';
+
+    try {
+      // Determine API URL (Local vs Production)
+      // Note: If using vercel dev, it runs on port 3000 by default in the mpesa folder
+      const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+        ? 'http://localhost:3000/api/stkpush' 
+        : '/mpesa/api/stkpush'; // Adjust based on your deployment structure
+
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone: phone,
+          amount: amount,
+          reference: 'BIB' + bib
+        })
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        statusNote.innerHTML = '✅ STK Push sent! Please check your phone to complete payment.';
+        statusNote.style.color = '#4ade80';
+      } else {
+        throw new Error(result.error || 'Failed to initiate STK Push');
+      }
+    } catch (err) {
+      console.error('M-Pesa Error:', err);
+      statusNote.innerHTML = '❌ Could not trigger M-Pesa push automatically.';
+      statusNote.style.color = '#f87171';
+      retryBtn.style.display = 'block';
+      
+      retryBtn.onclick = () => initiateMpesaPayment(phone, amount, bib);
     }
   }
 
@@ -258,6 +304,10 @@
       document.getElementById('bib-race-info').innerHTML = `<span style="background:var(--gold); color:black; padding:8px 20px; border-radius:30px; font-weight:800; text-transform:uppercase; font-size:0.9rem;">${displayName}</span>`;
       
       window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // 5. Trigger M-Pesa STK Push
+      // Fee is KES 500
+      initiateMpesaPayment(phone, 500, bib);
 
     } catch (err) {
       console.error('Registration Error:', err);
