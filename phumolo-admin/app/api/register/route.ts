@@ -97,9 +97,10 @@ export async function POST(request: Request) {
         'Access-Control-Allow-Origin': '*',
       }
     })
-  } catch (error: any) {
-    console.error('Registration route error:', error)
-    return NextResponse.json({ success: false, message: error.message || 'System error' }, { 
+  } catch (error: unknown) {
+    const err = error as Error
+    console.error('Registration route error:', err)
+    return NextResponse.json({ success: false, message: err.message || 'System error' }, { 
       status: 500,
       headers: { 'Access-Control-Allow-Origin': '*' }
     })

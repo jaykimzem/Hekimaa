@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
-import { generateBibNumber } from '@/lib/bib'
 
 export async function POST(request: Request) {
   try {
