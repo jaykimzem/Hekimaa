@@ -164,18 +164,54 @@
   </section>
 </main>
 
+<!-- Supabase Integration for Resilient Registration -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  // Ensure we use the correct Vercel URL
-  const VERCEL_API_BASE = 'https://phumolo-admin-portal.vercel.app';
+  // Supabase Configuration (Bypasses Vercel API cache)
+  const SUPABASE_URL = 'https://lqttzudtwarkwyxcnssd.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_UYNtiM0r3GfdtYpIdR-AeQ_oH2ivH7p';
+  const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  document.getElementById('reg-form').addEventListener('submit', function(e) {
+  async function getNextBib(raceCategory, gender) {
+    try {
+      let prefix = '';
+      const g = (gender || 'Other').toLowerCase();
+      const rc = (raceCategory || '10k').toLowerCase();
+      
+      if (rc.includes('21')) prefix = (g === 'female') ? '12' : '11';
+      else if (rc.includes('10')) prefix = (g === 'female') ? '22' : '21';
+      else if (rc.includes('corp')) prefix = (g === 'female') ? '32' : '31';
+      else if (rc.includes('comm')) prefix = (g === 'female') ? '42' : '41';
+      else prefix = '50';
+
+      const start = parseInt(prefix + '000');
+      const end = parseInt(prefix + '999');
+
+      const { data, error } = await _supabase
+        .from('registrations')
+        .select('bib_number')
+        .gte('bib_number', start)
+        .lte('bib_number', end)
+        .order('bib_number', { ascending: false })
+        .limit(1);
+
+      if (error || !data || data.length === 0) return start + 1;
+      return parseInt(data[0].bib_number) + 1;
+    } catch (e) {
+      console.error('BIB Logic Error:', e);
+      return 9999;
+    }
+  }
+
+  document.getElementById('reg-form').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('submit-btn');
     const form = this;
     const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
 
     // Basic Validation
-    const phone = document.getElementById('phone').value.trim();
+    const phone = (data.phone || '').trim().replace(/\s/g, '');
     if (!phone) {
       alert('Please enter your phone number.');
       return;
@@ -184,43 +220,60 @@
     btn.disabled = true;
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing Registration...';
 
-    fetch(VERCEL_API_BASE + '/api/register', {
-      method: 'POST',
-      body: formData,
-      mode: 'cors' // Explicitly set CORS
-    })
-    .then(async res => {
-      if (!res.ok) {
-        const errorData = await res.json().catch(() => ({}));
-        throw new Error(errorData.message || 'Server error (' + res.status + ')');
-      }
-      return res.json();
-    })
-    .then(data => {
-      console.log('Success:', data);
-      if (data.success) {
-        form.style.display = 'none';
-        document.getElementById('reg-success').style.display = 'block';
-        document.getElementById('bib-number').textContent = '#' + (data.bib_number || 'TBA');
-        
-        const firstName = formData.get('first_name');
-        document.getElementById('success-msg').textContent = 'Awesome, ' + firstName + '! Your registration is confirmed and your BIB is assigned.';
-        
-        const race = formData.get('race_category');
-        const raceNames = { '21k': '21KM Half Marathon', '10k': '10KM Open Run', 'corporate': '5KM Corporate', 'community': '5KM Community' };
-        document.getElementById('bib-race-info').innerHTML = `<span style="background:var(--gold); color:black; padding:8px 20px; border-radius:30px; font-weight:800; text-transform:uppercase; font-size:0.9rem;">${raceNames[race] || race}</span>`;
-        
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        throw new Error(data.message || 'Registration failed');
-      }
-    })
-    .catch(err => {
+    try {
+      // 1. Determine Race Category
+      const raceMap = { '21k': '21KM', '10k': '10KM', 'corporate': '5KM', 'community': '5KM' };
+      const race_category = raceMap[data.race_category] || data.race_category;
+      const gender = data.gender || 'Other';
+
+      // 2. Generate BIB Immediately in Frontend
+      const bib = await getNextBib(race_category, gender);
+
+      // 3. Save to Supabase Directly
+      const { data: reg, error: regError } = await _supabase.from('registrations').insert([{
+        first_name: data.first_name || 'Runner',
+        last_name: data.last_name || '',
+        email: data.email || null,
+        phone: phone,
+        id_number: data.id_number || null,
+        race_category: race_category,
+        gender: gender,
+        bib_number: bib,
+        shirt_size: data.tshirt_size?.toString().toUpperCase() || 'M',
+        payment_status: 'Pending',
+        submitted_at: new Date().toISOString()
+      }]).select().single();
+
+      if (regError) throw regError;
+
+      // 4. Show Success Screen Immediately
+      form.style.display = 'none';
+      document.getElementById('reg-success').style.display = 'block';
+      document.getElementById('bib-number').textContent = '#' + bib;
+      
+      const firstName = data.first_name || 'Runner';
+      document.getElementById('success-msg').textContent = 'Awesome, ' + firstName + '! Your registration is confirmed and your BIB is assigned.';
+      
+      const raceNames = { '21k': '21KM Half Marathon', '10k': '10KM Open Run', 'corporate': '5KM Corporate', 'community': '5KM Community' };
+      const displayName = raceNames[data.race_category] || race_category;
+      document.getElementById('bib-race-info').innerHTML = `<span style="background:var(--gold); color:black; padding:8px 20px; border-radius:30px; font-weight:800; text-transform:uppercase; font-size:0.9rem;">${displayName}</span>`;
+      
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // 5. Trigger M-Pesa STK Push (Background / Async)
+      const VERCEL_API_BASE = 'https://phumolo-admin-portal.vercel.app';
+      fetch(VERCEL_API_BASE + '/api/register', {
+        method: 'POST',
+        body: formData,
+        mode: 'cors'
+      }).catch(err => console.warn('Background STK trigger failed:', err));
+
+    } catch (err) {
       console.error('Registration Error:', err);
       alert('Registration Failed: ' + err.message + '\n\nIf the error persists, please check your internet connection or use Paybill 614090.');
       btn.disabled = false;
       btn.innerHTML = 'Complete Registration & Get BIB →';
-    });
+    }
   });
 </script>
 
