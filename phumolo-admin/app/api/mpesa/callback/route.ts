@@ -38,25 +38,15 @@ export async function POST(request: Request) {
 
     if (payment && !paymentError) {
       if (resultCode === 0) {
-        // Success
+        // Update payment
         await supabaseAdmin.from('payments')
           .update({ status: 'success', transaction_id, metadata: data as Record<string, unknown> })
           .eq('id', payment.id)
 
-        const { data: reg, error: regError } = await (supabaseAdmin
-          .from('registrations')
-          .select('id, race_category, user_id, users(gender)')
+        // Update registration status
+        await supabaseAdmin.from('registrations')
+          .update({ payment_status: 'Confirmed' })
           .eq('payment_id', payment.id)
-          .single() as Promise<{ data: { id: string; race_category: string; users: { gender: string } | null } | null; error: unknown }>)
-
-        if (reg && !regError) {
-          const gender = (reg.users as { gender: string } | null)?.gender || 'Other'
-          const bib = await generateBibNumber(reg.race_category, gender)
-          
-          await supabaseAdmin.from('registrations')
-            .update({ status: 'confirmed', bib_number: bib })
-            .eq('id', reg.id)
-        }
       } else {
         // Failed
         await supabaseAdmin.from('payments')
