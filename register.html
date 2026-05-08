@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register | Hekima University Molo Marathon 2026</title>
-  <meta name="description" content="Register for the Hekima University Molo Marathon 2026. Choose your race category, provide your details, and join 2,000+ runners on 8 August 2026 in Molo, Kenya.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
@@ -43,31 +42,53 @@
         <form id="reg-form" novalidate>
           <div class="form-step active">
             <div class="form-step-header">
-              <h2>Marathon <span class="gold-text">Registration</span></h2>
-              <p>Complete the form below to secure your BIB immediately.</p>
+              <h2>Secure Your <span class="gold-text">BIB</span></h2>
+              <p>Join over 2,000 runners. Register now to get your BIB instantly.</p>
             </div>
 
-            <!-- Race Selection -->
+            <!-- Race Categories -->
             <div class="race-select-cards" role="radiogroup">
               <label class="race-select-card" for="race-21k">
                 <input type="radio" name="race_category" id="race-21k" value="21k" checked>
-                <div class="rsc-content"><div class="rsc-dist">21<span>KM</span></div><div class="rsc-info"><strong>Half Marathon</strong><span>KES 500</span></div></div>
+                <div class="rsc-content">
+                    <div class="rsc-dist">21<span>KM</span></div>
+                    <div class="rsc-info"><strong>Half Marathon</strong><span>KES 500</span></div>
+                </div>
               </label>
+
               <label class="race-select-card" for="race-10k">
                 <input type="radio" name="race_category" id="race-10k" value="10k">
-                <div class="rsc-content"><div class="rsc-dist">10<span>KM</span></div><div class="rsc-info"><strong>10KM Open</strong><span>KES 500</span></div></div>
+                <div class="rsc-content">
+                    <div class="rsc-dist">10<span>KM</span></div>
+                    <div class="rsc-info"><strong>Open Run</strong><span>KES 500</span></div>
+                </div>
+              </label>
+
+              <label class="race-select-card" for="race-corp">
+                <input type="radio" name="race_category" id="race-corp" value="corporate">
+                <div class="rsc-content">
+                    <div class="rsc-dist">5<span>KM</span></div>
+                    <div class="rsc-info"><strong>Corporate</strong><span>KES 500</span></div>
+                </div>
+              </label>
+
+              <label class="race-select-card" for="race-comm">
+                <input type="radio" name="race_category" id="race-comm" value="community">
+                <div class="rsc-content">
+                    <div class="rsc-dist">5<span>KM</span></div>
+                    <div class="rsc-info"><strong>Community</strong><span>KES 500</span></div>
+                </div>
               </label>
             </div>
 
-            <!-- Personal Details -->
-            <div class="form-grid-2" style="margin-top:20px;">
+            <div class="form-grid-2" style="margin-top:25px;">
               <div class="form-group">
                 <label class="form-label">First Name *</label>
-                <input type="text" name="first_name" class="form-input" required placeholder="e.g. John">
+                <input type="text" name="first_name" class="form-input" required placeholder="John">
               </div>
               <div class="form-group">
                 <label class="form-label">Last Name *</label>
-                <input type="text" name="last_name" class="form-input" required placeholder="e.g. Doe">
+                <input type="text" name="last_name" class="form-input" required placeholder="Doe">
               </div>
             </div>
 
@@ -93,18 +114,18 @@
               <div class="form-group">
                 <label class="form-label">T-Shirt Size</label>
                 <select name="tshirt_size" class="form-input">
-                  <option value="S">S</option>
-                  <option value="M" selected>M</option>
-                  <option value="L">L</option>
-                  <option value="XL">XL</option>
+                  <option value="S">Small (S)</option>
+                  <option value="M" selected>Medium (M)</option>
+                  <option value="L">Large (L)</option>
+                  <option value="XL">X-Large (XL)</option>
                 </select>
               </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 20px;">
               <label class="checkbox-label">
                 <input type="checkbox" required checked>
-                <span>I agree to the <a href="legal.html">Terms & Waiver</a>.</span>
+                <span>I agree to the <a href="terms.html">Terms</a> and <a href="legal.html">Waiver</a>.</span>
               </label>
             </div>
 
@@ -113,24 +134,28 @@
                 Complete Registration & Get BIB →
               </button>
             </div>
+            
+            <p style="text-align:center; font-size:0.8rem; margin-top:15px; opacity:0.6;">Paybill: 614090 | Fee: KES 500</p>
           </div>
         </form>
 
         <!-- SUCCESS STATE -->
         <div class="reg-success" id="reg-success" style="display:none">
-          <div class="success-icon" style="background:var(--gold); color:white; width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:2rem;">✓</div>
-          <h2 style="text-align:center;">Registration <span class="gold-text">Confirmed!</span></h2>
-          <p id="success-msg" style="text-align:center; margin-bottom:30px;">Welcome to the Hekima Marathon 2026.</p>
-          
-          <div class="bib-display" style="background:var(--white-5); border:2px dashed var(--gold); padding:30px; border-radius:15px; text-align:center; margin-bottom:30px;">
-            <span style="display:block; text-transform:uppercase; letter-spacing:2px; font-size:0.8rem; opacity:0.7; margin-bottom:10px;">Your BIB Number</span>
-            <span class="bib-number" id="bib-number" style="font-size:4rem; font-weight:900; color:var(--gold); font-family:Montserrat, sans-serif;">#0000</span>
-            <div id="bib-race-info" style="margin-top:15px;"></div>
-          </div>
+          <div style="text-align:center;">
+              <div style="background:var(--gold); color:black; width:70px; height:70px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:2rem;">✓</div>
+              <h2 style="font-size:2rem; margin-bottom:10px;">Registration <span class="gold-text">Successful!</span></h2>
+              <p id="success-msg" style="margin-bottom:30px; opacity:0.8;">Your details have been captured and your BIB is reserved.</p>
+              
+              <div class="bib-display" style="background:rgba(212,175,55,0.1); border:3px solid var(--gold); padding:40px; border-radius:20px; margin-bottom:30px;">
+                <span style="display:block; text-transform:uppercase; letter-spacing:3px; font-size:0.9rem; margin-bottom:15px; opacity:0.7;">Official BIB Number</span>
+                <span id="bib-number" style="font-size:5rem; font-weight:900; color:var(--gold); font-family:Montserrat, sans-serif; line-height:1;">#----</span>
+                <div id="bib-race-info" style="margin-top:20px;"></div>
+              </div>
 
-          <div class="success-actions" style="display:grid; gap:10px;">
-            <a href="index.html" class="btn btn-outline" style="text-align:center">Back to Home</a>
-            <p style="font-size:0.8rem; opacity:0.5; text-align:center; margin-top:10px;">A payment prompt has been sent to your phone. Please complete it to finalize your registration.</p>
+              <div style="display:grid; gap:15px;">
+                <a href="index.html" class="btn btn-gold">Back to Homepage</a>
+                <p style="font-size:0.85rem; opacity:0.5;">Please follow the M-Pesa prompt on your phone to complete the payment.</p>
+              </div>
           </div>
         </div>
 
@@ -140,6 +165,7 @@
 </main>
 
 <script>
+  // Ensure we use the correct Vercel URL
   const VERCEL_API_BASE = 'https://phumolo-admin.vercel.app';
 
   document.getElementById('reg-form').addEventListener('submit', function(e) {
@@ -148,35 +174,50 @@
     const form = this;
     const formData = new FormData(form);
 
+    // Basic Validation
+    const phone = document.getElementById('phone').value.trim();
+    if (!phone) {
+      alert('Please enter your phone number.');
+      return;
+    }
+
     btn.disabled = true;
-    btn.innerHTML = 'Processing...';
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing Registration...';
 
     fetch(VERCEL_API_BASE + '/api/register', {
       method: 'POST',
-      body: formData
+      body: formData,
+      mode: 'cors' // Explicitly set CORS
     })
-    .then(res => res.json())
+    .then(async res => {
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Server error (' + res.status + ')');
+      }
+      return res.json();
+    })
     .then(data => {
+      console.log('Success:', data);
       if (data.success) {
         form.style.display = 'none';
         document.getElementById('reg-success').style.display = 'block';
         document.getElementById('bib-number').textContent = '#' + (data.bib_number || 'TBA');
         
         const firstName = formData.get('first_name');
-        document.getElementById('success-msg').textContent = 'Welcome, ' + firstName + '! Your registration is confirmed.';
+        document.getElementById('success-msg').textContent = 'Awesome, ' + firstName + '! Your registration is confirmed and your BIB is assigned.';
         
         const race = formData.get('race_category');
-        const raceNames = { '21k': '21KM Half Marathon', '10k': '10KM Open Run' };
-        document.getElementById('bib-race-info').innerHTML = `<span style="background:var(--gold); color:black; padding:5px 15px; border-radius:20px; font-weight:bold; font-size:0.8rem;">${raceNames[race] || race}</span>`;
+        const raceNames = { '21k': '21KM Half Marathon', '10k': '10KM Open Run', 'corporate': '5KM Corporate', 'community': '5KM Community' };
+        document.getElementById('bib-race-info').innerHTML = `<span style="background:var(--gold); color:black; padding:8px 20px; border-radius:30px; font-weight:800; text-transform:uppercase; font-size:0.9rem;">${raceNames[race] || race}</span>`;
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        alert(data.message || 'Error occurred');
-        btn.disabled = false;
-        btn.innerHTML = 'Complete Registration & Get BIB →';
+        throw new Error(data.message || 'Registration failed');
       }
     })
     .catch(err => {
-      console.error(err);
-      alert('System error. Please check connection.');
+      console.error('Registration Error:', err);
+      alert('Registration Failed: ' + err.message + '\n\nIf the error persists, please check your internet connection or use Paybill 614090.');
       btn.disabled = false;
       btn.innerHTML = 'Complete Registration & Get BIB →';
     });
