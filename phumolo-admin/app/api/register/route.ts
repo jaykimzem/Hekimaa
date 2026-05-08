@@ -1,3 +1,4 @@
+// API Version: 1.1.0 - Refined BIB generation logic
 import { NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
 import { MpesaService } from '@/lib/mpesa'
