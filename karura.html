@@ -490,7 +490,6 @@
       payment_status:    'Pending'
     };
 
-    // 1. Save to Supabase
     fetch(SUPABASE_URL + '/rest/v1/karura_registrations', {
       method: 'POST',
       headers: {
@@ -503,9 +502,7 @@
     })
     .then(res => {
       if (res.ok) {
-        // 2. Trigger M-Pesa STK Push
-        initiateMpesaPayment(payload.phone, 500, 'KARURA-' + payload.names.substring(0,5));
-        alert('Registration submitted! Please check your phone for the M-Pesa payment prompt.');
+        alert('Registration submitted! You will receive a payment prompt shortly. Paybill: 614090.');
         this.reset();
       } else {
         return res.text().then(txt => { throw new Error(txt || 'Submission failed.'); });
@@ -519,27 +516,6 @@
       btn.textContent = originalText;
     });
   });
-
-  // M-Pesa Payment Helper
-  async function initiateMpesaPayment(phone, amount, reference) {
-    try {
-      const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-        ? 'http://localhost:3000/api/stkpush' 
-        : '/mpesa/api/stkpush';
-
-      await fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          phone: phone,
-          amount: amount,
-          reference: reference
-        })
-      });
-    } catch (err) {
-      console.error('M-Pesa Trigger Error:', err);
-    }
-  }
 
   // Karura Sponsorship Request
   document.getElementById('karura-sponsor-form').addEventListener('submit', function(e) {
