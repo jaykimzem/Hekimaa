@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M-Pesa Debugger | Phumolo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #c5a059;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --success: #22c55e;
+            --error: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container { width: 100%; max-width: 800px; }
+
+        .header { margin-bottom: 2rem; text-align: center; }
+        .header h1 { color: var(--primary); margin-bottom: 0.5rem; }
+        .header p { color: var(--text-muted); }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            height: fit-content;
+        }
+
+        .form-group { margin-bottom: 1.2rem; }
+        label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem; }
+        input {
+            width: 100%;
+            background: #0f172a;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 0.5rem;
+            padding: 0.8rem;
+            color: white;
+            font-family: inherit;
+        }
+
+        button {
+            width: 100%;
+            background: var(--primary);
+            color: black;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .log-container {
+            grid-column: span 1;
+        }
+
+        #debug-output {
+            background: #000;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            min-height: 300px;
+            max-height: 500px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .log-entry { margin-bottom: 0.8rem; border-left: 3px solid #334155; padding-left: 0.8rem; }
+        .log-time { color: var(--text-muted); font-size: 0.7rem; }
+        .log-msg { margin-top: 0.2rem; }
+        .log-success { border-color: var(--success); color: #4ade80; }
+        .log-error { border-color: var(--error); color: #f87171; }
+        .log-json { background: #1e293b; padding: 0.5rem; border-radius: 0.3rem; margin-top: 0.5rem; display: block; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>M-Pesa Integration Debugger</h1>
+            <p>Direct API Testing & Response Tracking</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <form id="stkForm">
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="text" id="phone" value="0727856464" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Amount (KES)</label>
+                        <input type="number" id="amount" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Reference</label>
+                        <input type="text" id="reference" value="TestPush">
+                    </div>
+                    <button type="submit" id="submitBtn">Trigger STK Push</button>
+                </form>
+
+                <div style="margin-top: 2rem; font-size: 0.8rem; color: var(--text-muted);">
+                    <p><strong>Note:</strong> This form hits your <code>/api/stkpush</code> route. Check Vercel Function logs for deep tracing.</p>
+                </div>
+            </div>
+
+            <div class="log-container">
+                <div class="card" style="padding: 0; border: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding: 0 1rem;">
+                        <label style="margin: 0;">Traffic Logs</label>
+                        <button onclick="clearLogs()" style="width: auto; padding: 0.3rem 0.6rem; font-size: 0.7rem; background: #334155; color: white;">Clear</button>
+                    </div>
+                    <div id="debug-output"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const output = document.getElementById('debug-output');
+        const form = document.getElementById('stkForm');
+        const btn = document.getElementById('submitBtn');
+
+        function addLog(msg, type = 'info', json = null) {
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            
+            const time = new Date().toLocaleTimeString();
+            let html = `<div class="log-time">[${time}]</div><div class="log-msg">${msg}</div>`;
+            
+            if (json) {
+                html += `<code class="log-json">${JSON.stringify(json, null, 2)}</code>`;
+            }
+            
+            entry.innerHTML = html;
+            output.prepend(entry);
+        }
+
+        function clearLogs() {
+            output.innerHTML = '';
+            addLog('Logs cleared. Ready for next request.');
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            btn.disabled = true;
+            
+            const payload = {
+                phone: document.getElementById('phone').value,
+                amount: document.getElementById('amount').value,
+                reference: document.getElementById('reference').value
+            };
+
+            addLog(`Initiating request to /api/stkpush...`, 'info', payload);
+
+            try {
+                const startTime = Date.now();
+                const response = await fetch('/api/stkpush', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const duration = Date.now() - startTime;
+                const data = await response.json();
+
+                if (response.ok) {
+                    addLog(`Success after ${duration}ms! STK Push triggered.`, 'success', data);
+                } else {
+                    addLog(`API Error (${response.status}) after ${duration}ms`, 'error', data);
+                }
+            } catch (err) {
+                addLog(`Network/Fetch Error: ${err.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+            }
+        });
+
+        addLog('Debugger initialized. Enter details and trigger push.');
+    </script>
+</body>
+</html>
