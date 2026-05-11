@@ -473,7 +473,7 @@
   const SUPABASE_ANON_KEY = 'sb_publishable_UYNtiM0r3GfdtYpIdR-AeQ_oH2ivH7p';
 
   // Karura Paid Registration
-  document.getElementById('karura-paid-form').addEventListener('submit', function(e) {
+  document.getElementById('karura-paid-form').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = this.querySelector('button');
     const originalText = btn.textContent;
@@ -481,40 +481,74 @@
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
 
     const formData = new FormData(this);
+    const names = formData.get('names') || '';
+    const phone = formData.get('phone') || '';
+    const email = formData.get('email') || '';
+
     const payload = {
-      names:             formData.get('names') || '',
-      phone:             formData.get('phone') || '',
-      email:             formData.get('email') || '',
+      names:             names,
+      phone:             phone,
+      email:             email,
       company:           formData.get('company') || '',
       emergency_contact: formData.get('emergency_contact') || '',
       payment_status:    'Pending'
     };
 
-    fetch(SUPABASE_URL + '/rest/v1/karura_registrations', {
-      method: 'POST',
-      headers: {
-        'apikey':        SUPABASE_ANON_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-        'Content-Type':  'application/json',
-        'Prefer':        'return=minimal'
-      },
-      body: JSON.stringify(payload)
-    })
-    .then(res => {
-      if (res.ok) {
-        alert('Registration submitted! You will receive a payment prompt shortly. Paybill: 614090.');
-        this.reset();
-      } else {
-        return res.text().then(txt => { throw new Error(txt || 'Submission failed.'); });
+    try {
+      // 1. Save to Supabase (Initial State)
+      const res = await fetch(SUPABASE_URL + '/rest/v1/karura_registrations', {
+        method: 'POST',
+        headers: {
+          'apikey':        SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Content-Type':  'application/json',
+          'Prefer':        'return=representation'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const regData = await res.json();
+      if (!res.ok) throw new Error(regData.message || 'Submission failed.');
+      const registration = regData[0];
+
+      // 2. Trigger M-Pesa STK Push
+      btn.innerHTML = '<i class="fas fa-mobile-alt fa-shake"></i> Sending STK Prompt...';
+      
+      const mpesaResponse = await fetch('/api/stkpush', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone: phone,
+          amount: 500, // Standard Karura Fee
+          reference: 'KAR' + registration.id
+        })
+      });
+
+      const mpesaData = await mpesaResponse.json();
+
+      if (mpesaData.CheckoutRequestID) {
+        // Update Supabase with CheckoutRequestID for tracking
+        await fetch(SUPABASE_URL + '/rest/v1/karura_registrations?id=eq.' + registration.id, {
+          method: 'PATCH',
+          headers: {
+            'apikey':        SUPABASE_ANON_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+            'Content-Type':  'application/json'
+          },
+          body: JSON.stringify({ checkout_request_id: mpesaData.CheckoutRequestID })
+        });
       }
-    })
-    .catch(err => {
+
+      alert('Awesome, ' + names.split(' ')[0] + '! Please check your phone for the M-Pesa prompt to complete your payment.');
+      this.reset();
+
+    } catch (err) {
+      console.error('Karura Registration Error:', err);
       alert('Error: ' + err.message);
-    })
-    .finally(() => {
+    } finally {
       btn.disabled = false;
       btn.textContent = originalText;
-    });
+    }
   });
 
   // Karura Sponsorship Request
