@@ -47,14 +47,21 @@ export default async function handler(req, res) {
     console.log('[stkpush] Formatted phone:', formattedPhone);
 
     try {
-        const isLive = process.env.MPESA_ENV === 'live';
+        const envVal = (process.env.MPESA_ENV || '').toLowerCase();
+        const isLive = envVal === 'live' || envVal === 'production';
         const baseUrl = isLive ? 'https://api.safaricom.co.ke' : 'https://sandbox.safaricom.co.ke';
         
-        console.log(`[stkpush] Environment: ${isLive ? 'LIVE' : 'SANDBOX'}`);
+        console.log(`[stkpush] Environment: ${isLive ? 'LIVE' : 'SANDBOX'} (from MPESA_ENV: "${process.env.MPESA_ENV}")`);
         console.log(`[stkpush] Target URL: ${baseUrl}`);
 
         // ── STEP 1: GET ACCESS TOKEN ───────────────────────────────────────
         console.log('[stkpush] Step 1: Generating Basic auth credential...');
+        
+        if (!process.env.MPESA_CONSUMER_KEY || !process.env.MPESA_CONSUMER_SECRET) {
+            console.error('[stkpush] CRITICAL: Missing Consumer Key or Secret in process.env');
+            return res.status(500).json({ error: 'Server configuration error: missing keys' });
+        }
+
         const auth = Buffer.from(`${process.env.MPESA_CONSUMER_KEY}:${process.env.MPESA_CONSUMER_SECRET}`).toString('base64');
 
         let accessToken;
@@ -63,14 +70,20 @@ export default async function handler(req, res) {
                 `${baseUrl}/oauth/v1/generate?grant_type=client_credentials`,
                 {
                     headers: { Authorization: `Basic ${auth}` },
-                    timeout: 15000
+                    timeout: 20000
                 }
             );
             accessToken = tokenResponse.data.access_token;
             console.log('[stkpush] Step 1: Access token acquired ✓');
         } catch (tokenErr) {
-            const tokenErrData = tokenErr.response ? tokenErr.response.data : tokenErr.message;
-            console.error('[stkpush] Step 1 FAILED:', JSON.stringify(tokenErrData));
+            let tokenErrData = 'Unknown error';
+            if (tokenErr.response) {
+                tokenErrData = tokenErr.response.data;
+                console.error('[stkpush] Step 1 FAILED (Response):', JSON.stringify(tokenErrData));
+            } else {
+                tokenErrData = tokenErr.message;
+                console.error('[stkpush] Step 1 FAILED (Message):', tokenErrData);
+            }
             return res.status(502).json({ error: 'Token fetch failed', details: tokenErrData });
         }
 

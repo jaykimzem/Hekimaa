@@ -220,13 +220,12 @@
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
 
     try {
-      // 1. Determine Race Category & BIB
+      // 1. Determine Race Category
       const raceMap = { '21k': '21KM', '10k': '10KM', 'corporate': '5KM', 'community': '5KM' };
       const race_category = raceMap[data.race_category] || data.race_category;
       const gender = data.gender || 'Other';
-      const bib = await getNextBib(race_category, gender);
 
-      // 2. Save to Supabase (Initial State)
+      // 2. Save to Supabase (Details Only)
       const { data: reg, error: regError } = await _supabase.from('registrations').insert([{
         first_name: data.first_name || 'Runner',
         last_name: data.last_name || '',
@@ -235,7 +234,7 @@
         id_number: data.id_number || null,
         race_category: race_category,
         gender: gender,
-        bib_number: bib,
+        bib_number: null, // BIB assigned later
         shirt_size: data.tshirt_size?.toString().toUpperCase() || 'M',
         payment_status: 'Pending',
         submitted_at: new Date().toISOString()
@@ -243,40 +242,23 @@
 
       if (regError) throw regError;
 
-      // 3. Trigger M-Pesa STK Push
-      btn.innerHTML = '<i class="fas fa-mobile-alt fa-shake"></i> Sending STK Prompt...';
-      
-      const mpesaResponse = await fetch('/api/stkpush', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          phone: phone,
-          amount: 500, // Standard Marathon Fee
-          reference: 'BIB' + bib
-        })
-      });
-
-      const mpesaData = await mpesaResponse.json();
-
-      if (mpesaData.CheckoutRequestID) {
-        // Update Supabase with CheckoutRequestID for tracking
-        await _supabase
-          .from('registrations')
-          .update({ checkout_request_id: mpesaData.CheckoutRequestID })
-          .eq('id', reg.id);
-      }
-
-      // 4. Show Success Screen
+      // 3. Show Success Screen
       form.style.display = 'none';
       document.getElementById('reg-success').style.display = 'block';
-      document.getElementById('bib-number').textContent = '#' + bib;
       
       const firstName = data.first_name || 'Runner';
-      document.getElementById('success-msg').textContent = 'Awesome, ' + firstName + '! Please check your phone for the M-Pesa prompt to complete your payment.';
+      document.getElementById('success-msg').textContent = 'Thank you, ' + firstName + '! Your registration details have been successfully received. Our team will contact you soon regarding BIB collection and payment instructions.';
+      
+      // Hide BIB display area
+      const bibDisplay = document.querySelector('.bib-display');
+      if (bibDisplay) bibDisplay.style.display = 'none';
       
       const raceNames = { '21k': '21KM Half Marathon', '10k': '10KM Open Run', 'corporate': '5KM Corporate', 'community': '5KM Community' };
       const displayName = raceNames[data.race_category] || race_category;
-      document.getElementById('bib-race-info').innerHTML = `<span style="background:var(--gold); color:black; padding:8px 20px; border-radius:30px; font-weight:800; text-transform:uppercase; font-size:0.9rem;">${displayName}</span>`;
+      const bibRaceInfo = document.getElementById('bib-race-info');
+      if (bibRaceInfo) {
+        bibRaceInfo.innerHTML = `<span style="background:var(--gold); color:black; padding:8px 20px; border-radius:30px; font-weight:800; text-transform:uppercase; font-size:0.9rem;">${displayName}</span>`;
+      }
       
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -284,7 +266,7 @@
       console.error('Registration Error:', err);
       alert('Registration Failed: ' + err.message);
       btn.disabled = false;
-      btn.innerHTML = 'Complete Registration & Get BIB →';
+      btn.innerHTML = 'Complete Registration →';
     }
   });
 </script>
