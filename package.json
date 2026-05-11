@@ -1,0 +1,12 @@
+{
+  "name": "hekima-university-marathon",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Hekima University Molo Marathon Website with M-Pesa Integration",
+  "main": "main.js",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
+    "@supabase/supabase-js": "^2.26.0"
+  }
+}
