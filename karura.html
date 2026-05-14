@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Karura Youth Run 2026 | Hekima University Molo Marathon Activation</title>
-  <meta name="description" content="Join the Karura Youth Run on 23 May 2026. A vibrant youth-led run through Karura Forest to champion education and environmental stewardship.">
+  <meta name="description" content="Join the Karura Youth Run on 30 May 2026. A vibrant youth-led run through Karura Forest to champion education and excellence through the power of sport.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
@@ -241,10 +241,50 @@
       background: #d4ac0d;
     }
 
+    @media (min-width: 993px) {
+      .forms-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
     @media (max-width: 992px) {
       .forms-grid {
         grid-template-columns: 1fr;
       }
+    }
+    
+    /* Donation Styles */
+    .donation-options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+    .donation-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 12px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .donation-btn:hover, .donation-btn.active {
+      border-color: var(--karura-yellow);
+      background: rgba(241, 196, 15, 0.1);
+    }
+    .custom-amount-wrap {
+      position: relative;
+    }
+    .custom-amount-wrap span {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255,255,255,0.5);
+    }
+    .custom-amount-wrap input {
+      padding-left: 30px;
     }
 
     /* Vibrant Accents */
@@ -296,13 +336,13 @@
     <div class="karura-hero-content reveal-up">
       <span class="karura-hero-eyebrow">Youth Run Activation</span>
       <h1 class="karura-hero-title">Karura Forest<br><span style="color: var(--karura-green);">Launch</span></h1>
-      <p class="karura-hero-desc">Engaging the next generation. A vibrant youth-led run through Karura Forest to champion education and environmental stewardship through sport.</p>
+      <p class="karura-hero-desc">Igniting the future. A vibrant youth-led run through Karura Forest to champion education and excellence through the power of sport.</p>
       
       <div class="karura-meta">
         <div class="meta-item">
           <span class="meta-icon">📅</span>
           <div class="meta-text">
-            <strong>23 MAY 2026</strong>
+            <strong>30 MAY 2026</strong>
             <span>Save the Date</span>
           </div>
         </div>
@@ -316,8 +356,8 @@
         <div class="meta-item">
           <span class="meta-icon">🌱</span>
           <div class="meta-text">
-            <strong>Youth Led</strong>
-            <span>Impact Driven</span>
+            <strong>15km, 10km, 5km</strong>
+            <span>Race Categories</span>
           </div>
         </div>
       </div>
@@ -345,9 +385,18 @@
           <div class="form-header">
             <span class="form-badge">RUNNER REGISTRATION</span>
             <h2>Pay & <span style="color: var(--karura-green);">Sign Up</span></h2>
-            <p>Secure your spot in the Karura Youth Run. Paybill: 614090. Registration fee: KES 500.</p>
+            <p>Secure your spot. 15km, 10km, or 5km. Registration: KES 500. Parking: KES 250.</p>
           </div>
           <form class="karura-form" id="karura-paid-form">
+            <div class="form-group">
+              <label for="p-race">Select Race *</label>
+              <select id="p-race" name="race_category" class="form-input" required style="background: #1a1a1a;">
+                <option value="" disabled selected>Choose distance</option>
+                <option value="15km">15km Endurance Run</option>
+                <option value="10km">10km Challenge</option>
+                <option value="5km">5km Fun Run / Youth Sprint</option>
+              </select>
+            </div>
             <div class="form-group">
               <label for="p-names">Full Names *</label>
               <input type="text" id="p-names" name="names" class="form-input" placeholder="e.g. Jane Doe" required>
@@ -367,6 +416,15 @@
             <div class="form-group">
               <label for="p-emergency">Emergency Contact *</label>
               <input type="tel" id="p-emergency" name="emergency_contact" class="form-input" placeholder="07XXXXXXXX" required>
+            </div>
+            <div class="form-group">
+              <label class="checkbox-label" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                <input type="checkbox" id="p-parking" name="with_car" style="width: 18px; height: 18px; accent-color: var(--karura-green);">
+                <span>I will attend with a car (Parking Fee: KES 250)</span>
+              </label>
+            </div>
+            <div id="payment-summary" style="padding: 15px; background: rgba(255,255,255,0.03); border-radius: 8px; font-size: 0.9rem; border-left: 3px solid var(--karura-green);">
+              Total to Pay: <strong style="font-size: 1.1rem;">KES <span id="total-amount">500</span></strong>
             </div>
             <button type="submit" class="btn-karura">Pay & Register →</button>
           </form>
@@ -407,6 +465,39 @@
             <button type="submit" class="btn-karura btn-sponsor">Submit Request →</button>
           </form>
         </div>
+
+        <!-- Form 3: Donation -->
+        <div class="form-card reveal-up" style="--delay: 0.3s; border-color: rgba(241, 196, 15, 0.2);">
+          <div class="form-header">
+            <span class="form-badge" style="background: #3498db; color: white;">SUPPORT THE CAUSE</span>
+            <h2>Make a <span style="color: #3498db;">Donation</span></h2>
+            <p>Your contribution directly supports education and excellence for our youth.</p>
+          </div>
+          <form class="karura-form" id="karura-donation-form">
+            <div class="form-group">
+              <label>Select Donation Amount</label>
+              <div class="donation-options">
+                <button type="button" class="donation-btn" data-amount="5000">KES 5,000</button>
+                <button type="button" class="donation-btn" data-amount="10000">KES 10,000</button>
+                <button type="button" class="donation-btn" data-amount="15000">KES 15,000</button>
+                <button type="button" class="donation-btn" id="btn-custom">Custom</button>
+              </div>
+              <div class="custom-amount-wrap" id="custom-wrap" style="display: none;">
+                <span>KES</span>
+                <input type="number" id="d-amount" name="amount" class="form-input" placeholder="Enter amount">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="d-phone">M-Pesa Phone *</label>
+              <input type="tel" id="d-phone" name="phone" class="form-input" placeholder="07XXXXXXXX" required>
+            </div>
+            <div class="form-group">
+              <label for="d-names">Donor Name (Optional)</label>
+              <input type="text" id="d-names" name="names" class="form-input" placeholder="e.g. Anon / Your Name">
+            </div>
+            <button type="submit" class="btn-karura" style="background: #3498db; color: white;">Donate Now →</button>
+          </form>
+        </div>
       </div>
     </div>
   </section>
@@ -420,7 +511,7 @@
           <p>The Karura Youth Run is the official Nairobi activation for the Proposed Hekima University Molo Marathon. It brings together the energy of the city's youth with the tranquility of Karura Forest.</p>
           <ul class="exp-list">
             <li><span class="check" style="color: var(--karura-green)">✓</span> Promote High Quality Education</li>
-            <li><span class="check" style="color: var(--karura-green)">✓</span> Environmental Stewardship</li>
+            <li><span class="check" style="color: var(--karura-green)">✓</span> Leadership & Social Transformation</li>
             <li><span class="check" style="color: var(--karura-green)">✓</span> Networking & Community Building</li>
             <li><span class="check" style="color: var(--karura-green)">✓</span> Health & Wellness through Sport</li>
           </ul>
@@ -432,7 +523,7 @@
               <span>🕒 06:30 AM — Arrival & Warm-up</span>
               <span>🕒 07:30 AM — Flag Off</span>
               <span>🕒 10:00 AM — Awards & Networking</span>
-              <span>🕒 11:30 AM — Tree Planting</span>
+              <span>🕒 11:30 AM — Social Impact Workshop</span>
             </div>
           </div>
         </div>
@@ -458,7 +549,7 @@
     <div class="footer-contact">
       <h4>Contact</h4>
       <p>📍 Nairobi — Karura Forest</p>
-      <p>📅 23 May 2026</p>
+      <p>📅 30 May 2026</p>
       <p>✉️ enquiries@phumolomarathon.co.ke</p>
     </div>
   </div>
@@ -514,12 +605,13 @@
       // 2. Trigger M-Pesa STK Push
       btn.innerHTML = '<i class="fas fa-mobile-alt fa-shake"></i> Sending STK Prompt...';
       
+      const amount = parkingCheck.checked ? 750 : 500;
       const mpesaResponse = await fetch('/api/stkpush', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           phone: phone,
-          amount: 500, // Standard Karura Fee
+          amount: amount,
           reference: 'KAR' + registration.id
         })
       });
@@ -595,6 +687,116 @@
       btn.disabled = false;
       btn.textContent = originalText;
     });
+  });
+
+  // Dynamic Total Calculation
+  const parkingCheck = document.getElementById('p-parking');
+  const totalSpan = document.getElementById('total-amount');
+  
+  parkingCheck.addEventListener('change', () => {
+    totalSpan.textContent = parkingCheck.checked ? '750' : '500';
+  });
+
+  // Donation Amount Selection
+  const donationBtns = document.querySelectorAll('.donation-btn');
+  const customWrap = document.getElementById('custom-wrap');
+  const amountInput = document.getElementById('d-amount');
+
+  donationBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      donationBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      if (btn.id === 'btn-custom') {
+        customWrap.style.display = 'block';
+        amountInput.value = '';
+        amountInput.focus();
+      } else {
+        customWrap.style.display = 'none';
+        amountInput.value = btn.dataset.amount;
+      }
+    });
+  });
+
+  // Donation Form Submission
+  document.getElementById('karura-donation-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('button');
+    const originalText = btn.textContent;
+    const amount = parseInt(amountInput.value);
+    const phone = document.getElementById('d-phone').value;
+    const names = document.getElementById('d-names').value || 'Anonymous';
+
+    if (!amount || amount < 10) {
+      alert('Please select or enter a valid donation amount (min KES 10).');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+    try {
+      // 1. Save to Supabase (Donations table)
+      const res = await fetch(SUPABASE_URL + '/rest/v1/donations', {
+        method: 'POST',
+        headers: {
+          'apikey':        SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Content-Type':  'application/json',
+          'Prefer':        'return=representation'
+        },
+        body: JSON.stringify({
+          donor_name: names,
+          phone:      phone,
+          amount:     amount,
+          status:     'Pending',
+          cause:      'Karura Youth Run'
+        })
+      });
+
+      const donData = await res.json();
+      if (!res.ok) throw new Error(donData.message || 'Donation tracking failed.');
+      const donation = donData[0];
+
+      // 2. Trigger M-Pesa STK Push
+      btn.innerHTML = '<i class="fas fa-mobile-alt fa-shake"></i> Sending STK Prompt...';
+      
+      const mpesaResponse = await fetch('/api/stkpush', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone: phone,
+          amount: amount,
+          reference: 'DON' + donation.id
+        })
+      });
+
+      const mpesaData = await mpesaResponse.json();
+
+      if (mpesaData.CheckoutRequestID) {
+        await fetch(SUPABASE_URL + '/rest/v1/donations?id=eq.' + donation.id, {
+          method: 'PATCH',
+          headers: {
+            'apikey':        SUPABASE_ANON_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+            'Content-Type':  'application/json'
+          },
+          body: JSON.stringify({ checkout_request_id: mpesaData.CheckoutRequestID })
+        });
+      }
+
+      alert('Thank you for your generosity, ' + names.split(' ')[0] + '! Please check your phone to authorize the KES ' + amount + ' donation.');
+      this.reset();
+      donationBtns.forEach(b => b.classList.remove('active'));
+      customWrap.style.display = 'none';
+
+    } catch (err) {
+      console.error('Donation Error:', err);
+      alert('Error: ' + err.message);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = originalText;
+    }
   });
 </script>
 </body>
