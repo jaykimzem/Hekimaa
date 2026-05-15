@@ -108,12 +108,26 @@ CREATE TABLE IF NOT EXISTS karura_registrations (
     names VARCHAR(200) NOT NULL,
     phone VARCHAR(20) NOT NULL,
     email VARCHAR(150) NOT NULL,
+    race_category VARCHAR(50) NOT NULL,
+    with_car BOOLEAN DEFAULT FALSE,
     company VARCHAR(200) NULL,
     emergency_contact VARCHAR(20) NOT NULL,
     payment_status ENUM('pending', 'success', 'failed') DEFAULT 'pending',
     transaction_id VARCHAR(100) NULL,
     checkout_request_id VARCHAR(100) NULL,
     reference VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Karura Donations
+CREATE TABLE IF NOT EXISTS donations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    donor_name VARCHAR(200) DEFAULT 'Anonymous',
+    phone VARCHAR(20) NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    status ENUM('pending', 'success', 'failed') DEFAULT 'pending',
+    cause VARCHAR(100) DEFAULT 'Karura Youth Run',
+    checkout_request_id VARCHAR(100) NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

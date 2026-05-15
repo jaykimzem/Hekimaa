@@ -580,6 +580,8 @@
       names:             names,
       phone:             phone,
       email:             email,
+      race_category:     formData.get('race_category') || '',
+      with_car:          formData.get('with_car') === 'on',
       company:           formData.get('company') || '',
       emergency_contact: formData.get('emergency_contact') || '',
       payment_status:    'Pending'
