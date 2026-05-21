@@ -88,15 +88,68 @@
       flex-grow: 1;
     }
     .shop-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       margin-top: auto;
+      width: 100%;
     }
-    .shop-price {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--gold);
+    .shop-footer .btn {
+      width: 100%;
+      text-align: center;
+    }
+    .color-chip-container {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+      align-items: center;
+    }
+    .color-chip {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s;
+      outline: none;
+    }
+    .color-chip.active {
+      transform: scale(1.25);
+      border-color: var(--gold) !important;
+      box-shadow: 0 0 10px rgba(254, 213, 7, 0.6);
+    }
+    .size-chip-container {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+      align-items: center;
+    }
+    .size-chip {
+      font-size: 0.72rem;
+      font-weight: 700;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--card-border);
+      color: var(--white-60);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .size-chip:hover {
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+    }
+    .size-chip.active {
+      background: var(--gold);
+      color: var(--black);
+      border-color: var(--gold);
+    }
+    .option-label {
+      font-size: 0.75rem;
+      color: var(--white-40);
+      min-width: 55px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
   </style>
 </head>
@@ -157,31 +210,62 @@
   <section class="pd-section">
     <div class="container">
       <div class="shop-grid">
-        <!-- Product 1: Maroon Track Suit -->
+        <!-- Product 1: Track Suit (Grouped Colors: Maroon, Black) -->
         <div class="shop-card reveal-up">
           <div class="shop-img-container">
-            <img src="assets/Maroon track Suit.jpg" alt="Official Maroon Track Suit">
+            <img src="assets/Maroon track Suit.jpg" alt="Hekima Official Track Suit">
           </div>
           <div class="shop-body">
-            <h3>Official Maroon Track Suit</h3>
-            <p>Premium athletic-fit track suit in rich maroon color. Ideal for outdoor training sessions and cold weather workouts. Features a high collar, side zip pockets, and lightweight elastic cuffs.</p>
+            <h3>Hekima Official Track Suit</h3>
+            <p>Premium athletic-fit track suit. Features a high collar, side zip pockets, lightweight elastic cuffs, and breathable stretch fabric. Excellent for warming up or training in high-altitude cool climates.</p>
+            
+            <!-- Product Options -->
+            <div class="color-chip-container">
+              <span class="option-label">Color:</span>
+              <button class="color-chip active" style="background: #8F0005; border: 2px solid rgba(255,255,255,0.2);" onclick="changeProductColor(this, 'assets/Maroon track Suit.jpg')" title="Maroon"></button>
+              <button class="color-chip" style="background: #000000; border: 2px solid rgba(255,255,255,0.2);" onclick="changeProductColor(this, 'assets/Black Track Suit.jpg')" title="Black"></button>
+            </div>
+            
+            <div class="size-chip-container">
+              <span class="option-label">Size:</span>
+              <span class="size-chip active" onclick="selectSize(this)">S</span>
+              <span class="size-chip" onclick="selectSize(this)">M</span>
+              <span class="size-chip" onclick="selectSize(this)">L</span>
+              <span class="size-chip" onclick="selectSize(this)">XL</span>
+            </div>
+
             <div class="shop-footer">
-              <span class="shop-price">KES 4,500</span>
               <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 2: Black Track Suit -->
+        <!-- Product 2: Marathon T-Shirt (Grouped Colors: Maroon, Black, White) -->
         <div class="shop-card reveal-up" style="--delay: 0.1s;">
           <div class="shop-img-container">
-            <img src="assets/Black Track Suit.jpg" alt="Official Black Track Suit">
+            <img src="assets/Maroon Tshirt.jpg" alt="Hekima Official Marathon T-Shirt">
           </div>
           <div class="shop-body">
-            <h3>Official Black Track Suit</h3>
-            <p>Sleek and modern black athletic track suit with gold accents. Features breathable and moisture-wicking stretch fabric, perfect for warming up or casual wear.</p>
+            <h3>Hekima Official Marathon T-Shirt</h3>
+            <p>Commemorative marathon T-shirt made with highly breathable, moisture-wicking premium technical fabric. Tailored for comfort during training runs and race day.</p>
+            
+            <!-- Product Options -->
+            <div class="color-chip-container">
+              <span class="option-label">Color:</span>
+              <button class="color-chip active" style="background: #8F0005; border: 2px solid rgba(255,255,255,0.2);" onclick="changeProductColor(this, 'assets/Maroon Tshirt.jpg')" title="Maroon"></button>
+              <button class="color-chip" style="background: #000000; border: 2px solid rgba(255,255,255,0.2);" onclick="changeProductColor(this, 'assets/Black Tshirt.jpg')" title="Black"></button>
+              <button class="color-chip" style="background: #FFFFFF; border: 2px solid rgba(0,0,0,0.5);" onclick="changeProductColor(this, 'assets/White Tshirt.jpg')" title="White"></button>
+            </div>
+            
+            <div class="size-chip-container">
+              <span class="option-label">Size:</span>
+              <span class="size-chip active" onclick="selectSize(this)">S</span>
+              <span class="size-chip" onclick="selectSize(this)">M</span>
+              <span class="size-chip" onclick="selectSize(this)">L</span>
+              <span class="size-chip" onclick="selectSize(this)">XL</span>
+            </div>
+
             <div class="shop-footer">
-              <span class="shop-price">KES 4,500</span>
               <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
             </div>
           </div>
@@ -194,144 +278,144 @@
           </div>
           <div class="shop-body">
             <h3>Hekima Maroon Polo T-Shirt</h3>
-            <p>Premium cotton-blend polo shirt featuring the embroidered Proposed Hekima University insignia. Comfortable fit with a classic 3-button placket.</p>
+            <p>Premium cotton-blend classic polo shirt featuring the embroidered Proposed Hekima University insignia. Comfortable standard fit with a smart 3-button placket.</p>
+            
+            <!-- Product Options -->
+            <div class="color-chip-container">
+              <span class="option-label">Color:</span>
+              <button class="color-chip active" style="background: #8F0005; border: 2px solid rgba(255,255,255,0.2);" onclick="changeProductColor(this, 'assets/Maroon Polo.jpg')" title="Maroon"></button>
+            </div>
+            
+            <div class="size-chip-container">
+              <span class="option-label">Size:</span>
+              <span class="size-chip active" onclick="selectSize(this)">S</span>
+              <span class="size-chip" onclick="selectSize(this)">M</span>
+              <span class="size-chip" onclick="selectSize(this)">L</span>
+              <span class="size-chip" onclick="selectSize(this)">XL</span>
+            </div>
+
             <div class="shop-footer">
-              <span class="shop-price">KES 2,200</span>
               <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 4: Maroon Tshirt -->
+        <!-- Product 4: Tote bag -->
         <div class="shop-card reveal-up" style="--delay: 0.3s;">
-          <div class="shop-img-container">
-            <img src="assets/Maroon Tshirt.jpg" alt="Hekima Maroon T-Shirt">
-          </div>
-          <div class="shop-body">
-            <h3>Hekima Maroon T-Shirt</h3>
-            <p>Commemorative marathon T-shirt in rich maroon. Made with highly breathable, moisture-wicking technical fabric for ultimate comfort during long runs.</p>
-            <div class="shop-footer">
-              <span class="shop-price">KES 1,500</span>
-              <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Product 5: Black Tshirt -->
-        <div class="shop-card reveal-up">
-          <div class="shop-img-container">
-            <img src="assets/Black Tshirt.jpg" alt="Hekima Black T-Shirt">
-          </div>
-          <div class="shop-body">
-            <h3>Hekima Black T-Shirt</h3>
-            <p>Modern black training T-shirt with gold-toned marathon logos. Highly durable, moisture-wicking fabric that moves with you.</p>
-            <div class="shop-footer">
-              <span class="shop-price">KES 1,500</span>
-              <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Product 6: White Tshirt -->
-        <div class="shop-card reveal-up" style="--delay: 0.1s;">
-          <div class="shop-img-container">
-            <img src="assets/White Tshirt.jpg" alt="Hekima White T-Shirt">
-          </div>
-          <div class="shop-body">
-            <h3>Hekima White T-Shirt</h3>
-            <p>Classic white marathon T-shirt with striking crimson and gold branding. Made from premium lightweight, fast-drying fabric.</p>
-            <div class="shop-footer">
-              <span class="shop-price">KES 1,500</span>
-              <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Product 7: Tote bag -->
-        <div class="shop-card reveal-up" style="--delay: 0.2s;">
           <div class="shop-img-container">
             <img src="assets/Tote bag.jpg" alt="Commemorative Tote Bag">
           </div>
           <div class="shop-body">
             <h3>Commemorative Tote Bag</h3>
-            <p>Eco-friendly heavy-duty canvas bag featuring the Jesuit tradition insignia. Spacious design perfect for your gear or everyday essentials.</p>
+            <p>Eco-friendly heavy-duty canvas bag featuring the Jesuit tradition insignia. Spacious, versatile design perfect for carrying your training gear or daily essentials.</p>
+            
+            <div class="size-chip-container" style="margin-top: auto; margin-bottom: 24px;">
+              <span class="option-label">Size:</span>
+              <span class="size-chip active" style="width: auto; padding: 0 16px;">One Size</span>
+            </div>
+
             <div class="shop-footer">
-              <span class="shop-price">KES 600</span>
               <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 8: Water Bottle -->
-        <div class="shop-card reveal-up" style="--delay: 0.3s;">
+        <!-- Product 5: Water Bottle -->
+        <div class="shop-card reveal-up">
           <div class="shop-img-container">
             <img src="assets/Water Bottle.jpeg" alt="Premium Water Bottle">
           </div>
           <div class="shop-body">
             <h3>Premium Water Bottle</h3>
-            <p>Double-walled vacuum insulated stainless steel water bottle. Keeps drinks cold for 24 hours or hot for 12 hours. Sleek design with laser-etched race branding.</p>
+            <p>Double-walled vacuum insulated stainless steel water bottle. Keeps drinks icy cold for 24 hours or steaming hot for 12 hours. Featuring laser-etched race branding.</p>
+            
+            <div class="size-chip-container" style="margin-top: auto; margin-bottom: 24px;">
+              <span class="option-label">Capacity:</span>
+              <span class="size-chip active" style="width: auto; padding: 0 16px;">750 ML</span>
+            </div>
+
             <div class="shop-footer">
-              <span class="shop-price">KES 1,000</span>
               <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 9: Notebook -->
-        <div class="shop-card reveal-up">
+        <!-- Product 6: Notebook -->
+        <div class="shop-card reveal-up" style="--delay: 0.1s;">
           <div class="shop-img-container">
             <img src="assets/Notebook.jpg" alt="Executive Notebook">
           </div>
           <div class="shop-body">
             <h3>Executive Notebook</h3>
-            <p>A5 hardcover notebook with a sleek textured finish and debossed university logo. Contains 160 pages of premium ruled paper and an elegant ribbon bookmark.</p>
+            <p>A5 hardcover notebook with a sleek textured leatherette finish and debossed university logo. Contains 160 pages of premium ruled paper and an elegant ribbon marker.</p>
+            
+            <div class="size-chip-container" style="margin-top: auto; margin-bottom: 24px;">
+              <span class="option-label">Format:</span>
+              <span class="size-chip active" style="width: auto; padding: 0 16px;">A5 - Ruled</span>
+            </div>
+
             <div class="shop-footer">
-              <span class="shop-price">KES 1,200</span>
               <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 10: Executive Pen -->
-        <div class="shop-card reveal-up" style="--delay: 0.1s;">
+        <!-- Product 7: Executive Pen -->
+        <div class="shop-card reveal-up" style="--delay: 0.2s;">
           <div class="shop-img-container">
             <img src="assets/Executive Pen.jpg" alt="Executive Pen">
           </div>
           <div class="shop-body">
             <h3>Executive Pen</h3>
-            <p>Premium executive metal pen with a polished chrome trim. Fine-point black ink and a weighted feel for smooth, comfortable writing.</p>
+            <p>Premium executive heavy-weight metal pen with polished chrome trim. Fine-point smooth-writing black ink, packaged in an elegant commemorative box.</p>
+            
+            <div class="size-chip-container" style="margin-top: auto; margin-bottom: 24px;">
+              <span class="option-label">Ink:</span>
+              <span class="size-chip active" style="width: auto; padding: 0 16px;">Fine Black</span>
+            </div>
+
             <div class="shop-footer">
-              <span class="shop-price">KES 500</span>
               <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 11: Finisher Cap -->
-        <div class="shop-card reveal-up" style="--delay: 0.2s;">
+        <!-- Product 8: Finisher Cap -->
+        <div class="shop-card reveal-up" style="--delay: 0.3s;">
           <div class="shop-img-container">
             <div class="shop-emoji-placeholder">🧢</div>
           </div>
           <div class="shop-body">
             <h3>Marathon Finisher Cap</h3>
-            <p>Adjustable technical cap for training and race day protection. Keep your focus sharp and stay shielded from the sun.</p>
+            <p>Adjustable technical cap for training and race day protection. Keep your focus sharp and stay shielded from the high-altitude sun.</p>
+            
+            <div class="size-chip-container" style="margin-top: auto; margin-bottom: 24px;">
+              <span class="option-label">Fit:</span>
+              <span class="size-chip active" style="width: auto; padding: 0 16px;">Adjustable Strap</span>
+            </div>
+
             <div class="shop-footer">
-              <span class="shop-price">KES 800</span>
               <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 12: Training & Nutrition Guide -->
-        <div class="shop-card reveal-up" style="--delay: 0.3s;">
+        <!-- Product 9: Training & Nutrition Guide -->
+        <div class="shop-card reveal-up">
           <div class="shop-img-container">
             <div class="shop-emoji-placeholder">📙</div>
           </div>
           <div class="shop-body">
             <h3>Training & Nutrition Guide</h3>
-            <p>Comprehensive guide by elite coaches for high-altitude preparation, nutrition strategies, and training schedules.</p>
+            <p>Comprehensive high-altitude training preparation book and nutrition guide written by elite coaches. Available in digital and printed formats.</p>
+            
+            <div class="size-chip-container" style="margin-top: auto; margin-bottom: 24px;">
+              <span class="option-label">Format:</span>
+              <span class="size-chip active" onclick="selectSize(this)">Digital</span>
+              <span class="size-chip" onclick="selectSize(this)" style="width: auto; padding: 0 8px;">Print</span>
+            </div>
+
             <div class="shop-footer">
-              <span class="shop-price">KES 1,200</span>
               <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
             </div>
           </div>
@@ -397,5 +481,67 @@
 </footer>
 
 <script src="main.js"></script>
+<script>
+  // Dynamic Option Selection & Alerts for the Shop
+  function changeProductColor(button, imgSrc) {
+    const card = button.closest('.shop-card');
+    if (!card) return;
+
+    // Update the product image
+    const img = card.querySelector('.shop-img-container img');
+    if (img) {
+      img.src = imgSrc;
+    }
+
+    // Update active class on color chips
+    const chips = button.parentElement.querySelectorAll('.color-chip');
+    chips.forEach(chip => chip.classList.remove('active'));
+    button.classList.add('active');
+  }
+
+  function selectSize(chip) {
+    // Update active class on size chips
+    const chips = chip.parentElement.querySelectorAll('.size-chip');
+    chips.forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+  }
+
+  function addToCart(button) {
+    const card = button.closest('.shop-card');
+    if (!card) return;
+
+    const productName = card.querySelector('h3').textContent.trim();
+    
+    // Get selected color
+    const activeColorChip = card.querySelector('.color-chip.active');
+    const color = activeColorChip ? activeColorChip.getAttribute('title') : null;
+
+    // Get selected size
+    const activeSizeChip = card.querySelector('.size-chip.active');
+    const size = activeSizeChip ? activeSizeChip.textContent.trim() : null;
+
+    let message = `Coming Soon! The "${productName}"`;
+    if (color && size) {
+      message += ` (Color: ${color}, Size: ${size})`;
+    } else if (color) {
+      message += ` (Color: ${color})`;
+    } else if (size) {
+      message += ` (Size/Format: ${size})`;
+    }
+    message += ` will be available for purchase soon.`;
+
+    alert(message);
+  }
+
+  // Hook up the buttons programmatically
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.shop-footer .btn').forEach(btn => {
+      btn.onclick = function(e) {
+        e.preventDefault();
+        addToCart(this);
+      };
+    });
+  });
+</script>
 </body>
 </html>
