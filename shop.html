@@ -17,6 +17,88 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      margin-top: 40px;
+    }
+    .shop-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      overflow: hidden;
+      transition: transform 0.4s var(--ease-out), border-color 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .shop-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(254, 213, 7, 0.5) !important;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+    .shop-img-container {
+      height: 320px;
+      background: #0d0d0d;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .shop-img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease-out);
+    }
+    .shop-card:hover .shop-img-container img {
+      transform: scale(1.06);
+    }
+    .shop-emoji-placeholder {
+      font-size: 5rem;
+      color: var(--gold);
+      transition: transform 0.6s var(--ease-out);
+    }
+    .shop-card:hover .shop-emoji-placeholder {
+      transform: scale(1.15) rotate(5deg);
+    }
+    .shop-body {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .shop-body h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--white);
+      transition: color 0.3s;
+    }
+    .shop-card:hover .shop-body h3 {
+      color: var(--gold);
+    }
+    .shop-body p {
+      font-size: 0.85rem;
+      color: var(--white-40);
+      margin-bottom: 24px;
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+    .shop-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+    .shop-price {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--gold);
+    }
+  </style>
 </head>
 <body class="bg-black">
 
@@ -74,54 +156,182 @@
 
   <section class="pd-section">
     <div class="container">
-      <div class="shop-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px;">
-        <!-- Product 1 -->
-        <div class="shop-card reveal-up" style="background: var(--card-bg); border: 1px solid var(--card-border); overflow: hidden; transition: transform 0.3s;">
-          <div class="shop-img" style="height: 300px; background: #111; display:flex; align-items:center; justify-content:center; color: var(--gold); font-size: 4rem;">👕</div>
-          <div class="shop-body" style="padding: 30px;">
-            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">Official Marathon T-Shirt</h3>
-            <p style="font-size: 0.85rem; color: var(--white-40); margin-bottom: 20px;">Premium moisture-wicking fabric with race branding. Available in various sizes.</p>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span style="font-size: 1.2rem; font-weight: 800; color: var(--gold);">KES 1,500</span>
+      <div class="shop-grid">
+        <!-- Product 1: Maroon Track Suit -->
+        <div class="shop-card reveal-up">
+          <div class="shop-img-container">
+            <img src="assets/Maroon track Suit.jpg" alt="Official Maroon Track Suit">
+          </div>
+          <div class="shop-body">
+            <h3>Official Maroon Track Suit</h3>
+            <p>Premium athletic-fit track suit in rich maroon color. Ideal for outdoor training sessions and cold weather workouts. Features a high collar, side zip pockets, and lightweight elastic cuffs.</p>
+            <div class="shop-footer">
+              <span class="shop-price">KES 4,500</span>
               <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 2 -->
-        <div class="shop-card reveal-up" style="background: var(--card-bg); border: 1px solid var(--card-border); overflow: hidden; transition: transform 0.3s; --delay: 0.1s;">
-          <div class="shop-img" style="height: 300px; background: #111; display:flex; align-items:center; justify-content:center; color: var(--gold); font-size: 4rem;">🧢</div>
-          <div class="shop-body" style="padding: 30px;">
-            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">Marathon Finisher Cap</h3>
-            <p style="font-size: 0.85rem; color: var(--white-40); margin-bottom: 20px;">Adjustable technical cap for training and race day protection.</p>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span style="font-size: 1.2rem; font-weight: 800; color: var(--gold);">KES 800</span>
+        <!-- Product 2: Black Track Suit -->
+        <div class="shop-card reveal-up" style="--delay: 0.1s;">
+          <div class="shop-img-container">
+            <img src="assets/Black Track Suit.jpg" alt="Official Black Track Suit">
+          </div>
+          <div class="shop-body">
+            <h3>Official Black Track Suit</h3>
+            <p>Sleek and modern black athletic track suit with gold accents. Features breathable and moisture-wicking stretch fabric, perfect for warming up or casual wear.</p>
+            <div class="shop-footer">
+              <span class="shop-price">KES 4,500</span>
               <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 3 -->
-        <div class="shop-card reveal-up" style="background: var(--card-bg); border: 1px solid var(--card-border); overflow: hidden; transition: transform 0.3s; --delay: 0.2s;">
-          <div class="shop-img" style="height: 300px; background: #111; display:flex; align-items:center; justify-content:center; color: var(--gold); font-size: 4rem;">🎒</div>
-          <div class="shop-body" style="padding: 30px;">
-            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">Commemorative Tote Bag</h3>
-            <p style="font-size: 0.85rem; color: var(--white-40); margin-bottom: 20px;">Eco-friendly canvas bag featuring the Jesuit tradition insignia.</p>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span style="font-size: 1.2rem; font-weight: 800; color: var(--gold);">KES 600</span>
+        <!-- Product 3: Maroon Polo -->
+        <div class="shop-card reveal-up" style="--delay: 0.2s;">
+          <div class="shop-img-container">
+            <img src="assets/Maroon Polo.jpg" alt="Hekima Maroon Polo T-Shirt">
+          </div>
+          <div class="shop-body">
+            <h3>Hekima Maroon Polo T-Shirt</h3>
+            <p>Premium cotton-blend polo shirt featuring the embroidered Proposed Hekima University insignia. Comfortable fit with a classic 3-button placket.</p>
+            <div class="shop-footer">
+              <span class="shop-price">KES 2,200</span>
               <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
             </div>
           </div>
         </div>
 
-        <!-- Product 4 -->
-        <div class="shop-card reveal-up" style="background: var(--card-bg); border: 1px solid var(--card-border); overflow: hidden; transition: transform 0.3s; --delay: 0.3s;">
-          <div class="shop-img" style="height: 300px; background: #111; display:flex; align-items:center; justify-content:center; color: var(--gold); font-size: 4rem;">📙</div>
-          <div class="shop-body" style="padding: 30px;">
-            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">Training & Nutrition Guide</h3>
-            <p style="font-size: 0.85rem; color: var(--white-40); margin-bottom: 20px;">Comprehensive guide by elite coaches for high-altitude preparation.</p>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span style="font-size: 1.2rem; font-weight: 800; color: var(--gold);">KES 1,200</span>
+        <!-- Product 4: Maroon Tshirt -->
+        <div class="shop-card reveal-up" style="--delay: 0.3s;">
+          <div class="shop-img-container">
+            <img src="assets/Maroon Tshirt.jpg" alt="Hekima Maroon T-Shirt">
+          </div>
+          <div class="shop-body">
+            <h3>Hekima Maroon T-Shirt</h3>
+            <p>Commemorative marathon T-shirt in rich maroon. Made with highly breathable, moisture-wicking technical fabric for ultimate comfort during long runs.</p>
+            <div class="shop-footer">
+              <span class="shop-price">KES 1,500</span>
+              <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 5: Black Tshirt -->
+        <div class="shop-card reveal-up">
+          <div class="shop-img-container">
+            <img src="assets/Black Tshirt.jpg" alt="Hekima Black T-Shirt">
+          </div>
+          <div class="shop-body">
+            <h3>Hekima Black T-Shirt</h3>
+            <p>Modern black training T-shirt with gold-toned marathon logos. Highly durable, moisture-wicking fabric that moves with you.</p>
+            <div class="shop-footer">
+              <span class="shop-price">KES 1,500</span>
+              <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 6: White Tshirt -->
+        <div class="shop-card reveal-up" style="--delay: 0.1s;">
+          <div class="shop-img-container">
+            <img src="assets/White Tshirt.jpg" alt="Hekima White T-Shirt">
+          </div>
+          <div class="shop-body">
+            <h3>Hekima White T-Shirt</h3>
+            <p>Classic white marathon T-shirt with striking crimson and gold branding. Made from premium lightweight, fast-drying fabric.</p>
+            <div class="shop-footer">
+              <span class="shop-price">KES 1,500</span>
+              <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 7: Tote bag -->
+        <div class="shop-card reveal-up" style="--delay: 0.2s;">
+          <div class="shop-img-container">
+            <img src="assets/Tote bag.jpg" alt="Commemorative Tote Bag">
+          </div>
+          <div class="shop-body">
+            <h3>Commemorative Tote Bag</h3>
+            <p>Eco-friendly heavy-duty canvas bag featuring the Jesuit tradition insignia. Spacious design perfect for your gear or everyday essentials.</p>
+            <div class="shop-footer">
+              <span class="shop-price">KES 600</span>
+              <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 8: Water Bottle -->
+        <div class="shop-card reveal-up" style="--delay: 0.3s;">
+          <div class="shop-img-container">
+            <img src="assets/Water Bottle.jpeg" alt="Premium Water Bottle">
+          </div>
+          <div class="shop-body">
+            <h3>Premium Water Bottle</h3>
+            <p>Double-walled vacuum insulated stainless steel water bottle. Keeps drinks cold for 24 hours or hot for 12 hours. Sleek design with laser-etched race branding.</p>
+            <div class="shop-footer">
+              <span class="shop-price">KES 1,000</span>
+              <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 9: Notebook -->
+        <div class="shop-card reveal-up">
+          <div class="shop-img-container">
+            <img src="assets/Notebook.jpg" alt="Executive Notebook">
+          </div>
+          <div class="shop-body">
+            <h3>Executive Notebook</h3>
+            <p>A5 hardcover notebook with a sleek textured finish and debossed university logo. Contains 160 pages of premium ruled paper and an elegant ribbon bookmark.</p>
+            <div class="shop-footer">
+              <span class="shop-price">KES 1,200</span>
+              <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 10: Executive Pen -->
+        <div class="shop-card reveal-up" style="--delay: 0.1s;">
+          <div class="shop-img-container">
+            <img src="assets/Executive Pen.jpg" alt="Executive Pen">
+          </div>
+          <div class="shop-body">
+            <h3>Executive Pen</h3>
+            <p>Premium executive metal pen with a polished chrome trim. Fine-point black ink and a weighted feel for smooth, comfortable writing.</p>
+            <div class="shop-footer">
+              <span class="shop-price">KES 500</span>
+              <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 11: Finisher Cap -->
+        <div class="shop-card reveal-up" style="--delay: 0.2s;">
+          <div class="shop-img-container">
+            <div class="shop-emoji-placeholder">🧢</div>
+          </div>
+          <div class="shop-body">
+            <h3>Marathon Finisher Cap</h3>
+            <p>Adjustable technical cap for training and race day protection. Keep your focus sharp and stay shielded from the sun.</p>
+            <div class="shop-footer">
+              <span class="shop-price">KES 800</span>
+              <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 12: Training & Nutrition Guide -->
+        <div class="shop-card reveal-up" style="--delay: 0.3s;">
+          <div class="shop-img-container">
+            <div class="shop-emoji-placeholder">📙</div>
+          </div>
+          <div class="shop-body">
+            <h3>Training & Nutrition Guide</h3>
+            <p>Comprehensive guide by elite coaches for high-altitude preparation, nutrition strategies, and training schedules.</p>
+            <div class="shop-footer">
+              <span class="shop-price">KES 1,200</span>
               <button class="btn btn-gold btn-sm" onclick="alert('Coming Soon! This item will be available for purchase soon.')">Add to Cart</button>
             </div>
           </div>
