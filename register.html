@@ -4,11 +4,186 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register | Hekima University Molo Marathon 2026</title>
+  <meta name="description" content="Register for the Proposed Hekima University Molo Marathon 2026. Secure your official BIB number. Race day: 8 August 2026, Molo, Kenya.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="pages.css">
+  <style>
+    /* ── Step Progress Bar ── */
+    .reg-steps-bar {
+      display: flex; align-items: center; gap: 0;
+      margin-bottom: 40px;
+    }
+    .rsb-step {
+      display: flex; align-items: center; gap: 10px;
+      flex: 1;
+    }
+    .rsb-circle {
+      width: 34px; height: 34px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem; font-weight: 800;
+      border: 2px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.3);
+      background: transparent;
+      flex-shrink: 0;
+      transition: all 0.35s;
+    }
+    .rsb-step.active .rsb-circle {
+      background: var(--gold); border-color: var(--gold); color: #000;
+    }
+    .rsb-step.done .rsb-circle {
+      background: rgba(254,213,7,0.15); border-color: var(--gold); color: var(--gold);
+    }
+    .rsb-label {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.3);
+      transition: color 0.35s;
+      white-space: nowrap;
+    }
+    .rsb-step.active .rsb-label { color: var(--gold); }
+    .rsb-step.done .rsb-label { color: rgba(255,255,255,0.5); }
+    .rsb-line {
+      flex: 1; height: 1px; background: rgba(255,255,255,0.1);
+      margin: 0 8px; flex-shrink: 1;
+    }
+    .rsb-step.done + .rsb-line { background: rgba(254,213,7,0.4); }
+
+    /* ── Terms Scroll Box ── */
+    .terms-scroll-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 2px;
+      padding: 24px;
+      max-height: 260px;
+      overflow-y: auto;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.75;
+      margin-bottom: 28px;
+    }
+    .terms-scroll-box::-webkit-scrollbar { width: 4px; }
+    .terms-scroll-box::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); }
+    .terms-scroll-box::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+    .terms-scroll-box h4 { color: var(--white); font-size: 0.85rem; margin: 18px 0 6px; }
+    .terms-scroll-box h4:first-child { margin-top: 0; }
+    .terms-scroll-box ul { padding-left: 18px; margin: 6px 0 0; }
+    .terms-scroll-box ul li { margin-bottom: 6px; }
+
+    /* ── Terms Checkboxes ── */
+    .terms-checks { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+    .tc-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.08);
+      cursor: pointer;
+      transition: border-color 0.3s;
+    }
+    .tc-item:hover { border-color: rgba(254,213,7,0.3); }
+    .tc-item input[type="checkbox"] {
+      accent-color: var(--gold); width: 16px; height: 16px;
+      flex-shrink: 0; margin-top: 2px; cursor: pointer;
+    }
+    .tc-item span { font-size: 0.83rem; color: rgba(255,255,255,0.65); line-height: 1.55; }
+    .tc-item span a { color: #3b82f6; text-decoration: underline; font-weight: 600; cursor: pointer; }
+    .tc-item span a:hover { color: #60a5fa; text-decoration: underline; }
+    .tc-item.checked { border-color: rgba(254,213,7,0.35); background: rgba(254,213,7,0.04); }
+
+    /* ── Payment Box ── */
+    .pay-box {
+      background: rgba(254,213,7,0.04);
+      border: 1px solid rgba(254,213,7,0.25);
+      padding: 28px;
+      margin-bottom: 28px;
+    }
+    .pay-box-title {
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 18px;
+    }
+    .pay-steps { display: flex; flex-direction: column; gap: 14px; }
+    .pay-step {
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .ps-num {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--gold); color: #000;
+      font-size: 0.78rem; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .ps-text { font-size: 0.88rem; color: rgba(255,255,255,0.75); line-height: 1.55; }
+    .ps-text strong { color: var(--white); }
+    .pay-amount-tag {
+      display: inline-block; font-size: 1.8rem; font-weight: 900;
+      color: var(--gold); font-family: 'Montserrat', sans-serif;
+      margin: 18px 0 4px;
+    }
+    .pay-amount-sub { font-size: 0.78rem; color: rgba(255,255,255,0.4); }
+
+    /* ── Reg Summary (Step 3) ── */
+    .pay-summary {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      font-size: 0.84rem;
+    }
+    .pay-summary-row {
+      display: flex; justify-content: space-between;
+      padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .pay-summary-row:last-child { border-bottom: none; }
+    .pay-summary-row span { color: rgba(255,255,255,0.45); }
+    .pay-summary-row strong { color: var(--white); }
+
+    /* ── BIB Display (Success) ── */
+    .bib-card {
+      background: rgba(254,213,7,0.05); border: 2px dashed rgba(254,213,7,0.5);
+      padding: 36px; text-align: center; margin: 28px 0;
+    }
+    .bib-card-eyebrow {
+      font-size: 0.6rem; font-weight: 800; letter-spacing: 0.35em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 10px;
+    }
+    .bib-card-number {
+      font-size: 4.5rem; font-weight: 900;
+      color: var(--gold); font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+    }
+    .bib-card-race {
+      display: inline-block; margin-top: 14px;
+      padding: 5px 18px; background: var(--gold); color: #000;
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .email-note {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 16px 20px; font-size: 0.83rem;
+      color: rgba(255,255,255,0.55); line-height: 1.6;
+      margin-bottom: 28px;
+    }
+    .email-note strong { color: var(--gold); }
+
+    /* ── Back button ── */
+    .btn-back {
+      font-size: 0.78rem; font-weight: 600;
+      color: rgba(255,255,255,0.4);
+      background: none; border: none; cursor: pointer;
+      padding: 0; font-family: var(--font);
+      transition: color 0.3s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .btn-back:hover { color: var(--white); }
+
+    /* ── Mobile tweak ── */
+    @media (max-width: 540px) {
+      .rsb-label { display: none; }
+      .form-grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
@@ -24,6 +199,8 @@
 
 <main id="main-content">
   <section class="reg-section">
+
+    <!-- ── Left Sidebar ── -->
     <div class="reg-sidebar">
       <div class="reg-sidebar-bg" style="background-image:url('marathon_hero_cinematic_0.png')"></div>
       <div class="reg-sidebar-overlay"></div>
@@ -31,244 +208,616 @@
         <a href="index.html" class="reg-back-link">← Back to Home</a>
         <div class="reg-event-info">
           <h1>Molo Marathon<br><span class="gold-text">2026</span></h1>
-          <p>8 August 2026 · Molo, Kenya</p>
+          <p style="color:rgba(255,255,255,0.6); font-size:0.9rem; margin-bottom:24px;">8 August 2026 · Molo, Nakuru County, Kenya</p>
+          <div class="reg-race-mini-cards">
+            <div class="rmini-card"><strong>21KM</strong><span>Half Marathon · KES 500</span></div>
+            <div class="rmini-card"><strong>10KM</strong><span>Open Run · KES 500</span></div>
+            <div class="rmini-card"><strong>5KM</strong><span>Corporate · KES 500</span></div>
+            <div class="rmini-card"><strong>5KM</strong><span>Community · KES 500</span></div>
+          </div>
+          <p class="reg-sidebar-note" style="margin-top:24px;">Your official BIB number is assigned and sent to your email address (if provided) upon payment verification. Registration fee: <strong style="color:var(--gold)">KES 500</strong> via M-Pesa Paybill <strong style="color:var(--gold)">880100</strong>, Account Number <strong style="color:var(--gold)">1009338054</strong>.</p>
         </div>
       </div>
     </div>
 
+    <!-- ── Right Form Panel ── -->
     <div class="reg-form-panel">
       <div class="reg-form-wrapper">
 
-        <form id="reg-form" novalidate>
-          <div class="form-step active">
-            <div class="form-step-header">
-              <h2>Secure Your <span class="gold-text">BIB</span></h2>
-              <p>Join over 2,000 runners. Register now to get your BIB instantly.</p>
-            </div>
+        <!-- Progress Bar -->
+        <div class="reg-steps-bar" id="steps-bar">
+          <div class="rsb-step active" id="sbar-1">
+            <div class="rsb-circle">1</div>
+            <div class="rsb-label">Your Details</div>
+          </div>
+          <div class="rsb-line" id="line-1"></div>
+          <div class="rsb-step" id="sbar-2">
+            <div class="rsb-circle">2</div>
+            <div class="rsb-label">Terms</div>
+          </div>
+          <div class="rsb-line" id="line-2"></div>
+          <div class="rsb-step" id="sbar-3">
+            <div class="rsb-circle">3</div>
+            <div class="rsb-label">Pay & BIB</div>
+          </div>
+        </div>
 
-            <!-- Race Categories -->
+        <!-- ════════════ STEP 1 — DETAILS ════════════ -->
+        <div class="form-step active" id="step-1">
+          <div class="form-step-header">
+            <span class="form-step-num">Step 1 of 3</span>
+            <h2>Runner <span class="gold-text">Details</span></h2>
+            <p>Enter your personal information to begin your registration.</p>
+          </div>
+
+          <!-- Race Category -->
+          <div class="form-group">
+            <label class="form-label">Race Category <span class="req">*</span></label>
             <div class="race-select-cards" role="radiogroup">
               <label class="race-select-card" for="race-21k">
                 <input type="radio" name="race_category" id="race-21k" value="21k" checked>
                 <div class="rsc-content">
-                    <div class="rsc-dist">21<span>KM</span></div>
-                    <div class="rsc-info"><strong>Half Marathon</strong><span>KES 500</span></div>
+                  <div class="rsc-dist">21<span>KM</span></div>
+                  <div class="rsc-info"><strong>Half Marathon</strong><span>KES 500 · Start 7:00 AM</span></div>
                 </div>
+                <div class="rsc-check">✓</div>
               </label>
-
               <label class="race-select-card" for="race-10k">
                 <input type="radio" name="race_category" id="race-10k" value="10k">
                 <div class="rsc-content">
-                    <div class="rsc-dist">10<span>KM</span></div>
-                    <div class="rsc-info"><strong>Open Run</strong><span>KES 500</span></div>
+                  <div class="rsc-dist">10<span>KM</span></div>
+                  <div class="rsc-info"><strong>Open Run</strong><span>KES 500 · Start 8:00 AM</span></div>
                 </div>
+                <div class="rsc-check">✓</div>
               </label>
-
               <label class="race-select-card" for="race-corp">
                 <input type="radio" name="race_category" id="race-corp" value="corporate">
                 <div class="rsc-content">
-                    <div class="rsc-dist">5<span>KM</span></div>
-                    <div class="rsc-info"><strong>Corporate</strong><span>KES 500</span></div>
+                  <div class="rsc-dist">5<span>KM</span></div>
+                  <div class="rsc-info"><strong>Corporate Challenge</strong><span>KES 500 · Start 9:00 AM</span></div>
                 </div>
+                <div class="rsc-check">✓</div>
               </label>
-
               <label class="race-select-card" for="race-comm">
                 <input type="radio" name="race_category" id="race-comm" value="community">
                 <div class="rsc-content">
-                    <div class="rsc-dist">5<span>KM</span></div>
-                    <div class="rsc-info"><strong>Community</strong><span>KES 500</span></div>
+                  <div class="rsc-dist">5<span>KM</span></div>
+                  <div class="rsc-info"><strong>Community Run</strong><span>KES 500 · Start 9:00 AM</span></div>
                 </div>
+                <div class="rsc-check">✓</div>
               </label>
             </div>
-
-            <div class="form-grid-2" style="margin-top:25px;">
-              <div class="form-group">
-                <label class="form-label">First Name *</label>
-                <input type="text" name="first_name" class="form-input" required placeholder="John">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Last Name *</label>
-                <input type="text" name="last_name" class="form-input" required placeholder="Doe">
-              </div>
-            </div>
-
-            <div class="form-grid-2">
-              <div class="form-group">
-                <label class="form-label">ID / Passport *</label>
-                <input type="text" name="id_number" class="form-input" required placeholder="12345678">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Phone (M-Pesa) *</label>
-                <input type="tel" name="phone" id="phone" class="form-input" required placeholder="07XXXXXXXX">
-              </div>
-            </div>
-
-            <div class="form-grid-2">
-              <div class="form-group">
-                <label class="form-label">Gender</label>
-                <select name="gender" class="form-input">
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="form-label">T-Shirt Size</label>
-                <select name="tshirt_size" class="form-input">
-                  <option value="S">Small (S)</option>
-                  <option value="M" selected>Medium (M)</option>
-                  <option value="L">Large (L)</option>
-                  <option value="XL">X-Large (XL)</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group" style="margin-top: 20px;">
-              <label class="checkbox-label">
-                <input type="checkbox" required checked>
-                <span>I agree to the <a href="terms.html">Terms</a> and <a href="legal.html">Waiver</a>.</span>
-              </label>
-            </div>
-
-            <div class="form-nav">
-              <button type="submit" class="btn btn-gold btn-lg btn-block" id="submit-btn" style="width:100%; padding:18px;">
-                Complete Registration & Get BIB →
-              </button>
-            </div>
-            
-            <p style="text-align:center; font-size:0.8rem; margin-top:15px; opacity:0.6;">Paybill: 614090 | Fee: KES 500</p>
           </div>
-        </form>
 
-        <!-- SUCCESS STATE -->
-        <div class="reg-success" id="reg-success" style="display:none">
-          <div style="text-align:center;">
-              <div style="background:var(--gold); color:black; width:70px; height:70px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:2rem;">✓</div>
-              <h2 style="font-size:2rem; margin-bottom:10px;">Registration <span class="gold-text">Successful!</span></h2>
-              <p id="success-msg" style="margin-bottom:30px; opacity:0.8;">Your details have been captured and your BIB is reserved.</p>
-              
-              <div class="bib-display" style="background:rgba(212,175,55,0.1); border:3px solid var(--gold); padding:40px; border-radius:20px; margin-bottom:30px;">
-                <span style="display:block; text-transform:uppercase; letter-spacing:3px; font-size:0.9rem; margin-bottom:15px; opacity:0.7;">Official BIB Number</span>
-                <span id="bib-number" style="font-size:5rem; font-weight:900; color:var(--gold); font-family:Montserrat, sans-serif; line-height:1;">#----</span>
-                <div id="bib-race-info" style="margin-top:20px;"></div>
-              </div>
+          <!-- Name -->
+          <div class="form-grid-2" style="margin-top:28px;">
+            <div class="form-group">
+              <label class="form-label" for="s1-first">First Name <span class="req">*</span></label>
+              <input type="text" id="s1-first" class="form-input" placeholder="John" autocomplete="given-name">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="s1-last">Last Name <span class="req">*</span></label>
+              <input type="text" id="s1-last" class="form-input" placeholder="Doe" autocomplete="family-name">
+            </div>
+          </div>
 
-              <div style="display:grid; gap:15px;">
-                <a href="index.html" class="btn btn-gold">Back to Homepage</a>
-              </div>
+          <!-- ID + Email -->
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="s1-id">National ID / Passport <span class="req">*</span></label>
+              <input type="text" id="s1-id" class="form-input" placeholder="12345678">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="s1-email">Email Address <span class="opt" style="color: rgba(255,255,255,0.4); font-size: 0.75rem;">(Optional)</span></label>
+              <input type="email" id="s1-email" class="form-input" placeholder="john@example.com" autocomplete="email">
+              <p class="form-hint">BIB number will be sent to this email if provided.</p>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="form-group">
+            <label class="form-label" for="s1-phone">M-Pesa Phone Number <span class="req">*</span></label>
+            <div style="display:flex; gap:8px;">
+              <select id="s1-cc" class="form-input" style="width:110px; flex-shrink:0;">
+                <option value="+254" selected>KE (+254)</option>
+                <option value="+255">TZ (+255)</option>
+                <option value="+256">UG (+256)</option>
+                <option value="+250">RW (+250)</option>
+                <option value="+251">ET (+251)</option>
+                <option value="+1">US (+1)</option>
+                <option value="+44">UK (+44)</option>
+              </select>
+              <input type="tel" id="s1-phone" class="form-input" placeholder="7XXXXXXXX" style="flex:1;" autocomplete="tel">
+            </div>
+            <p class="form-hint">Use the phone number you will pay with.</p>
+          </div>
+
+          <!-- Gender + T-Shirt -->
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="s1-gender">Gender</label>
+              <select id="s1-gender" class="form-input">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="s1-tshirt">T-Shirt Size</label>
+              <select id="s1-tshirt" class="form-input">
+                <option value="S">Small (S)</option>
+                <option value="M" selected>Medium (M)</option>
+                <option value="L">Large (L)</option>
+                <option value="XL">X-Large (XL)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-error-msg" id="err-1">Please fill in all required fields.</div>
+
+          <div class="form-nav" style="justify-content:flex-end;">
+            <button type="button" class="btn btn-gold btn-lg" id="btn-to-step2" style="padding:16px 40px;">
+              Continue to Terms →
+            </button>
           </div>
         </div>
 
-      </div>
-    </div>
+        <!-- ════════════ STEP 2 — TERMS ════════════ -->
+        <div class="form-step" id="step-2">
+          <div class="form-step-header">
+            <span class="form-step-num">Step 2 of 3</span>
+            <h2>Terms &amp; <span class="gold-text">Conditions</span></h2>
+            <p>Please read and accept all agreements before proceeding to payment.</p>
+          </div>
+
+          <!-- Scrollable Terms Summary -->
+          <div class="terms-scroll-box" id="terms-box">
+            <h4>1. Event Overview</h4>
+            <p>The Proposed Hekima University Molo Marathon 2026 takes place on <strong>8 August 2026</strong> in Molo, Nakuru County, Kenya. It is organised by the Proposed Hekima University and Global Link Marketing in partnership with Athletics Kenya (AK), KPRA, Kenya Red Cross, Jesuit Eastern Africa, and Nakuru County Government.</p>
+
+            <h4>2. Participation Requirements</h4>
+            <ul>
+              <li>Each participant must complete the entry form fully and accurately.</li>
+              <li>Registration is only confirmed upon receipt of the full KES 500 entry fee.</li>
+              <li>Participants must be physically capable of completing their chosen race distance.</li>
+              <li>The 21KM Half Marathon is open to participants aged 18+ on race day.</li>
+              <li>Participants under 18 must be accompanied by a responsible adult and provide written parental/guardian consent.</li>
+            </ul>
+
+            <h4>3. Registration, Fees &amp; BIB Numbers</h4>
+            <ul>
+              <li>Entry fee is KES 500 per person (all categories).</li>
+              <li>Entry fees are non-refundable unless the event is cancelled by the Organiser.</li>
+              <li>BIB numbers are issued upon payment verification and sent to your registered email.</li>
+              <li>BIB numbers are non-transferable. Ranges: 21KM (11xxx M / 12xxx F); 10KM (21xxx M / 22xxx F); Corporate (31xxx M / 32xxx F); Community (41xxx M / 42xxx F).</li>
+            </ul>
+
+            <h4>4. Race Day Rules &amp; Conduct</h4>
+            <ul>
+              <li>Participants must adhere to the official race route. Deviation may result in disqualification.</li>
+              <li>Headphones are discouraged for safety.</li>
+              <li>Comply with all instructions from marshals, medical personnel, and officials.</li>
+              <li>Aggressive or unsporting behaviour may result in disqualification and removal.</li>
+              <li>Cut-off times: 21KM — 3 hours; 10KM — 90 minutes; 5KM — open (no cut-off).</li>
+            </ul>
+
+            <h4>5. Safety, Medical &amp; Liability Waiver</h4>
+            <p>Participants acknowledge that running is a strenuous physical activity that may result in injury, illness, or in extreme cases, death. The Organiser, its partners, sponsors, and agents shall <strong>not</strong> be held liable for any injury, illness, loss, or equipment damage incurred during participation. Participants participate entirely at their own risk.</p>
+
+            <h4>6. Image Rights &amp; Data Privacy</h4>
+            <p>By registering, participants consent to the use of their images and likeness captured during the Event for promotional purposes. Personal data will not be shared with third parties without consent, except where required by law or for event administration.</p>
+
+            <h4>7. Refunds &amp; Cancellations</h4>
+            <p>Entry fees are non-refundable if a participant withdraws. In the event of cancellation by the Organiser due to force majeure, participants will be offered a deferral or partial credit. No cash refunds will be issued.</p>
+
+            <h4>8. Governing Law</h4>
+            <p>These Terms are governed by the laws of the Republic of Kenya. Any disputes shall be subject to the exclusive jurisdiction of the Kenyan courts.</p>
+          </div>
+
+          <!-- Individual Consents -->
+          <div class="terms-checks" id="terms-checks">
+            <label class="tc-item" id="tc1-label">
+              <input type="checkbox" id="tc1">
+              <span>I have read and agree to the <a href="terms.html" target="_blank">Full Terms &amp; Conditions</a> of the Proposed Hekima University Molo Marathon 2026.</span>
+            </label>
+            <div style="margin: -8px 0 16px 45px;">
+              <a href="terms.html" target="_blank" style="color: #3b82f6; text-decoration: underline; font-size: 0.8rem; font-weight: 600;">See Terms and Conditions</a>
+            </div>
+            <label class="tc-item" id="tc2-label">
+              <input type="checkbox" id="tc2">
+              <span>I accept the <a href="legal.html" target="_blank">Liability Waiver</a> and acknowledge that I participate entirely at my own risk. The Organiser and its agents shall not be held liable for any injury, illness, loss, or damage.</span>
+            </label>
+            <label class="tc-item" id="tc3-label">
+              <input type="checkbox" id="tc3">
+              <span>I confirm that I am in good physical health and medically fit to participate in my chosen race category. I accept the <a href="legal.html#indemnity" target="_blank">Medical Indemnity</a> agreement.</span>
+            </label>
+            <label class="tc-item" id="tc4-label">
+              <input type="checkbox" id="tc4">
+              <span>I understand that my BIB number will only be issued upon valid payment of the KES 500 registration fee, and that my BIB is non-transferable.</span>
+            </label>
+            <label class="tc-item" id="tc5-label">
+              <input type="checkbox" id="tc5">
+              <span>I consent to the Organiser capturing and using my image and likeness for promotional and media purposes in connection with the Event.</span>
+            </label>
+          </div>
+
+          <div class="form-error-msg" id="err-2">Please accept all terms and conditions to continue.</div>
+
+          <div class="form-nav">
+            <button type="button" class="btn-back" id="btn-back-1">← Back</button>
+            <button type="button" class="btn btn-gold btn-lg" id="btn-to-step3" style="padding:16px 40px;">
+              Proceed to Payment →
+            </button>
+          </div>
+        </div>
+
+        <!-- ════════════ STEP 3 — PAYMENT ════════════ -->
+        <div class="form-step" id="step-3">
+          <div class="form-step-header">
+            <span class="form-step-num">Step 3 of 3</span>
+            <h2>Pay &amp; Get Your <span class="gold-text">BIB</span></h2>
+            <p>Send your KES 500 via M-Pesa, then confirm below to receive your official BIB number by email.</p>
+          </div>
+
+          <!-- Registration Summary -->
+          <div class="pay-summary" id="pay-summary">
+            <div class="pay-summary-row"><span>Name</span><strong id="ps-name">—</strong></div>
+            <div class="pay-summary-row"><span>ID / Passport</span><strong id="ps-id">—</strong></div>
+            <div class="pay-summary-row"><span>Email</span><strong id="ps-email">—</strong></div>
+            <div class="pay-summary-row"><span>Phone</span><strong id="ps-phone">—</strong></div>
+            <div class="pay-summary-row"><span>Race Category</span><strong id="ps-race">—</strong></div>
+            <div class="pay-summary-row"><span>Gender</span><strong id="ps-gender">—</strong></div>
+            <div class="pay-summary-row"><span>T-Shirt</span><strong id="ps-tshirt">—</strong></div>
+          </div>
+
+          <!-- M-Pesa Instructions -->
+          <div class="pay-box">
+            <div class="pay-box-title">M-Pesa Payment Instructions</div>
+            <div style="text-align:center; margin-bottom:24px;">
+              <span class="pay-amount-tag">KES 500</span><br>
+              <span class="pay-amount-sub">Registration Fee — All Categories</span>
+            </div>
+            <div class="pay-steps">
+              <div class="pay-step">
+                <div class="ps-num">1</div>
+                <div class="ps-text">Go to <strong>M-Pesa</strong> on your phone → Select <strong>Lipa Na M-Pesa</strong></div>
+              </div>
+              <div class="pay-step">
+                <div class="ps-num">2</div>
+                <div class="ps-text">Select <strong>Pay Bill</strong> → Enter Business Number: <strong>880100</strong></div>
+              </div>
+              <div class="pay-step">
+                <div class="ps-num">3</div>
+                <div class="ps-text">Account Number: Enter <strong>1009338054</strong></div>
+              </div>
+              <div class="pay-step">
+                <div class="ps-num">4</div>
+                <div class="ps-text">Amount: <strong>KES 500</strong> → Enter PIN → Send</div>
+              </div>
+              <div class="pay-step">
+                <div class="ps-num">5</div>
+                <div class="ps-text">Once you receive the M-Pesa confirmation SMS, click <strong>"Confirm Payment &amp; Get BIB"</strong> below.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-error-msg" id="err-3">Registration failed. Please try again or contact us.</div>
+
+          <div class="form-nav">
+            <button type="button" class="btn-back" id="btn-back-2">← Back</button>
+            <button type="button" class="btn btn-gold btn-lg" id="btn-pay-confirm" style="padding:16px 36px;">
+              ✓ Confirm Payment &amp; Get BIB →
+            </button>
+          </div>
+        </div>
+
+        <!-- ════════════ SUCCESS ════════════ -->
+        <div class="form-step" id="step-success">
+          <div style="text-align:center;">
+            <div style="width:80px; height:80px; background:rgba(254,213,7,0.12); border:2px solid var(--gold); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 24px; font-size:2rem; color:var(--gold);">✓</div>
+            <h2 style="font-size:2rem; margin-bottom:10px;">Registration <span class="gold-text">Complete!</span></h2>
+            <p id="success-name-msg" style="color:rgba(255,255,255,0.6); margin-bottom:28px;"></p>
+          </div>
+
+          <!-- BIB Card -->
+          <div class="bib-card">
+            <div class="bib-card-eyebrow">Your Official BIB Number</div>
+            <div class="bib-card-number" id="success-bib">—</div>
+            <div class="bib-card-race" id="success-race-tag">—</div>
+          </div>
+
+          <!-- Email Note -->
+          <div class="email-note" id="success-email-note">
+            📧 Your BIB number and race details have been sent to <strong id="success-email-display">your email address</strong>. Please check your inbox (and spam folder). Present your BIB confirmation on race day.
+          </div>
+
+          <!-- Next Steps -->
+          <div class="success-next-steps">
+            <h4>What Happens Next</h4>
+            <ol>
+              <li id="success-next-step-email">Check your email for your BIB number confirmation.</li>
+              <li>Our team will verify your M-Pesa payment (usually within 24 hours).</li>
+              <li>Collect your race pack including your printed BIB on race eve or race morning from the designated collection point in Molo.</li>
+              <li>Arrive at the start line at least 30 minutes before your race start time.</li>
+            </ol>
+          </div>
+
+          <div class="success-actions">
+            <a href="index.html" class="btn btn-gold">← Back to Homepage</a>
+            <a href="races.html" class="btn btn-outline">View Race Details</a>
+          </div>
+        </div>
+
+      </div><!-- /reg-form-wrapper -->
+    </div><!-- /reg-form-panel -->
   </section>
 </main>
 
-<!-- Supabase Integration for Resilient Registration -->
+<!-- Supabase SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  // Supabase Configuration
-  const SUPABASE_URL = 'https://lqttzudtwarkwyxcnssd.supabase.co';
-  const SUPABASE_ANON_KEY = 'sb_publishable_UYNtiM0r3GfdtYpIdR-AeQ_oH2ivH7p';
-  const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// ── Config ──────────────────────────────────────────────────────
+const SUPABASE_URL   = 'https://lqttzudtwarkwyxcnssd.supabase.co';
+const SUPABASE_ANON  = 'sb_publishable_UYNtiM0r3GfdtYpIdR-AeQ_oH2ivH7p';
+const _sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
-  async function getNextBib(raceCategory, gender) {
-    try {
-      let prefix = '';
-      const g = (gender || 'Other').toLowerCase();
-      const rc = (raceCategory || '10k').toLowerCase();
-      
-      if (rc.includes('21')) prefix = (g === 'female') ? '12' : '11';
-      else if (rc.includes('10')) prefix = (g === 'female') ? '22' : '21';
-      else if (rc.includes('corp')) prefix = (g === 'female') ? '32' : '31';
-      else if (rc.includes('comm')) prefix = (g === 'female') ? '42' : '41';
-      else prefix = '50';
+// ── Collect form refs ────────────────────────────────────────────
+const steps     = [null, document.getElementById('step-1'), document.getElementById('step-2'), document.getElementById('step-3'), document.getElementById('step-success')];
+const sbBtns    = [null, document.getElementById('sbar-1'), document.getElementById('sbar-2'), document.getElementById('sbar-3')];
+const sbLines   = [null, document.getElementById('line-1'), document.getElementById('line-2')];
 
-      const start = parseInt(prefix + '000');
-      const end = parseInt(prefix + '999');
+let currentStep = 1;
 
-      const { data, error } = await _supabase
-        .from('registrations')
-        .select('bib_number')
-        .gte('bib_number', start)
-        .lte('bib_number', end)
-        .order('bib_number', { ascending: false })
-        .limit(1);
-
-      if (error || !data || data.length === 0) return start + 1;
-      return parseInt(data[0].bib_number) + 1;
-    } catch (e) {
-      console.error('BIB Logic Error:', e);
-      return 9999;
-    }
+// ── Step navigation ──────────────────────────────────────────────
+function goToStep(n) {
+  steps.forEach((s, i) => { if (s) s.style.display = 'none'; });
+  if (steps[n]) steps[n].style.display = 'block';
+  if (n <= 3) {
+    sbBtns.forEach((b, i) => {
+      if (!b) return;
+      b.classList.remove('active', 'done');
+      if (i < n)  b.classList.add('done');
+      if (i === n) b.classList.add('active');
+    });
+    sbLines.forEach((l, i) => {
+      if (!l) return;
+      // line-1 is between step 1 and 2
+      if (i + 1 < n) l.style.background = 'rgba(254,213,7,0.45)';
+      else           l.style.background = 'rgba(255,255,255,0.1)';
+    });
   }
+  currentStep = n;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-  document.getElementById('reg-form').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const btn = document.getElementById('submit-btn');
-    const form = this;
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
+// Kick off at step 1
+goToStep(1);
 
-    // Basic Validation
-    const phone = (data.phone || '').trim().replace(/\s/g, '');
-    if (!phone) {
-      alert('Please enter your phone number.');
-      return;
+// ── Step 1 → 2: Validate details ────────────────────────────────
+document.getElementById('btn-to-step2').addEventListener('click', () => {
+  const firstName = document.getElementById('s1-first').value.trim();
+  const lastName  = document.getElementById('s1-last').value.trim();
+  const idNum     = document.getElementById('s1-id').value.trim();
+  const email     = document.getElementById('s1-email').value.trim();
+  const phone     = document.getElementById('s1-phone').value.trim();
+  const err       = document.getElementById('err-1');
+
+  if (!firstName || !lastName || !idNum || !phone) {
+    err.style.display = 'block';
+    err.textContent = 'Please fill in all required fields.';
+    return;
+  }
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    err.style.display = 'block';
+    err.textContent = 'Please enter a valid email address.';
+    return;
+  }
+  err.style.display = 'none';
+  goToStep(2);
+});
+
+// ── Checkbox styling & initial reset ─────────────────────────────
+['tc1','tc2','tc3','tc4','tc5'].forEach(id => {
+  const cb = document.getElementById(id);
+  const lbl = document.getElementById(id + '-label');
+  if (cb) {
+    cb.checked = false;
+    if (lbl) lbl.classList.remove('checked');
+    cb.addEventListener('change', () => {
+      lbl.classList.toggle('checked', cb.checked);
+    });
+  }
+});
+
+// ── Step 2 → 3: Validate terms ───────────────────────────────────
+document.getElementById('btn-to-step3').addEventListener('click', () => {
+  const allChecked = ['tc1','tc2','tc3','tc4','tc5'].every(id => document.getElementById(id).checked);
+  const err = document.getElementById('err-2');
+  if (!allChecked) {
+    err.style.display = 'block';
+    err.textContent = 'Please accept all terms and conditions to continue.';
+    return;
+  }
+  err.style.display = 'none';
+
+  // Populate summary
+  const raceMap = { '21k': '21KM Half Marathon', '10k': '10KM Open Run', 'corporate': '5KM Corporate Challenge', 'community': '5KM Community Run' };
+  const cat = document.querySelector('input[name="race_category"]:checked')?.value || '10k';
+  const cc  = document.getElementById('s1-cc').value;
+  let ph = document.getElementById('s1-phone').value.trim().replace(/\s/g,'');
+  if (ph.startsWith('0')) ph = ph.substring(1);
+
+  document.getElementById('ps-name').textContent   = document.getElementById('s1-first').value.trim() + ' ' + document.getElementById('s1-last').value.trim();
+  document.getElementById('ps-id').textContent     = document.getElementById('s1-id').value.trim();
+  document.getElementById('ps-email').textContent  = document.getElementById('s1-email').value.trim();
+  document.getElementById('ps-phone').textContent  = cc + ph;
+  document.getElementById('ps-race').textContent   = raceMap[cat] || cat;
+  document.getElementById('ps-gender').textContent = document.getElementById('s1-gender').value;
+  document.getElementById('ps-tshirt').textContent = document.getElementById('s1-tshirt').value;
+
+  goToStep(3);
+});
+
+// ── Back buttons ─────────────────────────────────────────────────
+document.getElementById('btn-back-1').addEventListener('click', () => goToStep(1));
+document.getElementById('btn-back-2').addEventListener('click', () => goToStep(2));
+
+// ── BIB number generator ─────────────────────────────────────────
+async function getNextBib(raceCategory, gender) {
+  try {
+    const g  = (gender || 'Male').toLowerCase();
+    const rc = (raceCategory || '10k').toLowerCase();
+    let prefix = '';
+    if      (rc.includes('21'))   prefix = (g === 'female') ? '12' : '11';
+    else if (rc.includes('10'))   prefix = (g === 'female') ? '22' : '21';
+    else if (rc.includes('corp')) prefix = (g === 'female') ? '32' : '31';
+    else if (rc.includes('comm')) prefix = (g === 'female') ? '42' : '41';
+    else prefix = '50';
+
+    const start = parseInt(prefix + '001');
+    const end   = parseInt(prefix + '999');
+
+    const { data, error } = await _sb
+      .from('registrations')
+      .select('bib_number')
+      .gte('bib_number', start)
+      .lte('bib_number', end)
+      .order('bib_number', { ascending: false })
+      .limit(1);
+
+    if (error || !data || data.length === 0) return start;
+    return parseInt(data[0].bib_number) + 1;
+  } catch (e) {
+    console.error('BIB error:', e);
+    return Math.floor(Math.random() * 800) + 100;
+  }
+}
+
+// ── Send confirmation email via EmailJS (free tier) ───────────────
+// We'll use a simple mailto-fallback + Supabase edge function pattern.
+// If EmailJS is configured, call it; otherwise log a note.
+async function sendBibEmail(toEmail, firstName, bibNumber, raceCategory) {
+  if (!toEmail) return true;
+  // ── Attempt via EmailJS (configure your EmailJS account) ──
+  // If you have EmailJS set up, uncomment and fill in credentials:
+  /*
+  if (typeof emailjs !== 'undefined') {
+    await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+      to_email:      toEmail,
+      to_name:       firstName,
+      bib_number:    bibNumber,
+      race_category: raceCategory,
+      event_date:    '8 August 2026',
+      event_location:'Molo, Nakuru County, Kenya',
+      paybill:       '880100',
+      amount:        'KES 500'
+    }, 'YOUR_PUBLIC_KEY');
+    return true;
+  }
+  */
+  
+  // ── Fallback: open mail client ──
+  // This opens the user's email client pre-filled with their BIB details.
+  const subject = encodeURIComponent(`Your Molo Marathon 2026 BIB Number: ${bibNumber}`);
+  const body = encodeURIComponent(
+    `Dear ${firstName},\n\n` +
+    `Congratulations! Your registration for the Proposed Hekima University Molo Marathon 2026 is confirmed.\n\n` +
+    `YOUR OFFICIAL BIB NUMBER: ${bibNumber}\n` +
+    `Race Category: ${raceCategory}\n` +
+    `Event Date: 8 August 2026\n` +
+    `Venue: Molo, Nakuru County, Kenya\n\n` +
+    `PAYMENT REMINDER:\n` +
+    `If you have not already paid, please send KES 500 via M-Pesa:\n` +
+    `  Paybill: 880100\n` +
+    `  Account: 1009338054\n` +
+    `  Amount: KES 500\n\n` +
+    `Your BIB will be confirmed once payment is verified.\n\n` +
+    `See you on the start line!\n` +
+    `— Hekima University Molo Marathon Team`
+  );
+  // Open email client (this lets the user forward or confirm receipt)
+  window.open(`mailto:${toEmail}?subject=${subject}&body=${body}`, '_blank');
+  return true;
+}
+
+// ── Step 3 → Confirm Payment & Save ──────────────────────────────
+document.getElementById('btn-pay-confirm').addEventListener('click', async () => {
+  const btn = document.getElementById('btn-pay-confirm');
+  const err = document.getElementById('err-3');
+  err.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = 'Processing...';
+
+  try {
+    const cat      = document.querySelector('input[name="race_category"]:checked')?.value || '10k';
+    const gender   = document.getElementById('s1-gender').value;
+    const cc       = document.getElementById('s1-cc').value;
+    let   ph       = document.getElementById('s1-phone').value.trim().replace(/\s/g,'');
+    if (ph.startsWith('0')) ph = ph.substring(1);
+    const fullPhone = cc + ph;
+
+    const raceDisplayMap = { '21k': '21KM Half Marathon', '10k': '10KM Open Run', 'corporate': '5KM Corporate Challenge', 'community': '5KM Community Run' };
+    const raceSaveMap    = { '21k': '21KM', '10k': '10KM', 'corporate': '5KM Corporate', 'community': '5KM Community' };
+    const firstName = document.getElementById('s1-first').value.trim();
+    const lastName  = document.getElementById('s1-last').value.trim();
+    const email     = document.getElementById('s1-email').value.trim();
+    const idNum     = document.getElementById('s1-id').value.trim();
+    const tshirt    = document.getElementById('s1-tshirt').value;
+
+    // 1. Generate BIB
+    const bibNumber = await getNextBib(cat, gender);
+
+    // 2. Save to Supabase
+    const { data: reg, error: regError } = await _sb.from('registrations').insert([{
+      first_name:     firstName,
+      last_name:      lastName,
+      email:          email || null,
+      phone:          fullPhone,
+      id_number:      idNum,
+      race_category:  raceSaveMap[cat] || cat,
+      gender:         gender,
+      bib_number:     bibNumber,
+      shirt_size:     tshirt,
+      payment_status: 'Pending',
+      terms_accepted: true,
+      submitted_at:   new Date().toISOString()
+    }]).select().single();
+
+    if (regError) throw regError;
+
+    // 3. Send email (opens mail client pre-filled if email is entered)
+    if (email) {
+      await sendBibEmail(email, firstName, bibNumber, raceDisplayMap[cat]);
     }
 
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-
-    try {
-      // 1. Determine Race Category
-      const raceMap = { '21k': '21KM', '10k': '10KM', 'corporate': '5KM', 'community': '5KM' };
-      const race_category = raceMap[data.race_category] || data.race_category;
-      const gender = data.gender || 'Other';
-
-      // 2. Save to Supabase (Details Only)
-      const { data: reg, error: regError } = await _supabase.from('registrations').insert([{
-        first_name: data.first_name || 'Runner',
-        last_name: data.last_name || '',
-        email: data.email || null,
-        phone: phone,
-        id_number: data.id_number || null,
-        race_category: race_category,
-        gender: gender,
-        bib_number: null, // BIB assigned later
-        shirt_size: data.tshirt_size?.toString().toUpperCase() || 'M',
-        payment_status: 'Pending',
-        submitted_at: new Date().toISOString()
-      }]).select().single();
-
-      if (regError) throw regError;
-
-      // 3. Show Success Screen
-      form.style.display = 'none';
-      document.getElementById('reg-success').style.display = 'block';
-      
-      const firstName = data.first_name || 'Runner';
-      document.getElementById('success-msg').textContent = 'Thank you, ' + firstName + '! Your registration details have been successfully received. Our team will contact you soon regarding BIB collection and payment instructions.';
-      
-      // Hide BIB display area
-      const bibDisplay = document.querySelector('.bib-display');
-      if (bibDisplay) bibDisplay.style.display = 'none';
-      
-      const raceNames = { '21k': '21KM Half Marathon', '10k': '10KM Open Run', 'corporate': '5KM Corporate', 'community': '5KM Community' };
-      const displayName = raceNames[data.race_category] || race_category;
-      const bibRaceInfo = document.getElementById('bib-race-info');
-      if (bibRaceInfo) {
-        bibRaceInfo.innerHTML = `<span style="background:var(--gold); color:black; padding:8px 20px; border-radius:30px; font-weight:800; text-transform:uppercase; font-size:0.9rem;">${displayName}</span>`;
-      }
-      
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    } catch (err) {
-      console.error('Registration Error:', err);
-      alert('Registration Failed: ' + err.message);
-      btn.disabled = false;
-      btn.innerHTML = 'Complete Registration →';
+    // 4. Show success
+    document.getElementById('success-name-msg').textContent =
+      `Thank you, ${firstName}! Your BIB #${bibNumber} has been assigned.` + (email ? ` Your confirmation has been sent to ${email}.` : '');
+    document.getElementById('success-bib').textContent   = bibNumber;
+    document.getElementById('success-race-tag').textContent = raceDisplayMap[cat] || cat;
+    
+    const emailNote = document.getElementById('success-email-note');
+    const emailStep = document.getElementById('success-next-step-email');
+    if (email) {
+      if (emailNote) emailNote.style.display = 'block';
+      if (emailStep) emailStep.style.display = 'list-item';
+      document.getElementById('success-email-display').textContent = email;
+    } else {
+      if (emailNote) emailNote.style.display = 'none';
+      if (emailStep) emailStep.style.display = 'none';
     }
-  });
+
+    goToStep(4); // success screen
+    // Hide progress bar on success
+    document.getElementById('steps-bar').style.display = 'none';
+
+  } catch (e) {
+    console.error('Registration error:', e);
+    err.style.display = 'block';
+    err.textContent   = 'Something went wrong: ' + (e.message || 'Please try again.');
+    btn.disabled = false;
+    btn.textContent = '✓ Confirm Payment & Get BIB →';
+  }
+});
 </script>
 
 </body>

@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS volunteers (
 );
 
 -- ── 3. KARURA REGISTRATIONS TABLE ───────────────────────────────────
--- Paybill 614090 (same as Molo Marathon)
+-- Paybill 880100 (same as Molo Marathon)
 CREATE TABLE IF NOT EXISTS karura_registrations (
   id                   bigserial PRIMARY KEY,
   names                text NOT NULL,
@@ -160,6 +160,38 @@ BEGIN
   END IF;
 END$$;
 
+-- ── 7. SHOP ORDERS TABLE ─────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS shop_orders (
+  id             bigserial PRIMARY KEY,
+  full_name      text NOT NULL,
+  email          text,
+  phone          text NOT NULL,
+  product_name   text NOT NULL,
+  color          text,
+  size           text,
+  quantity       integer DEFAULT 1,
+  total_amount   numeric DEFAULT 0,
+  payment_status text NOT NULL DEFAULT 'Pending',
+  created_at     timestamptz DEFAULT now()
+);
+
+-- Enable RLS
+ALTER TABLE shop_orders ENABLE ROW LEVEL SECURITY;
+
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE tablename = 'shop_orders' AND policyname = 'anon_insert_shop_orders') THEN
+    CREATE POLICY anon_insert_shop_orders ON shop_orders FOR INSERT TO anon WITH CHECK (true);
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE tablename = 'shop_orders' AND policyname = 'anon_select_shop_orders') THEN
+    CREATE POLICY anon_select_shop_orders ON shop_orders FOR SELECT TO anon USING (true);
+  END IF;
+END$$;
+
+-- Make email optional in registrations
+ALTER TABLE registrations ALTER COLUMN email DROP NOT NULL;
+
 -- ── DONE ─────────────────────────────────────────────────────────────
 -- After running this, refresh your Supabase schema cache:
 -- Supabase Dashboard → Settings → API → "Reload Schema Cache"
+
