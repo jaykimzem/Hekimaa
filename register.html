@@ -342,12 +342,17 @@
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label" for="s1-tshirt">T-Shirt Size</label>
-              <select id="s1-tshirt" class="form-input">
+              <label class="form-label" for="s1-tshirt">T-Shirt Size <span style="color:#e53e3e;">*</span></label>
+              <select id="s1-tshirt" class="form-input" required>
+                <option value="" disabled selected>-- Choose T-Shirt Size --</option>
+                <option value="XS">X-Small (XS)</option>
                 <option value="S">Small (S)</option>
-                <option value="M" selected>Medium (M)</option>
+                <option value="M">Medium (M)</option>
                 <option value="L">Large (L)</option>
                 <option value="XL">X-Large (XL)</option>
+                <option value="XXL">XX-Large (XXL)</option>
+                <option value="3XL">3X-Large (3XL)</option>
+                <option value="4XL">4X-Large (4XL)</option>
               </select>
             </div>
           </div>
@@ -388,7 +393,7 @@
               <li>Entry fee is KES 500 per person (all categories).</li>
               <li>Entry fees are non-refundable unless the event is cancelled by the Organiser.</li>
               <li>BIB numbers are issued upon payment verification and sent to your registered email.</li>
-              <li>BIB numbers are non-transferable. Ranges: 21KM (11xxx M / 12xxx F); 10KM (21xxx M / 22xxx F); Corporate (31xxx M / 32xxx F); Community (41xxx M / 42xxx F).</li>
+              <li>BIB numbers are non-transferable. Ranges: 21KM (11xxx M / 12xxx F); 10KM (21xxx M / 22xxx F); Corporate (31xxx M / 32xxx F); Community (41xxx M / 42xxx F); 5KM (51xxx M / 52xxx F).</li>
             </ul>
 
             <h4>4. Race Day Rules &amp; Conduct</h4>
@@ -599,11 +604,12 @@ document.getElementById('btn-to-step2').addEventListener('click', () => {
   const idNum     = document.getElementById('s1-id').value.trim();
   const email     = document.getElementById('s1-email').value.trim();
   const phone     = document.getElementById('s1-phone').value.trim();
+  const tshirt    = document.getElementById('s1-tshirt').value;
   const err       = document.getElementById('err-1');
 
-  if (!firstName || !lastName || !idNum || !phone) {
+  if (!firstName || !lastName || !idNum || !phone || !tshirt) {
     err.style.display = 'block';
-    err.textContent = 'Please fill in all required fields.';
+    err.textContent = 'Please fill in all required fields and choose your T-shirt size.';
     return;
   }
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -671,7 +677,7 @@ async function getNextBib(raceCategory, gender) {
     else if (rc.includes('10'))   prefix = (g === 'female') ? '22' : '21';
     else if (rc.includes('corp')) prefix = (g === 'female') ? '32' : '31';
     else if (rc.includes('comm')) prefix = (g === 'female') ? '42' : '41';
-    else prefix = '50';
+    else prefix = (g === 'female') ? '52' : '51';
 
     const start = parseInt(prefix + '001');
     const end   = parseInt(prefix + '999');
@@ -744,6 +750,28 @@ document.getElementById('btn-pay-confirm').addEventListener('click', async () =>
   const btn = document.getElementById('btn-pay-confirm');
   const err = document.getElementById('err-3');
   err.style.display = 'none';
+
+  // Final double validation of step 1 inputs
+  const firstName = document.getElementById('s1-first').value.trim();
+  const lastName  = document.getElementById('s1-last').value.trim();
+  const idNum     = document.getElementById('s1-id').value.trim();
+  const phone     = document.getElementById('s1-phone').value.trim();
+  const tshirt    = document.getElementById('s1-tshirt').value;
+
+  if (!firstName || !lastName || !idNum || !phone || !tshirt) {
+    err.style.display = 'block';
+    err.textContent = 'Please fill in all required fields and choose your T-shirt size.';
+    return;
+  }
+
+  // Final double validation of Step 2 (Terms) inputs
+  const allChecked = ['tc1','tc2','tc3','tc4','tc5'].every(id => document.getElementById(id).checked);
+  if (!allChecked) {
+    err.style.display = 'block';
+    err.textContent = 'Please accept all terms and conditions to continue.';
+    return;
+  }
+
   btn.disabled = true;
   btn.textContent = 'Processing...';
 
