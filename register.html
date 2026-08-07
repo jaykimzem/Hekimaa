@@ -18,7 +18,7 @@
       border-left: 3px solid var(--gold);
       border-radius: 4px;
       padding: 14px 18px;
-      margin-bottom: 24px;
+      margin-bottom: 14px;
       position: relative;
       overflow: hidden;
     }
@@ -92,11 +92,55 @@
       color: rgba(255, 255, 255, 0.55);
       font-size: 0.7rem;
     }
+    /* ── Countdown Timer ── */
+    .rrb-countdown {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .rrb-cd-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(254,213,7,0.25);
+      border-radius: 3px;
+      padding: 3px 7px;
+      min-width: 36px;
+    }
+    .rrb-cd-num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .rrb-cd-label {
+      font-size: 0.52rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-top: 1px;
+    }
+    .rrb-cd-sep {
+      font-size: 1rem;
+      font-weight: 900;
+      color: rgba(254,213,7,0.5);
+      margin-bottom: 10px;
+    }
+    .rrb-cd-expired {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #f87171;
+      letter-spacing: 0.05em;
+    }
 
     /* ── Step Progress Bar ── */
     .reg-steps-bar {
       display: flex; align-items: center; gap: 0;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
     }
     .rsb-step {
       display: flex; align-items: center; gap: 10px;
@@ -315,8 +359,14 @@
           <div class="rrb-deadline">
             <span class="rrb-clock-icon">⏰</span>
             <div class="rrb-deadline-info">
-              <strong>Registration is Open Until 8:00 AM on 8th August 2026</strong>
-              <span>Complete your registration below and secure your official BIB number before the deadline!</span>
+              <strong>Closes 8:00 AM · 8 August 2026</strong>
+              <div class="rrb-countdown" id="rrb-countdown">
+                <div class="rrb-cd-block"><span class="rrb-cd-num" id="rrb-h">--</span><span class="rrb-cd-label">Hrs</span></div>
+                <span class="rrb-cd-sep">:</span>
+                <div class="rrb-cd-block"><span class="rrb-cd-num" id="rrb-m">--</span><span class="rrb-cd-label">Min</span></div>
+                <span class="rrb-cd-sep">:</span>
+                <div class="rrb-cd-block"><span class="rrb-cd-num" id="rrb-s">--</span><span class="rrb-cd-label">Sec</span></div>
+              </div>
             </div>
           </div>
         </div>
@@ -943,6 +993,39 @@ document.getElementById('btn-pay-confirm').addEventListener('click', async () =>
     btn.textContent = '✓ Confirm Payment & Get BIB →';
   }
 });
+
+// ── Banner Countdown Timer ─────────────────────────────────────────
+(function() {
+  // Deadline: 8 August 2026, 08:00:00 EAT (UTC+3)
+  const deadline = new Date('2026-08-08T08:00:00+03:00').getTime();
+
+  const hEl = document.getElementById('rrb-h');
+  const mEl = document.getElementById('rrb-m');
+  const sEl = document.getElementById('rrb-s');
+  const wrap = document.getElementById('rrb-countdown');
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function tick() {
+    const diff = deadline - Date.now();
+    if (diff <= 0) {
+      if (wrap) {
+        wrap.innerHTML = '<span class="rrb-cd-expired">⛔ Registration Closed</span>';
+      }
+      return;
+    }
+    const totalSec = Math.floor(diff / 1000);
+    const h = Math.floor(totalSec / 3600);
+    const m = Math.floor((totalSec % 3600) / 60);
+    const s = totalSec % 60;
+    if (hEl) hEl.textContent = pad(h);
+    if (mEl) mEl.textContent = pad(m);
+    if (sEl) sEl.textContent = pad(s);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+})();
 </script>
 
 </body>
